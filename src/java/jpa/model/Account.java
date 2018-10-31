@@ -8,6 +8,7 @@ package jpa.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -108,6 +109,16 @@ public class Account implements Serializable {
         this.surname = surname;
         this.telnumber = telnumber;
         this.activatekey = activatekey;
+    }
+
+    public Account(String username, String password, String address, String name, String surname, String telnumber) {
+        this.username = username;
+        this.password = password;
+        this.address = address;
+        this.name = name;
+        this.surname = surname;
+        this.telnumber = telnumber;
+        this.activatekey = UUID.randomUUID().toString().replace("-","").substring(0,15);
     }
 
     public Integer getAccountId() {
