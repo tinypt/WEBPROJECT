@@ -44,7 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Account.findBySurname", query = "SELECT a FROM Account a WHERE a.surname = :surname")
     , @NamedQuery(name = "Account.findByTelnumber", query = "SELECT a FROM Account a WHERE a.telnumber = :telnumber")
     , @NamedQuery(name = "Account.findByActivatekey", query = "SELECT a FROM Account a WHERE a.activatekey = :activatekey")
-    , @NamedQuery(name = "Account.findByActivatedate", query = "SELECT a FROM Account a WHERE a.activatedate = :activatedate")})
+    , @NamedQuery(name = "Account.findByActivatedate", query = "SELECT a FROM Account a WHERE a.activatedate = :activatedate")
+})
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -118,7 +119,7 @@ public class Account implements Serializable {
         this.name = name;
         this.surname = surname;
         this.telnumber = telnumber;
-        this.activatekey = UUID.randomUUID().toString().replace("-","").substring(0,15);
+        this.activatekey = UUID.randomUUID().toString().replace("-", "").substring(0, 15);
     }
 
     public Integer getAccountId() {
@@ -235,5 +236,5 @@ public class Account implements Serializable {
     public String toString() {
         return "jpa.model.Account[ accountId=" + accountId + " ]";
     }
-    
+
 }

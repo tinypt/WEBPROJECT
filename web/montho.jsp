@@ -1,0 +1,24 @@
+<%-- 
+    Document   : montho
+    Created on : Oct 31, 2018, 11:19:06 PM
+    Author     : GT62VR
+--%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>มณโฑขนมหวาน</title>
+    </head>
+    <body>
+        <jsp:include page="include/header.jsp"/>
+        
+        <br>
+        <c:if test="${link!=null}">
+            copy this link : ${link}
+        </c:if>
+        ${type}
+    </body>
+</html>

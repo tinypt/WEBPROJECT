@@ -7,11 +7,9 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,21 +17,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
-import jpa.model.Account;
-import jpa.model.controller.AccountJpaController;
-import jpa.model.controller.exceptions.NonexistentEntityException;
-import jpa.model.controller.exceptions.RollbackFailureException;
+import jpa.model.Product;
+import jpa.model.controller.ProductJpaController;
 
 /**
  *
- * @author Hong
+ * @author GT62VR
  */
-public class ActivateServlet extends HttpServlet {
+public class SearchServlet extends HttpServlet {
+
     @PersistenceUnit(unitName = "MonthoPU")
     EntityManagerFactory emf;
-    
+
     @Resource
     UserTransaction utx;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,27 +42,32 @@ public class ActivateServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, NonexistentEntityException, RollbackFailureException, Exception {
-        String username = request.getParameter("username");
-        String activatekey = request.getParameter("activatekey");
-        if(username != null && activatekey != null ){
-            HttpSession session = request.getSession(false);
-            
-            AccountJpaController accCtrl = new AccountJpaController(utx, emf);
-            Account acc = accCtrl.findAccountbyUserName(username);
-            
-            System.out.println("activate "+activatekey);
-            System.out.println("activate from acc "+acc.getActivatekey());
-            if(activatekey.equalsIgnoreCase(acc.getActivatekey())) {
-                acc.setActivatedate(new Date());
-                accCtrl.edit(acc);
+            throws ServletException, IOException {
+        //--encoding to thai
+        //source https://www.bamossza.com/article-view?topic_id=6
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        //--
+
+        String name = request.getParameter("name");
+        if (name != null) {
+            System.out.println("Name: " + name);
+            ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
+            try {
+                Product prod = prodCtrl.findByProductName(name);
+
+                HttpSession session = request.getSession(false);
+                session.setAttribute("prod", prod);
+                getServletContext().getRequestDispatcher("/Search.jsp").forward(request, response);
+                return;
+
+            }catch (NoResultException ex) {
+                request.setAttribute("type", "not have that product or must type with thai name");
+                getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
             }
-            
-            request.setAttribute("actcom", "Activate Complete");
-            getServletContext().getRequestDispatcher("/Login").forward(request, response);
-            return;
         }
-        getServletContext().getRequestDispatcher("/Login").forward(request, response);
+        getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,13 +82,7 @@ public class ActivateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (RollbackFailureException ex) {
-            Logger.getLogger(ActivateServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(ActivateServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -99,13 +96,7 @@ public class ActivateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (RollbackFailureException ex) {
-            Logger.getLogger(ActivateServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(ActivateServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

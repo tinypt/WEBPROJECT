@@ -7,6 +7,8 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,8 +52,9 @@ public class RegisterServlet extends HttpServlet {
         String surname = request.getParameter("surname");
         String telno = request.getParameter("telno");
         if (username != null && password != null && address != null && name != null && surname != null && telno != null) {
-            HttpSession session = request.getSession();
-                    
+            HttpSession session = request.getSession(false);
+            
+            password = cryptWithMD5(password);
             Account acc = new Account(username, password, address, name, surname, telno);
             AccountJpaController accCtrl = new AccountJpaController(utx, emf);
             accCtrl.create(acc);
@@ -59,9 +62,29 @@ public class RegisterServlet extends HttpServlet {
             String activatekey = acc.getActivatekey();
             String link = "http://localhost:8080/WEBPROJECT/Activate?username="+acc.getUsername()+"&activatekey="+activatekey;
 
-            session.setAttribute("link", link);
-            getServletContext().getRequestDispatcher("/index.html").forward(request, response);
+            request.setAttribute("link", link);
+            session.setAttribute("accCheck", acc);
+            getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+            return;
         }
+        getServletContext().getRequestDispatcher("/Register.jsp").forward(request, response);
+    }
+    
+    public static String cryptWithMD5(String pass) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] passBytes = pass.getBytes();
+            md.reset();
+            byte[] digested = md.digest(passBytes);
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < digested.length; i++) {
+                sb.append(Integer.toHexString(0xff & digested[i]));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println(ex);
+        }
+        return null;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

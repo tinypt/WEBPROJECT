@@ -7,11 +7,11 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,19 +21,19 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 import jpa.model.Account;
 import jpa.model.controller.AccountJpaController;
-import jpa.model.controller.exceptions.NonexistentEntityException;
-import jpa.model.controller.exceptions.RollbackFailureException;
 
 /**
  *
- * @author Hong
+ * @author GT62VR
  */
-public class ActivateServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
+
     @PersistenceUnit(unitName = "MonthoPU")
     EntityManagerFactory emf;
-    
+
     @Resource
     UserTransaction utx;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,27 +44,49 @@ public class ActivateServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, NonexistentEntityException, RollbackFailureException, Exception {
+            throws ServletException, IOException {
         String username = request.getParameter("username");
-        String activatekey = request.getParameter("activatekey");
-        if(username != null && activatekey != null ){
-            HttpSession session = request.getSession(false);
-            
+        String password = request.getParameter("password");
+        if (username != null && password != null) {
             AccountJpaController accCtrl = new AccountJpaController(utx, emf);
-            Account acc = accCtrl.findAccountbyUserName(username);
-            
-            System.out.println("activate "+activatekey);
-            System.out.println("activate from acc "+acc.getActivatekey());
-            if(activatekey.equalsIgnoreCase(acc.getActivatekey())) {
-                acc.setActivatedate(new Date());
-                accCtrl.edit(acc);
+            try {
+                Account acc = accCtrl.findAccountbyUserName(username);
+                if (acc.getActivatedate() != null) {
+                    HttpSession session = request.getSession(false);
+                    password = cryptWithMD5(password);
+                    if (password.equalsIgnoreCase(acc.getPassword())) {
+                        session.setAttribute("acc", acc);
+                        getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+                    }
+                } else {
+                    request.setAttribute("activate", "you are not activate your account");
+                    getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+                }
+                return;
+            } catch (NoResultException ex) {
+                request.setAttribute("Logfail", "Your id or password invalid");
+                getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+                return;
             }
-            
-            request.setAttribute("actcom", "Activate Complete");
-            getServletContext().getRequestDispatcher("/Login").forward(request, response);
-            return;
         }
-        getServletContext().getRequestDispatcher("/Login").forward(request, response);
+        getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+    }
+
+    public static String cryptWithMD5(String pass) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] passBytes = pass.getBytes();
+            md.reset();
+            byte[] digested = md.digest(passBytes);
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < digested.length; i++) {
+                sb.append(Integer.toHexString(0xff & digested[i]));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println(ex);
+        }
+        return null;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,13 +101,7 @@ public class ActivateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (RollbackFailureException ex) {
-            Logger.getLogger(ActivateServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(ActivateServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -99,13 +115,7 @@ public class ActivateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (RollbackFailureException ex) {
-            Logger.getLogger(ActivateServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(ActivateServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
