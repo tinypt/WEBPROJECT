@@ -24,7 +24,7 @@ import jpa.model.controller.exceptions.RollbackFailureException;
 
 /**
  *
- * @author tinypt
+ * @author GT62VR
  */
 public class ProductJpaController implements Serializable {
 
@@ -263,12 +263,12 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
-    
+
     public List<Product> findByProductName(String productName) {
         EntityManager em = getEntityManager();
         try {
             Query query = em.createNamedQuery("Product.findByProductName");
-            query.setParameter("productName", "%"+productName+"%");
+            query.setParameter("productName", "%" + productName + "%");
             return query.getResultList();
         } finally {
             em.close();
@@ -287,5 +287,5 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

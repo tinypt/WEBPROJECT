@@ -14,6 +14,7 @@
     <body>
         <jsp:include page="include/header.jsp"/>
         <h1>Login</h1>
+        ${activate}
         ${actcom}
         ${Logfail}
         <form method="post" action="Login">
@@ -23,5 +24,6 @@
         </form>
         <br>
         <a href="Register">Register ?</a>
+        <a href="montho.jsp">Back</a>
     </body>
 </html>

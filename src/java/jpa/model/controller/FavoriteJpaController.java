@@ -22,7 +22,7 @@ import jpa.model.controller.exceptions.RollbackFailureException;
 
 /**
  *
- * @author tinypt
+ * @author GT62VR
  */
 public class FavoriteJpaController implements Serializable {
 

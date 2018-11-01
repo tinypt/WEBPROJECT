@@ -15,7 +15,7 @@
     <body>
         <jsp:include page="include/header.jsp"/>
         <div class="container mt-3">
-            <h1>Detail : ${nameSearch}</h1>
+            <h1>Search : ${nameSearch}</h1>
             <h5>${msg}</h5>
             <c:forEach items="${prod}" var="prod">
             <br>

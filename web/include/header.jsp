@@ -4,6 +4,7 @@
     Author     : GT62VR
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -60,6 +61,9 @@
                 <a class="dropdown-item" href="#">รายการโปรด</a>
                 <a class="dropdown-item" href="#">วิดีโอ</a>
                 <a class="dropdown-item" href="#">ประวัติการสั่งซื้อ</a>
+                <c:if test="${acc!=null}">
+                <a class="dropdown-item" href="Account.jsp">ข้อมูลสมาชิก</a>
+                </c:if>
                 <a class="dropdown-item" href="${acc==null?"Login":"Logout"}">${acc==null?"Log-in":"Log-out"}</a>
             </div>
         </li>

@@ -14,15 +14,15 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
-import jpa.model.HistoryOrder;
 import jpa.model.OrderDetail;
+import jpa.model.OrderHistory;
 import jpa.model.Product;
 import jpa.model.controller.exceptions.NonexistentEntityException;
 import jpa.model.controller.exceptions.RollbackFailureException;
 
 /**
  *
- * @author tinypt
+ * @author GT62VR
  */
 public class OrderDetailJpaController implements Serializable {
 
@@ -42,7 +42,7 @@ public class OrderDetailJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            HistoryOrder historyId = orderDetail.getHistoryId();
+            OrderHistory historyId = orderDetail.getHistoryId();
             if (historyId != null) {
                 historyId = em.getReference(historyId.getClass(), historyId.getHistoryId());
                 orderDetail.setHistoryId(historyId);
@@ -82,8 +82,8 @@ public class OrderDetailJpaController implements Serializable {
             utx.begin();
             em = getEntityManager();
             OrderDetail persistentOrderDetail = em.find(OrderDetail.class, orderDetail.getDetailId());
-            HistoryOrder historyIdOld = persistentOrderDetail.getHistoryId();
-            HistoryOrder historyIdNew = orderDetail.getHistoryId();
+            OrderHistory historyIdOld = persistentOrderDetail.getHistoryId();
+            OrderHistory historyIdNew = orderDetail.getHistoryId();
             Product productIdOld = persistentOrderDetail.getProductId();
             Product productIdNew = orderDetail.getProductId();
             if (historyIdNew != null) {
@@ -145,7 +145,7 @@ public class OrderDetailJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The orderDetail with id " + id + " no longer exists.", enfe);
             }
-            HistoryOrder historyId = orderDetail.getHistoryId();
+            OrderHistory historyId = orderDetail.getHistoryId();
             if (historyId != null) {
                 historyId.getOrderDetailList().remove(orderDetail);
                 historyId = em.merge(historyId);

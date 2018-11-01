@@ -29,17 +29,17 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author tinypt
+ * @author GT62VR
  */
 @Entity
-@Table(name = "HISTORY_ORDER")
+@Table(name = "ORDER_HISTORY")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "HistoryOrder.findAll", query = "SELECT h FROM HistoryOrder h")
-    , @NamedQuery(name = "HistoryOrder.findByHistoryId", query = "SELECT h FROM HistoryOrder h WHERE h.historyId = :historyId")
-    , @NamedQuery(name = "HistoryOrder.findByTime", query = "SELECT h FROM HistoryOrder h WHERE h.time = :time")
-    , @NamedQuery(name = "HistoryOrder.findByTotalprice", query = "SELECT h FROM HistoryOrder h WHERE h.totalprice = :totalprice")})
-public class HistoryOrder implements Serializable {
+    @NamedQuery(name = "OrderHistory.findAll", query = "SELECT o FROM OrderHistory o")
+    , @NamedQuery(name = "OrderHistory.findByHistoryId", query = "SELECT o FROM OrderHistory o WHERE o.historyId = :historyId")
+    , @NamedQuery(name = "OrderHistory.findByTime", query = "SELECT o FROM OrderHistory o WHERE o.time = :time")
+    , @NamedQuery(name = "OrderHistory.findByTotalprice", query = "SELECT o FROM OrderHistory o WHERE o.totalprice = :totalprice")})
+public class OrderHistory implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -62,14 +62,14 @@ public class HistoryOrder implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "historyId")
     private List<OrderDetail> orderDetailList;
 
-    public HistoryOrder() {
+    public OrderHistory() {
     }
 
-    public HistoryOrder(Integer historyId) {
+    public OrderHistory(Integer historyId) {
         this.historyId = historyId;
     }
 
-    public HistoryOrder(Integer historyId, Date time, int totalprice) {
+    public OrderHistory(Integer historyId, Date time, int totalprice) {
         this.historyId = historyId;
         this.time = time;
         this.totalprice = totalprice;
@@ -126,10 +126,10 @@ public class HistoryOrder implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof HistoryOrder)) {
+        if (!(object instanceof OrderHistory)) {
             return false;
         }
-        HistoryOrder other = (HistoryOrder) object;
+        OrderHistory other = (OrderHistory) object;
         if ((this.historyId == null && other.historyId != null) || (this.historyId != null && !this.historyId.equals(other.historyId))) {
             return false;
         }
@@ -138,7 +138,7 @@ public class HistoryOrder implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.model.HistoryOrder[ historyId=" + historyId + " ]";
+        return "jpa.model.OrderHistory[ historyId=" + historyId + " ]";
     }
     
 }

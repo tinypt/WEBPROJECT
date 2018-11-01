@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author tinypt
+ * @author GT62VR
  */
 @Entity
 @Table(name = "ORDER_DETAIL")
@@ -30,8 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "OrderDetail.findAll", query = "SELECT o FROM OrderDetail o")
     , @NamedQuery(name = "OrderDetail.findByDetailId", query = "SELECT o FROM OrderDetail o WHERE o.detailId = :detailId")
-    , @NamedQuery(name = "OrderDetail.findByOrderId", query = "SELECT o FROM OrderDetail o WHERE o.orderId = :orderId")
-    , @NamedQuery(name = "OrderDetail.findByQuantity", query = "SELECT o FROM OrderDetail o WHERE o.quantity = :quantity")})
+    , @NamedQuery(name = "OrderDetail.findByQuantity", query = "SELECT o FROM OrderDetail o WHERE o.quantity = :quantity")
+    , @NamedQuery(name = "OrderDetail.findByPriceeach", query = "SELECT o FROM OrderDetail o WHERE o.priceeach = :priceeach")})
 public class OrderDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,13 +42,15 @@ public class OrderDetail implements Serializable {
     private Integer detailId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ORDER_ID")
-    private int orderId;
     @Column(name = "QUANTITY")
-    private Integer quantity;
+    private int quantity;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "PRICEEACH")
+    private int priceeach;
     @JoinColumn(name = "HISTORY_ID", referencedColumnName = "HISTORY_ID")
     @ManyToOne(optional = false)
-    private HistoryOrder historyId;
+    private OrderHistory historyId;
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
     @ManyToOne(optional = false)
     private Product productId;
@@ -60,9 +62,10 @@ public class OrderDetail implements Serializable {
         this.detailId = detailId;
     }
 
-    public OrderDetail(Integer detailId, int orderId) {
+    public OrderDetail(Integer detailId, int quantity, int priceeach) {
         this.detailId = detailId;
-        this.orderId = orderId;
+        this.quantity = quantity;
+        this.priceeach = priceeach;
     }
 
     public Integer getDetailId() {
@@ -73,27 +76,27 @@ public class OrderDetail implements Serializable {
         this.detailId = detailId;
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public HistoryOrder getHistoryId() {
+    public int getPriceeach() {
+        return priceeach;
+    }
+
+    public void setPriceeach(int priceeach) {
+        this.priceeach = priceeach;
+    }
+
+    public OrderHistory getHistoryId() {
         return historyId;
     }
 
-    public void setHistoryId(HistoryOrder historyId) {
+    public void setHistoryId(OrderHistory historyId) {
         this.historyId = historyId;
     }
 

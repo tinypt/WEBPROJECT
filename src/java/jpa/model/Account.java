@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author tinypt
+ * @author GT62VR
  */
 @Entity
 @Table(name = "ACCOUNT")
@@ -44,8 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Account.findBySurname", query = "SELECT a FROM Account a WHERE a.surname = :surname")
     , @NamedQuery(name = "Account.findByTelnumber", query = "SELECT a FROM Account a WHERE a.telnumber = :telnumber")
     , @NamedQuery(name = "Account.findByActivatekey", query = "SELECT a FROM Account a WHERE a.activatekey = :activatekey")
-    , @NamedQuery(name = "Account.findByActivatedate", query = "SELECT a FROM Account a WHERE a.activatedate = :activatedate")
-})
+    , @NamedQuery(name = "Account.findByActivatedate", query = "SELECT a FROM Account a WHERE a.activatedate = :activatedate")})
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -91,7 +90,7 @@ public class Account implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date activatedate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountId")
-    private List<HistoryOrder> historyOrderList;
+    private List<OrderHistory> orderHistoryList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountId")
     private List<Favorite> favoriteList;
 
@@ -112,6 +111,7 @@ public class Account implements Serializable {
         this.activatekey = activatekey;
     }
 
+
     public Account(String username, String password, String address, String name, String surname, String telnumber) {
         this.username = username;
         this.password = password;
@@ -119,8 +119,10 @@ public class Account implements Serializable {
         this.name = name;
         this.surname = surname;
         this.telnumber = telnumber;
-        this.activatekey = UUID.randomUUID().toString().replace("-", "").substring(0, 15);
+        this.activatekey = UUID.randomUUID().toString().replace("-","").substring(0,15);
     }
+    
+    
 
     public Integer getAccountId() {
         return accountId;
@@ -195,12 +197,12 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
-    public List<HistoryOrder> getHistoryOrderList() {
-        return historyOrderList;
+    public List<OrderHistory> getOrderHistoryList() {
+        return orderHistoryList;
     }
 
-    public void setHistoryOrderList(List<HistoryOrder> historyOrderList) {
-        this.historyOrderList = historyOrderList;
+    public void setOrderHistoryList(List<OrderHistory> orderHistoryList) {
+        this.orderHistoryList = orderHistoryList;
     }
 
     @XmlTransient
@@ -236,5 +238,5 @@ public class Account implements Serializable {
     public String toString() {
         return "jpa.model.Account[ accountId=" + accountId + " ]";
     }
-
+    
 }

@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author tinypt
+ * @author GT62VR
  */
 @Entity
 @Table(name = "PRODUCT")
@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName like :productName")
     , @NamedQuery(name = "Product.findByProductPrice", query = "SELECT p FROM Product p WHERE p.productPrice = :productPrice")
     , @NamedQuery(name = "Product.findByProductDetail", query = "SELECT p FROM Product p WHERE p.productDetail = :productDetail")
-    , @NamedQuery(name = "Product.findByType", query = "SELECT p FROM Product p WHERE p.type = :type")})
+    , @NamedQuery(name = "Product.findByType", query = "SELECT p FROM Product p WHERE p.type = :type")
+    , @NamedQuery(name = "Product.findByProductVideo", query = "SELECT p FROM Product p WHERE p.productVideo = :productVideo")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,6 +63,9 @@ public class Product implements Serializable {
     @Size(min = 1, max = 15)
     @Column(name = "TYPE")
     private String type;
+    @Size(max = 1000)
+    @Column(name = "PRODUCT_VIDEO")
+    private String productVideo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private List<OrderDetail> orderDetailList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
@@ -119,6 +123,14 @@ public class Product implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getProductVideo() {
+        return productVideo;
+    }
+
+    public void setProductVideo(String productVideo) {
+        this.productVideo = productVideo;
     }
 
     @XmlTransient

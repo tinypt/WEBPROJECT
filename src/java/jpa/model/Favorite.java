@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author tinypt
+ * @author GT62VR
  */
 @Entity
 @Table(name = "FAVORITE")

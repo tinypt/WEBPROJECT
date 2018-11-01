@@ -23,5 +23,6 @@
             telno: <input type="text" name="telno"><br><br>
             <input type="submit" value="submit">
         </form>
+        <a href="montho.jsp">Back</a>
     </body>
 </html>

@@ -17,8 +17,9 @@
         
         <br>
         <c:if test="${link!=null}">
-            copy this link : ${link}
+            <a href="${link}">click to activate</a>
         </c:if>
         ${type}
+        ${update}
     </body>
 </html>

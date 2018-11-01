@@ -10,7 +10,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import jpa.model.HistoryOrder;
+import jpa.model.OrderHistory;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -24,7 +24,7 @@ import jpa.model.controller.exceptions.RollbackFailureException;
 
 /**
  *
- * @author tinypt
+ * @author GT62VR
  */
 public class AccountJpaController implements Serializable {
 
@@ -40,8 +40,8 @@ public class AccountJpaController implements Serializable {
     }
 
     public void create(Account account) throws RollbackFailureException, Exception {
-        if (account.getHistoryOrderList() == null) {
-            account.setHistoryOrderList(new ArrayList<HistoryOrder>());
+        if (account.getOrderHistoryList() == null) {
+            account.setOrderHistoryList(new ArrayList<OrderHistory>());
         }
         if (account.getFavoriteList() == null) {
             account.setFavoriteList(new ArrayList<Favorite>());
@@ -50,12 +50,12 @@ public class AccountJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            List<HistoryOrder> attachedHistoryOrderList = new ArrayList<HistoryOrder>();
-            for (HistoryOrder historyOrderListHistoryOrderToAttach : account.getHistoryOrderList()) {
-                historyOrderListHistoryOrderToAttach = em.getReference(historyOrderListHistoryOrderToAttach.getClass(), historyOrderListHistoryOrderToAttach.getHistoryId());
-                attachedHistoryOrderList.add(historyOrderListHistoryOrderToAttach);
+            List<OrderHistory> attachedOrderHistoryList = new ArrayList<OrderHistory>();
+            for (OrderHistory orderHistoryListOrderHistoryToAttach : account.getOrderHistoryList()) {
+                orderHistoryListOrderHistoryToAttach = em.getReference(orderHistoryListOrderHistoryToAttach.getClass(), orderHistoryListOrderHistoryToAttach.getHistoryId());
+                attachedOrderHistoryList.add(orderHistoryListOrderHistoryToAttach);
             }
-            account.setHistoryOrderList(attachedHistoryOrderList);
+            account.setOrderHistoryList(attachedOrderHistoryList);
             List<Favorite> attachedFavoriteList = new ArrayList<Favorite>();
             for (Favorite favoriteListFavoriteToAttach : account.getFavoriteList()) {
                 favoriteListFavoriteToAttach = em.getReference(favoriteListFavoriteToAttach.getClass(), favoriteListFavoriteToAttach.getFavoriteId());
@@ -63,13 +63,13 @@ public class AccountJpaController implements Serializable {
             }
             account.setFavoriteList(attachedFavoriteList);
             em.persist(account);
-            for (HistoryOrder historyOrderListHistoryOrder : account.getHistoryOrderList()) {
-                Account oldAccountIdOfHistoryOrderListHistoryOrder = historyOrderListHistoryOrder.getAccountId();
-                historyOrderListHistoryOrder.setAccountId(account);
-                historyOrderListHistoryOrder = em.merge(historyOrderListHistoryOrder);
-                if (oldAccountIdOfHistoryOrderListHistoryOrder != null) {
-                    oldAccountIdOfHistoryOrderListHistoryOrder.getHistoryOrderList().remove(historyOrderListHistoryOrder);
-                    oldAccountIdOfHistoryOrderListHistoryOrder = em.merge(oldAccountIdOfHistoryOrderListHistoryOrder);
+            for (OrderHistory orderHistoryListOrderHistory : account.getOrderHistoryList()) {
+                Account oldAccountIdOfOrderHistoryListOrderHistory = orderHistoryListOrderHistory.getAccountId();
+                orderHistoryListOrderHistory.setAccountId(account);
+                orderHistoryListOrderHistory = em.merge(orderHistoryListOrderHistory);
+                if (oldAccountIdOfOrderHistoryListOrderHistory != null) {
+                    oldAccountIdOfOrderHistoryListOrderHistory.getOrderHistoryList().remove(orderHistoryListOrderHistory);
+                    oldAccountIdOfOrderHistoryListOrderHistory = em.merge(oldAccountIdOfOrderHistoryListOrderHistory);
                 }
             }
             for (Favorite favoriteListFavorite : account.getFavoriteList()) {
@@ -102,17 +102,17 @@ public class AccountJpaController implements Serializable {
             utx.begin();
             em = getEntityManager();
             Account persistentAccount = em.find(Account.class, account.getAccountId());
-            List<HistoryOrder> historyOrderListOld = persistentAccount.getHistoryOrderList();
-            List<HistoryOrder> historyOrderListNew = account.getHistoryOrderList();
+            List<OrderHistory> orderHistoryListOld = persistentAccount.getOrderHistoryList();
+            List<OrderHistory> orderHistoryListNew = account.getOrderHistoryList();
             List<Favorite> favoriteListOld = persistentAccount.getFavoriteList();
             List<Favorite> favoriteListNew = account.getFavoriteList();
             List<String> illegalOrphanMessages = null;
-            for (HistoryOrder historyOrderListOldHistoryOrder : historyOrderListOld) {
-                if (!historyOrderListNew.contains(historyOrderListOldHistoryOrder)) {
+            for (OrderHistory orderHistoryListOldOrderHistory : orderHistoryListOld) {
+                if (!orderHistoryListNew.contains(orderHistoryListOldOrderHistory)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain HistoryOrder " + historyOrderListOldHistoryOrder + " since its accountId field is not nullable.");
+                    illegalOrphanMessages.add("You must retain OrderHistory " + orderHistoryListOldOrderHistory + " since its accountId field is not nullable.");
                 }
             }
             for (Favorite favoriteListOldFavorite : favoriteListOld) {
@@ -126,13 +126,13 @@ public class AccountJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            List<HistoryOrder> attachedHistoryOrderListNew = new ArrayList<HistoryOrder>();
-            for (HistoryOrder historyOrderListNewHistoryOrderToAttach : historyOrderListNew) {
-                historyOrderListNewHistoryOrderToAttach = em.getReference(historyOrderListNewHistoryOrderToAttach.getClass(), historyOrderListNewHistoryOrderToAttach.getHistoryId());
-                attachedHistoryOrderListNew.add(historyOrderListNewHistoryOrderToAttach);
+            List<OrderHistory> attachedOrderHistoryListNew = new ArrayList<OrderHistory>();
+            for (OrderHistory orderHistoryListNewOrderHistoryToAttach : orderHistoryListNew) {
+                orderHistoryListNewOrderHistoryToAttach = em.getReference(orderHistoryListNewOrderHistoryToAttach.getClass(), orderHistoryListNewOrderHistoryToAttach.getHistoryId());
+                attachedOrderHistoryListNew.add(orderHistoryListNewOrderHistoryToAttach);
             }
-            historyOrderListNew = attachedHistoryOrderListNew;
-            account.setHistoryOrderList(historyOrderListNew);
+            orderHistoryListNew = attachedOrderHistoryListNew;
+            account.setOrderHistoryList(orderHistoryListNew);
             List<Favorite> attachedFavoriteListNew = new ArrayList<Favorite>();
             for (Favorite favoriteListNewFavoriteToAttach : favoriteListNew) {
                 favoriteListNewFavoriteToAttach = em.getReference(favoriteListNewFavoriteToAttach.getClass(), favoriteListNewFavoriteToAttach.getFavoriteId());
@@ -141,14 +141,14 @@ public class AccountJpaController implements Serializable {
             favoriteListNew = attachedFavoriteListNew;
             account.setFavoriteList(favoriteListNew);
             account = em.merge(account);
-            for (HistoryOrder historyOrderListNewHistoryOrder : historyOrderListNew) {
-                if (!historyOrderListOld.contains(historyOrderListNewHistoryOrder)) {
-                    Account oldAccountIdOfHistoryOrderListNewHistoryOrder = historyOrderListNewHistoryOrder.getAccountId();
-                    historyOrderListNewHistoryOrder.setAccountId(account);
-                    historyOrderListNewHistoryOrder = em.merge(historyOrderListNewHistoryOrder);
-                    if (oldAccountIdOfHistoryOrderListNewHistoryOrder != null && !oldAccountIdOfHistoryOrderListNewHistoryOrder.equals(account)) {
-                        oldAccountIdOfHistoryOrderListNewHistoryOrder.getHistoryOrderList().remove(historyOrderListNewHistoryOrder);
-                        oldAccountIdOfHistoryOrderListNewHistoryOrder = em.merge(oldAccountIdOfHistoryOrderListNewHistoryOrder);
+            for (OrderHistory orderHistoryListNewOrderHistory : orderHistoryListNew) {
+                if (!orderHistoryListOld.contains(orderHistoryListNewOrderHistory)) {
+                    Account oldAccountIdOfOrderHistoryListNewOrderHistory = orderHistoryListNewOrderHistory.getAccountId();
+                    orderHistoryListNewOrderHistory.setAccountId(account);
+                    orderHistoryListNewOrderHistory = em.merge(orderHistoryListNewOrderHistory);
+                    if (oldAccountIdOfOrderHistoryListNewOrderHistory != null && !oldAccountIdOfOrderHistoryListNewOrderHistory.equals(account)) {
+                        oldAccountIdOfOrderHistoryListNewOrderHistory.getOrderHistoryList().remove(orderHistoryListNewOrderHistory);
+                        oldAccountIdOfOrderHistoryListNewOrderHistory = em.merge(oldAccountIdOfOrderHistoryListNewOrderHistory);
                     }
                 }
             }
@@ -198,12 +198,12 @@ public class AccountJpaController implements Serializable {
                 throw new NonexistentEntityException("The account with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            List<HistoryOrder> historyOrderListOrphanCheck = account.getHistoryOrderList();
-            for (HistoryOrder historyOrderListOrphanCheckHistoryOrder : historyOrderListOrphanCheck) {
+            List<OrderHistory> orderHistoryListOrphanCheck = account.getOrderHistoryList();
+            for (OrderHistory orderHistoryListOrphanCheckOrderHistory : orderHistoryListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Account (" + account + ") cannot be destroyed since the HistoryOrder " + historyOrderListOrphanCheckHistoryOrder + " in its historyOrderList field has a non-nullable accountId field.");
+                illegalOrphanMessages.add("This Account (" + account + ") cannot be destroyed since the OrderHistory " + orderHistoryListOrphanCheckOrderHistory + " in its orderHistoryList field has a non-nullable accountId field.");
             }
             List<Favorite> favoriteListOrphanCheck = account.getFavoriteList();
             for (Favorite favoriteListOrphanCheckFavorite : favoriteListOrphanCheck) {
@@ -263,7 +263,7 @@ public class AccountJpaController implements Serializable {
             em.close();
         }
     }
-    
+
     public Account findAccountbyUserName(String username) {
         EntityManager em = getEntityManager();
         try {
@@ -287,5 +287,5 @@ public class AccountJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }
