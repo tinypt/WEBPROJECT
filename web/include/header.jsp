@@ -43,7 +43,7 @@
             <a class="nav-link" href="#">ทอด</a>
         </li>
 
-        <form class="form-inline col-5 ml-ภ mr-0 " action="Search" method="post">
+        <form class="form-inline col-5 ml-4 mr-0 " action="Search" method="post">
             <input class="form-control mr-sm-2 form-control-sm" type="text" placeholder="ค้นหาชื่อขนม" name="name">
                   <button class="btn btn-success btn-sm " type="submit">Search</button>
           
