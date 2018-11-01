@@ -4,6 +4,7 @@
     Author     : GT62VR
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,10 +15,16 @@
     <body>
         <jsp:include page="include/header.jsp"/>
         <h1>Detail</h1>
-        product id = &nbsp; ${prod.productId} <br>
-        product name = &nbsp; ${prod.productName} <br>
-        product price = &nbsp; ${prod.productPrice} <br>
-        product datail = &nbsp; ${prod.productDetail} <br>
-        product type = &nbsp; ${prod.type} 
+
+        <c:forEach items="${prod}" var="prod">
+            <br>
+            product id = &nbsp; ${prod.productId} <br>
+            product name = &nbsp; ${prod.productName} <br>
+            product price = &nbsp; ${prod.productPrice} <br>
+            product datail = &nbsp; ${prod.productDetail} <br>
+            product type = &nbsp; ${prod.type} <br>
+            -------------------------------------
+
+        </c:forEach>
     </body>
 </html>

@@ -7,6 +7,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -55,7 +56,7 @@ public class SearchServlet extends HttpServlet {
             System.out.println("Name: " + name);
             ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
             try {
-                Product prod = prodCtrl.findByProductName(name);
+                List<Product> prod = prodCtrl.findByProductName(name);
 
                 HttpSession session = request.getSession(false);
                 session.setAttribute("prod", prod);
