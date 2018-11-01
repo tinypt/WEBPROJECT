@@ -14,9 +14,10 @@
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
-        <h1>Detail : ${nameSearch}</h1>
-        <h5>${msg}</h5>
-        <c:forEach items="${prod}" var="prod">
+        <div class="container mt-3">
+            <h1>Detail : ${nameSearch}</h1>
+            <h5>${msg}</h5>
+            <c:forEach items="${prod}" var="prod">
             <br>
             product id = &nbsp; ${prod.productId} <br>
             product name = &nbsp; ${prod.productName} <br>
@@ -25,6 +26,7 @@
             product type = &nbsp; ${prod.type} <br>
             -------------------------------------
 
-        </c:forEach>
+            </c:forEach>
+        </div>
     </body>
 </html>
