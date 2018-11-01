@@ -18,37 +18,41 @@
 </head>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container">
+        <div class="row">
+       
     <!-- Brand -->
-    <a class="navbar-brand" href="montho.jsp">
-        <img src="extra-image/logo.png" alt="logo fail" style="width: 40px;">
+    <a class="navbar-brand ml-1 col-1" href="montho.jsp">
+        <img src="extra-image/logo.png" alt="logo fail" style="width: 30px;">
     </a>
     <!-- Links -->
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="#">ประเภทต้ม</a>
+    <ul class="navbar-nav ml-0 text-center col-10">
+        <li class="nav-item col-2">
+            <a class="nav-link" href="#">ต้ม</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">ประเภทนึ่ง</a>
+        <li class="nav-item col-2">
+            <a class="nav-link" href="#">นึ่ง</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">ประเภทกวน</a>
+        <li class="nav-item col-2">
+            <a class="nav-link" href="#">กวน</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">ประเภทเชื่อม</a>
+        <li class="nav-item col-2">
+            <a class="nav-link" href="#">เชื่อม</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">ประเภททอด</a>
+        <li class="nav-item col-2">
+            <a class="nav-link" href="#">ทอด</a>
         </li>
 
-        <form class="form-inline" action="Search" method="post">
-            <input class="form-control mr-sm-2" type="text" placeholder="หาตามชื่อขนม" name="name">
-            <button class="btn btn-success" type="submit">Search</button>
+        <form class="form-inline col-5 ml-ภ mr-0 " action="Search" method="post">
+            <input class="form-control mr-sm-2 form-control-sm" type="text" placeholder="ค้นหาชื่อขนม" name="name">
+                  <button class="btn btn-success btn-sm " type="submit">Search</button>
+          
         </form>
         
         <!-- Dropdown -->
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown col-3 ml-0">
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                <img src="extra-image/cart.png" alt="cart fail" style="width: 40px;" />
+                <img src="extra-image/cart.png" alt="cart fail" style="width: 30px;" />
                 ${acc.name}
             </a>
             <div class="dropdown-menu">
@@ -60,6 +64,7 @@
             </div>
         </li>
     </ul>
-
+         </div>  
+</div>
 
 </nav>

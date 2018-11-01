@@ -18,7 +18,7 @@
         ${Logfail}
         <form method="post" action="Login">
             username: <input type="text" name="username"><br>
-            password: <input type="text" name="password"><br>
+            password: <input type="password" name="password"><br>
             <input type="submit" value="submit">
         </form>
         <br>

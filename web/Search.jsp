@@ -14,8 +14,8 @@
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
-        <h1>Detail</h1>
-
+        <h1>Detail : ${nameSearch}</h1>
+        <h5>${msg}</h5>
         <c:forEach items="${prod}" var="prod">
             <br>
             product id = &nbsp; ${prod.productId} <br>

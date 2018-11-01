@@ -16,7 +16,7 @@
         <h1>Register</h1>
         <form method="post" action="Register">
             username: <input type="text" name="username"> <br><br>
-            password: <input type="text" name="password"><br><br>
+            password: <input type="password" name="password"><br><br>
             address: <textarea rows="4" cols="30" name="address"></textarea><br><br>
             name: <input type="text" name="name"><br><br>
             surname: <input type="text" name="surname"><br><br>
