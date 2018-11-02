@@ -54,15 +54,14 @@ public class UpdateAccountServlet extends HttpServlet {
 
         AccountJpaController accCtrl = new AccountJpaController(utx, emf);
         Account acc = accCtrl.findAccountbyUserName(username);
-        if (address != null) {
-            acc.setAddress(address);
-        }
+
+        acc.setAddress(address);
         acc.setName(name);
         acc.setSurname(surname);
         acc.setTelnumber(telno);
 
         accCtrl.edit(acc);
-        
+
         HttpSession session = request.getSession(false);
         session.setAttribute("acc", acc);
         request.setAttribute("update", "UPDATE Complete");

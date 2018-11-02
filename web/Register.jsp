@@ -9,6 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
+        <style>
+            body {
+                font-family: 'Chakra Petch', sans-serif;
+            }
+        </style>
         <title>Register Page</title>
     </head>
     <body>

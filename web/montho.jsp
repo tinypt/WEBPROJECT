@@ -10,11 +10,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
+        <style>
+            body {
+                font-family: 'Chakra Petch', sans-serif;
+            }
+        </style>
         <title>มณโฑขนมหวาน</title>
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
-        
+
         <br>
         <c:if test="${link!=null}">
             <a href="${link}">click to activate</a>

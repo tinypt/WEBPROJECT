@@ -9,6 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
+        <style>
+            body {
+                font-family: 'Chakra Petch', sans-serif;
+            }
+        </style>
         <title>Account Page</title>
     </head>
     <body>
@@ -16,7 +22,7 @@
         <h1>Your Account</h1>
         <form action="UpdateAccount" method="post">
             username: <input type="text" name="username" value="${acc.username}" readonly> <br><br>
-            address: <textarea rows="4" cols="30" name="address" placeholder="${acc.address}"></textarea><br><br>
+            address: <textarea rows="4" cols="30" name="address">${acc.address}</textarea><br><br>
             name: <input type="text" name="name" value="${acc.name}"><br><br>
             surname: <input type="text" name="surname" value="${acc.surname}"><br><br>
             telno: <input type="text" name="telno" value="${acc.telnumber}"><br><br>
