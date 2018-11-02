@@ -29,66 +29,66 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author GT62VR
+ * @author Hong
  */
 @Entity
-@Table(name = "ORDER_HISTORY")
+@Table(name = "ORDERS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "OrderHistory.findAll", query = "SELECT o FROM OrderHistory o")
-    , @NamedQuery(name = "OrderHistory.findByHistoryId", query = "SELECT o FROM OrderHistory o WHERE o.historyId = :historyId")
-    , @NamedQuery(name = "OrderHistory.findByTime", query = "SELECT o FROM OrderHistory o WHERE o.time = :time")
-    , @NamedQuery(name = "OrderHistory.findByTotalprice", query = "SELECT o FROM OrderHistory o WHERE o.totalprice = :totalprice")})
-public class OrderHistory implements Serializable {
+    @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o")
+    , @NamedQuery(name = "Orders.findByOrderId", query = "SELECT o FROM Orders o WHERE o.orderId = :orderId")
+    , @NamedQuery(name = "Orders.findByOrderDate", query = "SELECT o FROM Orders o WHERE o.orderDate = :orderDate")
+    , @NamedQuery(name = "Orders.findByTotalprice", query = "SELECT o FROM Orders o WHERE o.totalprice = :totalprice")})
+public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "HISTORY_ID")
-    private Integer historyId;
+    @Column(name = "ORDER_ID")
+    private Integer orderId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "TIME")
+    @Column(name = "ORDER_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
+    private Date orderDate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "TOTALPRICE")
     private int totalprice;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId")
+    private List<OrderDetail> orderDetailList;
     @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ACCOUNT_ID")
     @ManyToOne(optional = false)
     private Account accountId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "historyId")
-    private List<OrderDetail> orderDetailList;
 
-    public OrderHistory() {
+    public Orders() {
     }
 
-    public OrderHistory(Integer historyId) {
-        this.historyId = historyId;
+    public Orders(Integer orderId) {
+        this.orderId = orderId;
     }
 
-    public OrderHistory(Integer historyId, Date time, int totalprice) {
-        this.historyId = historyId;
-        this.time = time;
+    public Orders(Integer orderId, Date orderDate, int totalprice) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
         this.totalprice = totalprice;
     }
 
-    public Integer getHistoryId() {
-        return historyId;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setHistoryId(Integer historyId) {
-        this.historyId = historyId;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
-    public Date getTime() {
-        return time;
+    public Date getOrderDate() {
+        return orderDate;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 
     public int getTotalprice() {
@@ -97,14 +97,6 @@ public class OrderHistory implements Serializable {
 
     public void setTotalprice(int totalprice) {
         this.totalprice = totalprice;
-    }
-
-    public Account getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Account accountId) {
-        this.accountId = accountId;
     }
 
     @XmlTransient
@@ -116,21 +108,29 @@ public class OrderHistory implements Serializable {
         this.orderDetailList = orderDetailList;
     }
 
+    public Account getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Account accountId) {
+        this.accountId = accountId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (historyId != null ? historyId.hashCode() : 0);
+        hash += (orderId != null ? orderId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OrderHistory)) {
+        if (!(object instanceof Orders)) {
             return false;
         }
-        OrderHistory other = (OrderHistory) object;
-        if ((this.historyId == null && other.historyId != null) || (this.historyId != null && !this.historyId.equals(other.historyId))) {
+        Orders other = (Orders) object;
+        if ((this.orderId == null && other.orderId != null) || (this.orderId != null && !this.orderId.equals(other.orderId))) {
             return false;
         }
         return true;
@@ -138,7 +138,7 @@ public class OrderHistory implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.model.OrderHistory[ historyId=" + historyId + " ]";
+        return "jpa.model.Orders[ orderId=" + orderId + " ]";
     }
     
 }

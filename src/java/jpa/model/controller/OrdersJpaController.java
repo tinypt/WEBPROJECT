@@ -17,18 +17,18 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.transaction.UserTransaction;
-import jpa.model.OrderHistory;
+import jpa.model.Orders;
 import jpa.model.controller.exceptions.IllegalOrphanException;
 import jpa.model.controller.exceptions.NonexistentEntityException;
 import jpa.model.controller.exceptions.RollbackFailureException;
 
 /**
  *
- * @author GT62VR
+ * @author Hong
  */
-public class OrderHistoryJpaController implements Serializable {
+public class OrdersJpaController implements Serializable {
 
-    public OrderHistoryJpaController(UserTransaction utx, EntityManagerFactory emf) {
+    public OrdersJpaController(UserTransaction utx, EntityManagerFactory emf) {
         this.utx = utx;
         this.emf = emf;
     }
@@ -39,37 +39,37 @@ public class OrderHistoryJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(OrderHistory orderHistory) throws RollbackFailureException, Exception {
-        if (orderHistory.getOrderDetailList() == null) {
-            orderHistory.setOrderDetailList(new ArrayList<OrderDetail>());
+    public void create(Orders orders) throws RollbackFailureException, Exception {
+        if (orders.getOrderDetailList() == null) {
+            orders.setOrderDetailList(new ArrayList<OrderDetail>());
         }
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Account accountId = orderHistory.getAccountId();
+            Account accountId = orders.getAccountId();
             if (accountId != null) {
                 accountId = em.getReference(accountId.getClass(), accountId.getAccountId());
-                orderHistory.setAccountId(accountId);
+                orders.setAccountId(accountId);
             }
             List<OrderDetail> attachedOrderDetailList = new ArrayList<OrderDetail>();
-            for (OrderDetail orderDetailListOrderDetailToAttach : orderHistory.getOrderDetailList()) {
+            for (OrderDetail orderDetailListOrderDetailToAttach : orders.getOrderDetailList()) {
                 orderDetailListOrderDetailToAttach = em.getReference(orderDetailListOrderDetailToAttach.getClass(), orderDetailListOrderDetailToAttach.getDetailId());
                 attachedOrderDetailList.add(orderDetailListOrderDetailToAttach);
             }
-            orderHistory.setOrderDetailList(attachedOrderDetailList);
-            em.persist(orderHistory);
+            orders.setOrderDetailList(attachedOrderDetailList);
+            em.persist(orders);
             if (accountId != null) {
-                accountId.getOrderHistoryList().add(orderHistory);
+                accountId.getOrdersList().add(orders);
                 accountId = em.merge(accountId);
             }
-            for (OrderDetail orderDetailListOrderDetail : orderHistory.getOrderDetailList()) {
-                OrderHistory oldHistoryIdOfOrderDetailListOrderDetail = orderDetailListOrderDetail.getHistoryId();
-                orderDetailListOrderDetail.setHistoryId(orderHistory);
+            for (OrderDetail orderDetailListOrderDetail : orders.getOrderDetailList()) {
+                Orders oldOrderIdOfOrderDetailListOrderDetail = orderDetailListOrderDetail.getOrderId();
+                orderDetailListOrderDetail.setOrderId(orders);
                 orderDetailListOrderDetail = em.merge(orderDetailListOrderDetail);
-                if (oldHistoryIdOfOrderDetailListOrderDetail != null) {
-                    oldHistoryIdOfOrderDetailListOrderDetail.getOrderDetailList().remove(orderDetailListOrderDetail);
-                    oldHistoryIdOfOrderDetailListOrderDetail = em.merge(oldHistoryIdOfOrderDetailListOrderDetail);
+                if (oldOrderIdOfOrderDetailListOrderDetail != null) {
+                    oldOrderIdOfOrderDetailListOrderDetail.getOrderDetailList().remove(orderDetailListOrderDetail);
+                    oldOrderIdOfOrderDetailListOrderDetail = em.merge(oldOrderIdOfOrderDetailListOrderDetail);
                 }
             }
             utx.commit();
@@ -87,23 +87,23 @@ public class OrderHistoryJpaController implements Serializable {
         }
     }
 
-    public void edit(OrderHistory orderHistory) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(Orders orders) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            OrderHistory persistentOrderHistory = em.find(OrderHistory.class, orderHistory.getHistoryId());
-            Account accountIdOld = persistentOrderHistory.getAccountId();
-            Account accountIdNew = orderHistory.getAccountId();
-            List<OrderDetail> orderDetailListOld = persistentOrderHistory.getOrderDetailList();
-            List<OrderDetail> orderDetailListNew = orderHistory.getOrderDetailList();
+            Orders persistentOrders = em.find(Orders.class, orders.getOrderId());
+            Account accountIdOld = persistentOrders.getAccountId();
+            Account accountIdNew = orders.getAccountId();
+            List<OrderDetail> orderDetailListOld = persistentOrders.getOrderDetailList();
+            List<OrderDetail> orderDetailListNew = orders.getOrderDetailList();
             List<String> illegalOrphanMessages = null;
             for (OrderDetail orderDetailListOldOrderDetail : orderDetailListOld) {
                 if (!orderDetailListNew.contains(orderDetailListOldOrderDetail)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain OrderDetail " + orderDetailListOldOrderDetail + " since its historyId field is not nullable.");
+                    illegalOrphanMessages.add("You must retain OrderDetail " + orderDetailListOldOrderDetail + " since its orderId field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
@@ -111,7 +111,7 @@ public class OrderHistoryJpaController implements Serializable {
             }
             if (accountIdNew != null) {
                 accountIdNew = em.getReference(accountIdNew.getClass(), accountIdNew.getAccountId());
-                orderHistory.setAccountId(accountIdNew);
+                orders.setAccountId(accountIdNew);
             }
             List<OrderDetail> attachedOrderDetailListNew = new ArrayList<OrderDetail>();
             for (OrderDetail orderDetailListNewOrderDetailToAttach : orderDetailListNew) {
@@ -119,24 +119,24 @@ public class OrderHistoryJpaController implements Serializable {
                 attachedOrderDetailListNew.add(orderDetailListNewOrderDetailToAttach);
             }
             orderDetailListNew = attachedOrderDetailListNew;
-            orderHistory.setOrderDetailList(orderDetailListNew);
-            orderHistory = em.merge(orderHistory);
+            orders.setOrderDetailList(orderDetailListNew);
+            orders = em.merge(orders);
             if (accountIdOld != null && !accountIdOld.equals(accountIdNew)) {
-                accountIdOld.getOrderHistoryList().remove(orderHistory);
+                accountIdOld.getOrdersList().remove(orders);
                 accountIdOld = em.merge(accountIdOld);
             }
             if (accountIdNew != null && !accountIdNew.equals(accountIdOld)) {
-                accountIdNew.getOrderHistoryList().add(orderHistory);
+                accountIdNew.getOrdersList().add(orders);
                 accountIdNew = em.merge(accountIdNew);
             }
             for (OrderDetail orderDetailListNewOrderDetail : orderDetailListNew) {
                 if (!orderDetailListOld.contains(orderDetailListNewOrderDetail)) {
-                    OrderHistory oldHistoryIdOfOrderDetailListNewOrderDetail = orderDetailListNewOrderDetail.getHistoryId();
-                    orderDetailListNewOrderDetail.setHistoryId(orderHistory);
+                    Orders oldOrderIdOfOrderDetailListNewOrderDetail = orderDetailListNewOrderDetail.getOrderId();
+                    orderDetailListNewOrderDetail.setOrderId(orders);
                     orderDetailListNewOrderDetail = em.merge(orderDetailListNewOrderDetail);
-                    if (oldHistoryIdOfOrderDetailListNewOrderDetail != null && !oldHistoryIdOfOrderDetailListNewOrderDetail.equals(orderHistory)) {
-                        oldHistoryIdOfOrderDetailListNewOrderDetail.getOrderDetailList().remove(orderDetailListNewOrderDetail);
-                        oldHistoryIdOfOrderDetailListNewOrderDetail = em.merge(oldHistoryIdOfOrderDetailListNewOrderDetail);
+                    if (oldOrderIdOfOrderDetailListNewOrderDetail != null && !oldOrderIdOfOrderDetailListNewOrderDetail.equals(orders)) {
+                        oldOrderIdOfOrderDetailListNewOrderDetail.getOrderDetailList().remove(orderDetailListNewOrderDetail);
+                        oldOrderIdOfOrderDetailListNewOrderDetail = em.merge(oldOrderIdOfOrderDetailListNewOrderDetail);
                     }
                 }
             }
@@ -149,9 +149,9 @@ public class OrderHistoryJpaController implements Serializable {
             }
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Integer id = orderHistory.getHistoryId();
-                if (findOrderHistory(id) == null) {
-                    throw new NonexistentEntityException("The orderHistory with id " + id + " no longer exists.");
+                Integer id = orders.getOrderId();
+                if (findOrders(id) == null) {
+                    throw new NonexistentEntityException("The orders with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -167,30 +167,30 @@ public class OrderHistoryJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            OrderHistory orderHistory;
+            Orders orders;
             try {
-                orderHistory = em.getReference(OrderHistory.class, id);
-                orderHistory.getHistoryId();
+                orders = em.getReference(Orders.class, id);
+                orders.getOrderId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The orderHistory with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The orders with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            List<OrderDetail> orderDetailListOrphanCheck = orderHistory.getOrderDetailList();
+            List<OrderDetail> orderDetailListOrphanCheck = orders.getOrderDetailList();
             for (OrderDetail orderDetailListOrphanCheckOrderDetail : orderDetailListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This OrderHistory (" + orderHistory + ") cannot be destroyed since the OrderDetail " + orderDetailListOrphanCheckOrderDetail + " in its orderDetailList field has a non-nullable historyId field.");
+                illegalOrphanMessages.add("This Orders (" + orders + ") cannot be destroyed since the OrderDetail " + orderDetailListOrphanCheckOrderDetail + " in its orderDetailList field has a non-nullable orderId field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Account accountId = orderHistory.getAccountId();
+            Account accountId = orders.getAccountId();
             if (accountId != null) {
-                accountId.getOrderHistoryList().remove(orderHistory);
+                accountId.getOrdersList().remove(orders);
                 accountId = em.merge(accountId);
             }
-            em.remove(orderHistory);
+            em.remove(orders);
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -206,19 +206,19 @@ public class OrderHistoryJpaController implements Serializable {
         }
     }
 
-    public List<OrderHistory> findOrderHistoryEntities() {
-        return findOrderHistoryEntities(true, -1, -1);
+    public List<Orders> findOrdersEntities() {
+        return findOrdersEntities(true, -1, -1);
     }
 
-    public List<OrderHistory> findOrderHistoryEntities(int maxResults, int firstResult) {
-        return findOrderHistoryEntities(false, maxResults, firstResult);
+    public List<Orders> findOrdersEntities(int maxResults, int firstResult) {
+        return findOrdersEntities(false, maxResults, firstResult);
     }
 
-    private List<OrderHistory> findOrderHistoryEntities(boolean all, int maxResults, int firstResult) {
+    private List<Orders> findOrdersEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(OrderHistory.class));
+            cq.select(cq.from(Orders.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -230,20 +230,20 @@ public class OrderHistoryJpaController implements Serializable {
         }
     }
 
-    public OrderHistory findOrderHistory(Integer id) {
+    public Orders findOrders(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(OrderHistory.class, id);
+            return em.find(Orders.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getOrderHistoryCount() {
+    public int getOrdersCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<OrderHistory> rt = cq.from(OrderHistory.class);
+            Root<Orders> rt = cq.from(Orders.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

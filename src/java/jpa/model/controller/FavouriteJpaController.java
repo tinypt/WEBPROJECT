@@ -15,18 +15,18 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
 import jpa.model.Account;
-import jpa.model.Favorite;
+import jpa.model.Favourite;
 import jpa.model.Product;
 import jpa.model.controller.exceptions.NonexistentEntityException;
 import jpa.model.controller.exceptions.RollbackFailureException;
 
 /**
  *
- * @author GT62VR
+ * @author Hong
  */
-public class FavoriteJpaController implements Serializable {
+public class FavouriteJpaController implements Serializable {
 
-    public FavoriteJpaController(UserTransaction utx, EntityManagerFactory emf) {
+    public FavouriteJpaController(UserTransaction utx, EntityManagerFactory emf) {
         this.utx = utx;
         this.emf = emf;
     }
@@ -37,28 +37,28 @@ public class FavoriteJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Favorite favorite) throws RollbackFailureException, Exception {
+    public void create(Favourite favourite) throws RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Account accountId = favorite.getAccountId();
+            Account accountId = favourite.getAccountId();
             if (accountId != null) {
                 accountId = em.getReference(accountId.getClass(), accountId.getAccountId());
-                favorite.setAccountId(accountId);
+                favourite.setAccountId(accountId);
             }
-            Product productId = favorite.getProductId();
+            Product productId = favourite.getProductId();
             if (productId != null) {
                 productId = em.getReference(productId.getClass(), productId.getProductId());
-                favorite.setProductId(productId);
+                favourite.setProductId(productId);
             }
-            em.persist(favorite);
+            em.persist(favourite);
             if (accountId != null) {
-                accountId.getFavoriteList().add(favorite);
+                accountId.getFavouriteList().add(favourite);
                 accountId = em.merge(accountId);
             }
             if (productId != null) {
-                productId.getFavoriteList().add(favorite);
+                productId.getFavouriteList().add(favourite);
                 productId = em.merge(productId);
             }
             utx.commit();
@@ -76,39 +76,39 @@ public class FavoriteJpaController implements Serializable {
         }
     }
 
-    public void edit(Favorite favorite) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(Favourite favourite) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Favorite persistentFavorite = em.find(Favorite.class, favorite.getFavoriteId());
-            Account accountIdOld = persistentFavorite.getAccountId();
-            Account accountIdNew = favorite.getAccountId();
-            Product productIdOld = persistentFavorite.getProductId();
-            Product productIdNew = favorite.getProductId();
+            Favourite persistentFavourite = em.find(Favourite.class, favourite.getFavouriteId());
+            Account accountIdOld = persistentFavourite.getAccountId();
+            Account accountIdNew = favourite.getAccountId();
+            Product productIdOld = persistentFavourite.getProductId();
+            Product productIdNew = favourite.getProductId();
             if (accountIdNew != null) {
                 accountIdNew = em.getReference(accountIdNew.getClass(), accountIdNew.getAccountId());
-                favorite.setAccountId(accountIdNew);
+                favourite.setAccountId(accountIdNew);
             }
             if (productIdNew != null) {
                 productIdNew = em.getReference(productIdNew.getClass(), productIdNew.getProductId());
-                favorite.setProductId(productIdNew);
+                favourite.setProductId(productIdNew);
             }
-            favorite = em.merge(favorite);
+            favourite = em.merge(favourite);
             if (accountIdOld != null && !accountIdOld.equals(accountIdNew)) {
-                accountIdOld.getFavoriteList().remove(favorite);
+                accountIdOld.getFavouriteList().remove(favourite);
                 accountIdOld = em.merge(accountIdOld);
             }
             if (accountIdNew != null && !accountIdNew.equals(accountIdOld)) {
-                accountIdNew.getFavoriteList().add(favorite);
+                accountIdNew.getFavouriteList().add(favourite);
                 accountIdNew = em.merge(accountIdNew);
             }
             if (productIdOld != null && !productIdOld.equals(productIdNew)) {
-                productIdOld.getFavoriteList().remove(favorite);
+                productIdOld.getFavouriteList().remove(favourite);
                 productIdOld = em.merge(productIdOld);
             }
             if (productIdNew != null && !productIdNew.equals(productIdOld)) {
-                productIdNew.getFavoriteList().add(favorite);
+                productIdNew.getFavouriteList().add(favourite);
                 productIdNew = em.merge(productIdNew);
             }
             utx.commit();
@@ -120,9 +120,9 @@ public class FavoriteJpaController implements Serializable {
             }
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Integer id = favorite.getFavoriteId();
-                if (findFavorite(id) == null) {
-                    throw new NonexistentEntityException("The favorite with id " + id + " no longer exists.");
+                Integer id = favourite.getFavouriteId();
+                if (findFavourite(id) == null) {
+                    throw new NonexistentEntityException("The favourite with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -138,24 +138,24 @@ public class FavoriteJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Favorite favorite;
+            Favourite favourite;
             try {
-                favorite = em.getReference(Favorite.class, id);
-                favorite.getFavoriteId();
+                favourite = em.getReference(Favourite.class, id);
+                favourite.getFavouriteId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The favorite with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The favourite with id " + id + " no longer exists.", enfe);
             }
-            Account accountId = favorite.getAccountId();
+            Account accountId = favourite.getAccountId();
             if (accountId != null) {
-                accountId.getFavoriteList().remove(favorite);
+                accountId.getFavouriteList().remove(favourite);
                 accountId = em.merge(accountId);
             }
-            Product productId = favorite.getProductId();
+            Product productId = favourite.getProductId();
             if (productId != null) {
-                productId.getFavoriteList().remove(favorite);
+                productId.getFavouriteList().remove(favourite);
                 productId = em.merge(productId);
             }
-            em.remove(favorite);
+            em.remove(favourite);
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -171,19 +171,19 @@ public class FavoriteJpaController implements Serializable {
         }
     }
 
-    public List<Favorite> findFavoriteEntities() {
-        return findFavoriteEntities(true, -1, -1);
+    public List<Favourite> findFavouriteEntities() {
+        return findFavouriteEntities(true, -1, -1);
     }
 
-    public List<Favorite> findFavoriteEntities(int maxResults, int firstResult) {
-        return findFavoriteEntities(false, maxResults, firstResult);
+    public List<Favourite> findFavouriteEntities(int maxResults, int firstResult) {
+        return findFavouriteEntities(false, maxResults, firstResult);
     }
 
-    private List<Favorite> findFavoriteEntities(boolean all, int maxResults, int firstResult) {
+    private List<Favourite> findFavouriteEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Favorite.class));
+            cq.select(cq.from(Favourite.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -195,20 +195,20 @@ public class FavoriteJpaController implements Serializable {
         }
     }
 
-    public Favorite findFavorite(Integer id) {
+    public Favourite findFavourite(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Favorite.class, id);
+            return em.find(Favourite.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getFavoriteCount() {
+    public int getFavouriteCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Favorite> rt = cq.from(Favorite.class);
+            Root<Favourite> rt = cq.from(Favourite.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

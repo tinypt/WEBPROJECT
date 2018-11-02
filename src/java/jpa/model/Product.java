@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author GT62VR
+ * @author Hong
  */
 @Entity
 @Table(name = "PRODUCT")
@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
     , @NamedQuery(name = "Product.findByProductId", query = "SELECT p FROM Product p WHERE p.productId = :productId")
-    , @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName like :productName")
+    , @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName = :productName")
     , @NamedQuery(name = "Product.findByProductPrice", query = "SELECT p FROM Product p WHERE p.productPrice = :productPrice")
     , @NamedQuery(name = "Product.findByProductDetail", query = "SELECT p FROM Product p WHERE p.productDetail = :productDetail")
     , @NamedQuery(name = "Product.findByType", query = "SELECT p FROM Product p WHERE p.type = :type")
@@ -67,9 +67,9 @@ public class Product implements Serializable {
     @Column(name = "PRODUCT_VIDEO")
     private String productVideo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
-    private List<OrderDetail> orderDetailList;
+    private List<Favourite> favouriteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
-    private List<Favorite> favoriteList;
+    private List<OrderDetail> orderDetailList;
 
     public Product() {
     }
@@ -134,21 +134,21 @@ public class Product implements Serializable {
     }
 
     @XmlTransient
+    public List<Favourite> getFavouriteList() {
+        return favouriteList;
+    }
+
+    public void setFavouriteList(List<Favourite> favouriteList) {
+        this.favouriteList = favouriteList;
+    }
+
+    @XmlTransient
     public List<OrderDetail> getOrderDetailList() {
         return orderDetailList;
     }
 
     public void setOrderDetailList(List<OrderDetail> orderDetailList) {
         this.orderDetailList = orderDetailList;
-    }
-
-    @XmlTransient
-    public List<Favorite> getFavoriteList() {
-        return favoriteList;
-    }
-
-    public void setFavoriteList(List<Favorite> favoriteList) {
-        this.favoriteList = favoriteList;
     }
 
     @Override

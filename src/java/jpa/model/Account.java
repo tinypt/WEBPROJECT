@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author GT62VR
+ * @author Hong
  */
 @Entity
 @Table(name = "ACCOUNT")
@@ -63,7 +63,9 @@ public class Account implements Serializable {
     @Size(min = 1, max = 40)
     @Column(name = "PASSWORD")
     private String password;
-    @Size(max = 300)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
     @Column(name = "ADDRESS")
     private String address;
     @Basic(optional = false)
@@ -83,16 +85,18 @@ public class Account implements Serializable {
     private String telnumber;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 40)
+    @Size(min = 1, max = 45)
     @Column(name = "ACTIVATEKEY")
     private String activatekey;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "ACTIVATEDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date activatedate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountId")
-    private List<OrderHistory> orderHistoryList;
+    private List<Favourite> favouriteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountId")
-    private List<Favorite> favoriteList;
+    private List<Orders> ordersList;
 
     public Account() {
     }
@@ -101,17 +105,18 @@ public class Account implements Serializable {
         this.accountId = accountId;
     }
 
-    public Account(Integer accountId, String username, String password, String name, String surname, String telnumber, String activatekey) {
+    public Account(Integer accountId, String username, String password, String address, String name, String surname, String telnumber, String activatekey, Date activatedate) {
         this.accountId = accountId;
         this.username = username;
         this.password = password;
+        this.address = address;
         this.name = name;
         this.surname = surname;
         this.telnumber = telnumber;
         this.activatekey = activatekey;
+        this.activatedate = activatedate;
     }
-
-
+    
     public Account(String username, String password, String address, String name, String surname, String telnumber) {
         this.username = username;
         this.password = password;
@@ -121,8 +126,6 @@ public class Account implements Serializable {
         this.telnumber = telnumber;
         this.activatekey = UUID.randomUUID().toString().replace("-","").substring(0,15);
     }
-    
-    
 
     public Integer getAccountId() {
         return accountId;
@@ -197,21 +200,21 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
-    public List<OrderHistory> getOrderHistoryList() {
-        return orderHistoryList;
+    public List<Favourite> getFavouriteList() {
+        return favouriteList;
     }
 
-    public void setOrderHistoryList(List<OrderHistory> orderHistoryList) {
-        this.orderHistoryList = orderHistoryList;
+    public void setFavouriteList(List<Favourite> favouriteList) {
+        this.favouriteList = favouriteList;
     }
 
     @XmlTransient
-    public List<Favorite> getFavoriteList() {
-        return favoriteList;
+    public List<Orders> getOrdersList() {
+        return ordersList;
     }
 
-    public void setFavoriteList(List<Favorite> favoriteList) {
-        this.favoriteList = favoriteList;
+    public void setOrdersList(List<Orders> ordersList) {
+        this.ordersList = ordersList;
     }
 
     @Override

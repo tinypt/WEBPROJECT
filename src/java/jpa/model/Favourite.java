@@ -21,22 +21,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author GT62VR
+ * @author Hong
  */
 @Entity
-@Table(name = "FAVORITE")
+@Table(name = "FAVOURITE")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Favorite.findAll", query = "SELECT f FROM Favorite f")
-    , @NamedQuery(name = "Favorite.findByFavoriteId", query = "SELECT f FROM Favorite f WHERE f.favoriteId = :favoriteId")})
-public class Favorite implements Serializable {
+    @NamedQuery(name = "Favourite.findAll", query = "SELECT f FROM Favourite f")
+    , @NamedQuery(name = "Favourite.findByFavouriteId", query = "SELECT f FROM Favourite f WHERE f.favouriteId = :favouriteId")})
+public class Favourite implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "FAVORITE_ID")
-    private Integer favoriteId;
+    @Column(name = "FAVOURITE_ID")
+    private Integer favouriteId;
     @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ACCOUNT_ID")
     @ManyToOne(optional = false)
     private Account accountId;
@@ -44,19 +44,19 @@ public class Favorite implements Serializable {
     @ManyToOne(optional = false)
     private Product productId;
 
-    public Favorite() {
+    public Favourite() {
     }
 
-    public Favorite(Integer favoriteId) {
-        this.favoriteId = favoriteId;
+    public Favourite(Integer favouriteId) {
+        this.favouriteId = favouriteId;
     }
 
-    public Integer getFavoriteId() {
-        return favoriteId;
+    public Integer getFavouriteId() {
+        return favouriteId;
     }
 
-    public void setFavoriteId(Integer favoriteId) {
-        this.favoriteId = favoriteId;
+    public void setFavouriteId(Integer favouriteId) {
+        this.favouriteId = favouriteId;
     }
 
     public Account getAccountId() {
@@ -78,18 +78,18 @@ public class Favorite implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (favoriteId != null ? favoriteId.hashCode() : 0);
+        hash += (favouriteId != null ? favouriteId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Favorite)) {
+        if (!(object instanceof Favourite)) {
             return false;
         }
-        Favorite other = (Favorite) object;
-        if ((this.favoriteId == null && other.favoriteId != null) || (this.favoriteId != null && !this.favoriteId.equals(other.favoriteId))) {
+        Favourite other = (Favourite) object;
+        if ((this.favouriteId == null && other.favouriteId != null) || (this.favouriteId != null && !this.favouriteId.equals(other.favouriteId))) {
             return false;
         }
         return true;
@@ -97,7 +97,7 @@ public class Favorite implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.model.Favorite[ favoriteId=" + favoriteId + " ]";
+        return "jpa.model.Favourite[ favouriteId=" + favouriteId + " ]";
     }
     
 }

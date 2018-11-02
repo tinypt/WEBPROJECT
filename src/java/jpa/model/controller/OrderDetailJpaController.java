@@ -15,14 +15,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
 import jpa.model.OrderDetail;
-import jpa.model.OrderHistory;
+import jpa.model.Orders;
 import jpa.model.Product;
 import jpa.model.controller.exceptions.NonexistentEntityException;
 import jpa.model.controller.exceptions.RollbackFailureException;
 
 /**
  *
- * @author GT62VR
+ * @author Hong
  */
 public class OrderDetailJpaController implements Serializable {
 
@@ -42,10 +42,10 @@ public class OrderDetailJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            OrderHistory historyId = orderDetail.getHistoryId();
-            if (historyId != null) {
-                historyId = em.getReference(historyId.getClass(), historyId.getHistoryId());
-                orderDetail.setHistoryId(historyId);
+            Orders orderId = orderDetail.getOrderId();
+            if (orderId != null) {
+                orderId = em.getReference(orderId.getClass(), orderId.getOrderId());
+                orderDetail.setOrderId(orderId);
             }
             Product productId = orderDetail.getProductId();
             if (productId != null) {
@@ -53,9 +53,9 @@ public class OrderDetailJpaController implements Serializable {
                 orderDetail.setProductId(productId);
             }
             em.persist(orderDetail);
-            if (historyId != null) {
-                historyId.getOrderDetailList().add(orderDetail);
-                historyId = em.merge(historyId);
+            if (orderId != null) {
+                orderId.getOrderDetailList().add(orderDetail);
+                orderId = em.merge(orderId);
             }
             if (productId != null) {
                 productId.getOrderDetailList().add(orderDetail);
@@ -82,26 +82,26 @@ public class OrderDetailJpaController implements Serializable {
             utx.begin();
             em = getEntityManager();
             OrderDetail persistentOrderDetail = em.find(OrderDetail.class, orderDetail.getDetailId());
-            OrderHistory historyIdOld = persistentOrderDetail.getHistoryId();
-            OrderHistory historyIdNew = orderDetail.getHistoryId();
+            Orders orderIdOld = persistentOrderDetail.getOrderId();
+            Orders orderIdNew = orderDetail.getOrderId();
             Product productIdOld = persistentOrderDetail.getProductId();
             Product productIdNew = orderDetail.getProductId();
-            if (historyIdNew != null) {
-                historyIdNew = em.getReference(historyIdNew.getClass(), historyIdNew.getHistoryId());
-                orderDetail.setHistoryId(historyIdNew);
+            if (orderIdNew != null) {
+                orderIdNew = em.getReference(orderIdNew.getClass(), orderIdNew.getOrderId());
+                orderDetail.setOrderId(orderIdNew);
             }
             if (productIdNew != null) {
                 productIdNew = em.getReference(productIdNew.getClass(), productIdNew.getProductId());
                 orderDetail.setProductId(productIdNew);
             }
             orderDetail = em.merge(orderDetail);
-            if (historyIdOld != null && !historyIdOld.equals(historyIdNew)) {
-                historyIdOld.getOrderDetailList().remove(orderDetail);
-                historyIdOld = em.merge(historyIdOld);
+            if (orderIdOld != null && !orderIdOld.equals(orderIdNew)) {
+                orderIdOld.getOrderDetailList().remove(orderDetail);
+                orderIdOld = em.merge(orderIdOld);
             }
-            if (historyIdNew != null && !historyIdNew.equals(historyIdOld)) {
-                historyIdNew.getOrderDetailList().add(orderDetail);
-                historyIdNew = em.merge(historyIdNew);
+            if (orderIdNew != null && !orderIdNew.equals(orderIdOld)) {
+                orderIdNew.getOrderDetailList().add(orderDetail);
+                orderIdNew = em.merge(orderIdNew);
             }
             if (productIdOld != null && !productIdOld.equals(productIdNew)) {
                 productIdOld.getOrderDetailList().remove(orderDetail);
@@ -145,10 +145,10 @@ public class OrderDetailJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The orderDetail with id " + id + " no longer exists.", enfe);
             }
-            OrderHistory historyId = orderDetail.getHistoryId();
-            if (historyId != null) {
-                historyId.getOrderDetailList().remove(orderDetail);
-                historyId = em.merge(historyId);
+            Orders orderId = orderDetail.getOrderId();
+            if (orderId != null) {
+                orderId.getOrderDetailList().remove(orderDetail);
+                orderId = em.merge(orderId);
             }
             Product productId = orderDetail.getProductId();
             if (productId != null) {
