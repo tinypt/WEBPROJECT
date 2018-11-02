@@ -54,23 +54,18 @@ public class SearchServlet extends HttpServlet {
         String name = request.getParameter("name");
         if (name != null && name.trim().length() != 0) {
             ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
-            try {
-                List<Product> prod = prodCtrl.findByProductName(name);
+            List<Product> prod = prodCtrl.findByProductName(name);
 
-                if (prod.isEmpty()) {
-                    String msg = "ผลการค้นหา ไม่ตรงกับชื่อขนมใดๆ";
-                    request.setAttribute("msg", msg);
-                }
-                request.setAttribute("prod", prod);
-
-                request.setAttribute("nameSearch", name);
-                getServletContext().getRequestDispatcher("/Search.jsp").forward(request, response);
-                return;
-
-            } catch (NoResultException ex) {
-                request.setAttribute("type", "not have that product or must type with thai name");
-                getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+            if (prod.isEmpty()) {
+                String msg = "ผลการค้นหา ไม่ตรงกับชื่อขนมใดๆ";
+                request.setAttribute("msg", msg);
             }
+            request.setAttribute("prod", prod);
+
+            request.setAttribute("nameSearch", name);
+            getServletContext().getRequestDispatcher("/Search.jsp").forward(request, response);
+            return;
+
         }
         getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
     }

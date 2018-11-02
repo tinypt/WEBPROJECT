@@ -4,6 +4,7 @@
     Author     : GT62VR
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,10 +21,12 @@
     <body>
         <jsp:include page="include/header.jsp"/>
         <h1>Login</h1>
-        ${activate} <br>
-        ${actcom} <br>
-        ${Logfail} <br>
-        <a href="${link}">Click this to activate</a> <br>
+        ${activate} 
+        ${actcom} 
+        ${Logfail} 
+        <c:if test="${link!=null}">
+            <a href="${link}">Click this to activate</a> <br>
+        </c:if>
         <form method="post" action="Login">
             username: <input type="text" name="username"><br>
             password: <input type="password" name="password"><br>
