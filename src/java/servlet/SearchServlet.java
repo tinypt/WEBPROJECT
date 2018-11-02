@@ -53,7 +53,6 @@ public class SearchServlet extends HttpServlet {
 
         String name = request.getParameter("name");
         if (name != null && name.trim().length() != 0) {
-            System.out.println("Name: " + name);
             ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
             try {
                 List<Product> prod = prodCtrl.findByProductName(name);

@@ -20,16 +20,17 @@
     <body>
         <jsp:include page="include/header.jsp"/>
         <h1>Login</h1>
-        ${activate}
-        ${actcom}
-        ${Logfail}
+        ${activate} <br>
+        ${actcom} <br>
+        ${Logfail} <br>
+        <a href="${link}">Click this to activate</a> <br>
         <form method="post" action="Login">
             username: <input type="text" name="username"><br>
             password: <input type="password" name="password"><br>
             <input type="submit" value="submit">
         </form>
         <br>
-        <a href="Register">Register ?</a>
+        <a href="Register">Register ?</a> <br>
         <a href="montho.jsp">Back</a>
     </body>
 </html>

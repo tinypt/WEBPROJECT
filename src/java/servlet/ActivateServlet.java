@@ -53,8 +53,6 @@ public class ActivateServlet extends HttpServlet {
             AccountJpaController accCtrl = new AccountJpaController(utx, emf);
             Account acc = accCtrl.findAccountbyUserName(username);
             
-            System.out.println("activate "+activatekey);
-            System.out.println("activate from acc "+acc.getActivatekey());
             if(activatekey.equalsIgnoreCase(acc.getActivatekey())) {
                 acc.setActivatedate(new Date());
                 accCtrl.edit(acc);

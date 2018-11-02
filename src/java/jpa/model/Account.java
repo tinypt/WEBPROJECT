@@ -88,8 +88,6 @@ public class Account implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "ACTIVATEKEY")
     private String activatekey;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "ACTIVATEDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date activatedate;
@@ -105,7 +103,7 @@ public class Account implements Serializable {
         this.accountId = accountId;
     }
 
-    public Account(Integer accountId, String username, String password, String address, String name, String surname, String telnumber, String activatekey, Date activatedate) {
+    public Account(Integer accountId, String username, String password, String address, String name, String surname, String telnumber, String activatekey) {
         this.accountId = accountId;
         this.username = username;
         this.password = password;
@@ -114,7 +112,6 @@ public class Account implements Serializable {
         this.surname = surname;
         this.telnumber = telnumber;
         this.activatekey = activatekey;
-        this.activatedate = activatedate;
     }
     
     public Account(String username, String password, String address, String name, String surname, String telnumber) {

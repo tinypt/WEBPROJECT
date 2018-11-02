@@ -59,6 +59,9 @@ public class LoginServlet extends HttpServlet {
                         getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
                     }
                 } else {
+                    String link = "http://localhost:8080/WEBPROJECT/Activate?username=" + acc.getUsername() + "&activatekey=" + acc.getActivatekey();
+                    request.setAttribute("link", link);
+
                     request.setAttribute("activate", "you are not activate your account");
                     getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
                 }

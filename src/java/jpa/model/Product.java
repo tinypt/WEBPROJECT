@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
     , @NamedQuery(name = "Product.findByProductId", query = "SELECT p FROM Product p WHERE p.productId = :productId")
-    , @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName = :productName")
+    , @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName like :productName")
     , @NamedQuery(name = "Product.findByProductPrice", query = "SELECT p FROM Product p WHERE p.productPrice = :productPrice")
     , @NamedQuery(name = "Product.findByProductDetail", query = "SELECT p FROM Product p WHERE p.productDetail = :productDetail")
     , @NamedQuery(name = "Product.findByType", query = "SELECT p FROM Product p WHERE p.type = :type")
@@ -55,7 +55,9 @@ public class Product implements Serializable {
     @NotNull
     @Column(name = "PRODUCT_PRICE")
     private int productPrice;
-    @Size(max = 1000)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1000)
     @Column(name = "PRODUCT_DETAIL")
     private String productDetail;
     @Basic(optional = false)
@@ -78,10 +80,11 @@ public class Product implements Serializable {
         this.productId = productId;
     }
 
-    public Product(Integer productId, String productName, int productPrice, String type) {
+    public Product(Integer productId, String productName, int productPrice, String productDetail, String type) {
         this.productId = productId;
         this.productName = productName;
         this.productPrice = productPrice;
+        this.productDetail = productDetail;
         this.type = type;
     }
 
