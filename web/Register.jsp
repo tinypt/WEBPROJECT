@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-               <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
         <style>
             body {
                 font-family: 'Prompt', sans-serif;
@@ -19,16 +19,48 @@
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
-        <h1>Register</h1>
-        <form method="post" action="Register">
-            username: <input type="text" name="username"> <br><br>
-            password: <input type="password" name="password"><br><br>
-            address: <textarea rows="4" cols="30" name="address"></textarea><br><br>
-            name: <input type="text" name="name"><br><br>
-            surname: <input type="text" name="surname"><br><br>
-            telno: <input type="text" name="telno"><br><br>
-            <input type="submit" value="submit">
-        </form>
-        <a href="montho.jsp">Back</a>
+        <div class="container mb-5">
+            <div class="row text-center">
+                <div class="col"></div>
+                <div class="col">
+                    <div class="card mt-5" style="width: 61rem; height: 60rem; box-shadow: 0 2px 2px 0 #b6b6b6;">
+                        <div class="card-header bg-white text-left">
+                            <h3>Register</h3>
+                        </div>
+                        <div class="col-6 p-5 m-4 card-body">
+                            <div class="row">
+                                 <h5 class="text-left pb-2">สมัครสมาชิก</h5>
+                            </div>
+                           
+                            <form method="post" action="Register">
+                                <div class="row">
+                                    Username: <input type="text"  name="username" class="form-control mb-2" placeholder="Username*"> <br>
+                                    Password: <input type="password" name="password" class="form-control mb-2 " placeholder="Password*"><br>
+                                    Name: <input type="text" name="name" class="form-control mb-2 " placeholder="Name*"><br>
+                                    Surname: <input type="text" name="surname" class="form-control mb-2 " placeholder="Surname*"><br>
+                                    Address: <textarea rows="4" cols="30" class="form-control mb-2 " name="address" placeholder="Address"></textarea><br>
+                                    Telno: <input type="text" name="telno" class="form-control mb-2 " placeholder="Telno"><br>
+                                </div>
+                                <div class="row"> 
+                                    <div class="col"></div>
+                                    <div class="col"></div>
+                                    <div class="col"></div>
+                                    <div class="col">
+                                        <input type="submit" value="submit" class="btn btn-primary">
+                                    </div>  
+                                </div>
+                            </form>
+                        
+                        </div>
+
+                        <div class="card-footer text-left" style="background: linear-gradient(white,#f2f2f2)">
+                            <a href="montho.jsp" class="btn">Back</a> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+
     </body>
 </html>

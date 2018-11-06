@@ -31,13 +31,7 @@
                             <h3>Login</h3>
                         </div>
                         <div class="col-5 p-5 m-4">
-                            <p class="text-danger">  ${activate} 
-                                ${actcom} 
-                                ${Logfail} 
-                            </p>
-                            <c:if test="${link!=null}">
-                                <a href="${link}">Click this to activate</a> <br>
-                            </c:if>
+                           
                             <h5 class="text-left">ลงชื่อเข้าใช้</h5>
 
                             <form method="post" action="Login">
@@ -56,10 +50,21 @@
                                     </div>  
                                 </div>
                             </form>
+                             <p class="text-warning p-2 ">  
+                                ${activate} 
+                                ${actcom} 
+                                ${Logfail} 
+                            </p>
+                           
                         </div>
-                        <div class="col"></div>
+                            
+                        <div class="col text-left p-5 ml-5">
+                            <c:if test="${link!=null}">
+                                <a href="${link}">Click this to activate</a> <br>
+                            </c:if>
+                        </div>
                         <div class="card-footer text-left" style="background: linear-gradient(white,#f2f2f2)">
-                            <a href="montho.jsp" class="btn" style="">Back</a> 
+                            <a href="montho.jsp" class="btn">Back</a> 
 
                         </div>
                     </div>
