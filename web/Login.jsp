@@ -10,30 +10,56 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
         <style>
             body {
-                font-family: 'Chakra Petch', sans-serif;
+                font-family: 'Prompt', sans-serif;
             }
         </style>
         <title>Login Page</title>
     </head>
-    <body>
+    <body style="background-color: #f2f2f2;">
         <jsp:include page="include/header.jsp"/>
-        <h1>Login</h1>
-        ${activate} 
-        ${actcom} 
-        ${Logfail} 
-        <c:if test="${link!=null}">
-            <a href="${link}">Click this to activate</a> <br>
-        </c:if>
-        <form method="post" action="Login">
-            username: <input type="text" name="username"><br>
-            password: <input type="password" name="password"><br>
-            <input type="submit" value="submit">
-        </form>
-        <br>
-        <a href="Register">Register ?</a> <br>
-        <a href="montho.jsp">Back</a>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col"></div>
+                <div class="col">
+
+                    <div class="card mt-5" style="width: 61rem; height: 30rem; box-shadow: 0 2px 2px 0 #b6b6b6;">
+                        <div class="card-header bg-white text-left">
+                            <h3>Login</h3>
+                        </div>
+                        <div class="col-5 pt-5 pl-5 m-4">
+                            <p class="text-danger">  ${activate} 
+                            ${actcom} 
+                            ${Logfail} </p>
+                            <c:if test="${link!=null}">
+                                <a href="${link}">Click this to activate</a> <br>
+                            </c:if>
+                            <h5 class="text-left">ลงชื่อเข้าใช้</h5>
+
+                            <form method="post" action="Login" >
+                                <input type="text" class="form-control"  name="username" placeholder="Username"><br>
+                                <input type="password" class="form-control"  name="password" placeholder="Password"><br>
+                                <div class="row"> 
+                                    <div class="col" ><a href="Register">Register?</a>
+                                </div>
+                                    <div class="col"></div>
+                                    <div class="col"></div>
+                                    <div class="col">
+                                        <input type="submit" value="submit" class="btn btn-primary"></div>  
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col"></div>
+                        <div class="card-footer text-left" style="background: linear-gradient(white,#f2f2f2)">
+                            <a href="montho.jsp" class="btn" style="">Back</a> 
+                          
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
     </body>
 </html>

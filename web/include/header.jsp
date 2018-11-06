@@ -17,15 +17,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Chakra Petch', sans-serif;
-        }
-    </style>
+    <!--<link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">-->
+         <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+        <style>
+            body {
+                /*font-family: 'Chakra Petch', sans-serif;*/
+                font-family: 'Prompt', sans-serif;
+            }
+        </style>
 </head>
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav class="navbar navbar-expand-sm" style=" background-color: #333;">
     <div class="container">
         <div class="row">
 
@@ -36,24 +38,24 @@
             <!-- Links -->
             <ul class="navbar-nav ml-0 text-center col-10">
                 <li class="nav-item col-2">
-                    <a class="nav-link" href="#">ต้ม</a>
+                    <a class="nav-link text-white" href="Getproduct?type=1">ต้ม</a>
                 </li>
                 <li class="nav-item col-2">
-                    <a class="nav-link" href="#">นึ่ง</a>
+                    <a class="nav-link text-white" href="Getproduct?type=2">นึ่ง</a>
                 </li>
                 <li class="nav-item col-2">
-                    <a class="nav-link" href="#">กวน</a>
+                    <a class="nav-link text-white" href="Getproduct?type=3">กวน</a>
                 </li>
                 <li class="nav-item col-2">
-                    <a class="nav-link" href="#">เชื่อม</a>
+                    <a class="nav-link text-white" href="Getproduct?type=4">เชื่อม</a>
                 </li>
                 <li class="nav-item col-2">
-                    <a class="nav-link" href="#">ทอด</a>
+                    <a class="nav-link text-white" href="Getproduct?type=5">ทอด</a>
                 </li>
 
                 <form class="form-inline col-5 ml-4 mr-0 " action="Search" method="post">
                     <input class="form-control mr-sm-2 form-control-sm" type="text" placeholder="ค้นหาชื่อขนม" name="name">
-                    <button class="btn btn-success btn-sm " type="submit">ค้นหา</button>
+                    <button class="btn btn-light btn-sm " type="submit">ค้นหา</button>
 
                 </form>
 

@@ -24,6 +24,10 @@
         <servlet-name>UpdateAccountServlet</servlet-name>
         <servlet-class>servlet.UpdateAccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetproductServlet</servlet-name>
+        <servlet-class>servlet.GetproductServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>UpdateAccountServlet</servlet-name>
         <url-pattern>/UpdateAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetproductServlet</servlet-name>
+        <url-pattern>/Getproduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
