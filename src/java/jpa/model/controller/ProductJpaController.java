@@ -298,5 +298,6 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
+
     
 }

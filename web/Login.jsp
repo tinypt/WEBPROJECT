@@ -19,6 +19,7 @@
         <title>Login Page</title>
     </head>
     <body style="background-color: #f2f2f2;">
+
         <jsp:include page="include/header.jsp"/>
         <div class="container">
             <div class="row text-center">
@@ -31,9 +32,9 @@
                         </div>
                         <div class="col-5 pt-5 pl-5 m-4">
                             <p class="text-danger">  ${activate} 
-                            ${actcom} 
-                            ${Logfail} </p>
-                            <c:if test="${link!=null}">
+                                ${actcom} 
+                                ${Logfail} </p>
+                                <c:if test="${link!=null}">
                                 <a href="${link}">Click this to activate</a> <br>
                             </c:if>
                             <h5 class="text-left">ลงชื่อเข้าใช้</h5>
@@ -42,19 +43,21 @@
                                 <input type="text" class="form-control"  name="username" placeholder="Username"><br>
                                 <input type="password" class="form-control"  name="password" placeholder="Password"><br>
                                 <div class="row"> 
-                                    <div class="col" ><a href="Register">Register?</a>
-                                </div>
+                                    <div class="col" >
+                                        <a href="Register">Register?</a>
+                                    </div>
                                     <div class="col"></div>
                                     <div class="col"></div>
                                     <div class="col">
-                                        <input type="submit" value="submit" class="btn btn-primary"></div>  
+                                        <input type="submit" value="submit" class="btn btn-primary">
+                                    </div>  
                                 </div>
                             </form>
                         </div>
                         <div class="col"></div>
                         <div class="card-footer text-left" style="background: linear-gradient(white,#f2f2f2)">
                             <a href="montho.jsp" class="btn" style="">Back</a> 
-                          
+
                         </div>
                     </div>
                 </div>

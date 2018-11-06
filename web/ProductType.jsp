@@ -34,7 +34,7 @@
                         <div class="row pt-3 pb-4">
                             <div class="col"></div>
                             <div class="col">
-                                <a href="#" class="h4 text-primary">ดูเพิ่มเติม ></a>
+                                <a href="Getdetail?product=${prods.productId}" class="h4 text-primary">ดูเพิ่มเติม ></a>
                             </div>
                             <div class="col">
                                 <a href="#" class="h4 text-primary">ซื้อเลย ></a>

@@ -28,6 +28,14 @@
         <servlet-name>GetproductServlet</servlet-name>
         <servlet-class>servlet.GetproductServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetdetailServlet</servlet-name>
+        <servlet-class>servlet.GetdetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckServlet</servlet-name>
+        <servlet-class>servlet.CheckServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>GetproductServlet</servlet-name>
         <url-pattern>/Getproduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetdetailServlet</servlet-name>
+        <url-pattern>/Getdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckServlet</servlet-name>
+        <url-pattern>/Check</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
