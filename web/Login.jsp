@@ -16,6 +16,7 @@
                 font-family: 'Prompt', sans-serif;
             }
         </style>
+
         <title>Login Page</title>
     </head>
     <body style="background-color: #f2f2f2;">
@@ -25,23 +26,25 @@
             <div class="row text-center">
                 <div class="col"></div>
                 <div class="col">
-
                     <div class="card mt-5" style="width: 61rem; height: 30rem; box-shadow: 0 2px 2px 0 #b6b6b6;">
                         <div class="card-header bg-white text-left">
                             <h3>Login</h3>
                         </div>
-                        <div class="col-5 pt-5 pl-5 m-4">
+                        <div class="col-5 p-5 m-4">
                             <p class="text-danger">  ${activate} 
                                 ${actcom} 
-                                ${Logfail} </p>
-                                <c:if test="${link!=null}">
+                                ${Logfail} 
+                            </p>
+                            <c:if test="${link!=null}">
                                 <a href="${link}">Click this to activate</a> <br>
                             </c:if>
                             <h5 class="text-left">ลงชื่อเข้าใช้</h5>
 
-                            <form method="post" action="Login" >
-                                <input type="text" class="form-control"  name="username" placeholder="Username"><br>
-                                <input type="password" class="form-control"  name="password" placeholder="Password"><br>
+                            <form method="post" action="Login">
+                                <div class="row">
+                                <input type="text" class="form-control mb-3"  name="username" placeholder="Username*"><br>
+                                <input type="password" class="form-control mb-3"  name="password" placeholder="Password*"><br>
+                                </div>
                                 <div class="row"> 
                                     <div class="col" >
                                         <a href="Register">Register?</a>

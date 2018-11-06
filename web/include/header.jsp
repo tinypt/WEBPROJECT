@@ -61,7 +61,7 @@
 
                 <!-- Dropdown -->
                 <li class="nav-item dropdown col-3 ml-0">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">
                         <img src="extra-image/cart.png" alt="cart fail" style="width: 30px;" />
                         ${acc.username}
                     </a>
