@@ -36,6 +36,10 @@
         <servlet-name>CheckServlet</servlet-name>
         <servlet-class>servlet.CheckServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddItemtoCartServlet</servlet-name>
+        <servlet-class>servlet.AddItemtoCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>CheckServlet</servlet-name>
         <url-pattern>/Check</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddItemtoCartServlet</servlet-name>
+        <url-pattern>/AddItemtoCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

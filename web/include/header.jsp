@@ -18,13 +18,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
     <!--<link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">-->
-         <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
-        <style>
-            body {
-                /*font-family: 'Chakra Petch', sans-serif;*/
-                font-family: 'Prompt', sans-serif;
-            }
-        </style>
+    <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+    <style>
+        body {
+            /*font-family: 'Chakra Petch', sans-serif;*/
+            font-family: 'Prompt', sans-serif;
+        }
+    </style>
 </head>
 
 <nav class="navbar navbar-expand-sm" style=" background-color: #333;">
@@ -66,7 +66,15 @@
                         ${acc.username}
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">ตะกร้าสินค้า</a>
+                        <a class="dropdown-item" href="Cart.jsp">ตะกร้าสินค้า 
+                            <c:choose>
+                                <c:when test="${cart.size==null || cart.size==0}">
+                                    (0)
+                                </c:when>
+                                <c:otherwise>
+                                       (${cart.size})
+                                </c:otherwise>
+                            </c:choose></a>
                         <a class="dropdown-item" href="#">รายการโปรด</a>
                         <a class="dropdown-item" href="#">วิดีโอ</a>
                         <a class="dropdown-item" href="#">ประวัติการสั่งซื้อ</a>

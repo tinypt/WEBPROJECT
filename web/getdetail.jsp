@@ -68,7 +68,7 @@
                 border: 0;
                 width: 2%;
             }
-            nput::-webkit-outer-spin-button,
+            input::-webkit-outer-spin-button,
             input::-webkit-inner-spin-button {
                 -webkit-appearance: none;
                 margin: 0;
@@ -107,14 +107,14 @@
         <div>
             รายละเอียด : ${product.productDetail} <br>
             ราคา : ${product.productPrice} บาท 
-            <form action="Check" method="post">
+            <form action="AddItemtoCart" method="post">
                 <div class="qty mt-5">
                     <button id="minus" type="button" class="btn btn-default" onclick="minusValue()">-</button>
                     <input id="quantity" type="number" class="count" name="qty" value="1">
                     <button id="plus" type="button" class="btn btn-info" onclick="plusValue()">+</button>
-                    
+
                     <input type="hidden" name="product" value="${product.productId}">
-                    <input type="submit" value="ซื้อ" class="btn btn-danger" style="width: 50px;">
+                    <input type="submit" value="เพิ่มสินค้าลงตะกร้า" class="btn btn-danger" style="width: 150px;">
                 </div>
             </form>
             <br><br>
