@@ -7,10 +7,10 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,14 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
-import jpa.model.Product;
 import jpa.model.controller.ProductJpaController;
+import model.Cart;
 
 /**
  *
  * @author GT62VR
  */
-public class SearchServlet extends HttpServlet {
+public class UpdateIteminCartServlet extends HttpServlet {
 
     @PersistenceUnit(unitName = "MonthoPU")
     EntityManagerFactory emf;
@@ -44,30 +44,20 @@ public class SearchServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //--encoding to thai
-        //source https://www.bamossza.com/article-view?topic_id=6
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        //--
-
-        String name = request.getParameter("name");
-        if (name != null /*&& name.trim().length() != 0*/) {
-            ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
-            List<Product> prod = prodCtrl.findByProductName(name);
-
-            if (prod.isEmpty()) {
-                String msg = "ผลการค้นหา ไม่ตรงกับชื่อขนมใดๆ";
-                request.setAttribute("msg", msg);
-            }
-            request.setAttribute("prod", prod);
-            request.setAttribute("qty", prod.size());
-            request.setAttribute("nameSearch", name);
-            getServletContext().getRequestDispatcher("/Search.jsp").forward(request, response);
-            return;
-
+        HttpSession session = request.getSession(false);
+        Cart cart = (Cart) session.getAttribute("cart");
+        String[] prod_idStr = request.getParameterValues("prod_id");
+        List<Integer> prod_id = new ArrayList<>();
+        for (String string : prod_idStr) {
+            int id = Integer.parseInt(string);
+            prod_id.add(id);
         }
-        getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+        ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
+        for (Integer integer : prod_id) {
+            cart.remove(prodCtrl.findProduct(integer));
+        }
+        getServletContext().getRequestDispatcher("/Cart.jsp").forward(request, response);
+//        response.sendRedirect("Cart.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

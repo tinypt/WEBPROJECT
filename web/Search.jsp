@@ -21,11 +21,13 @@
     <body>
         <jsp:include page="include/header.jsp"/>
         <div class="container mt-3">
-            <h1>Search : ${nameSearch}</h1>
+            <h1>ค้นหา : ${nameSearch}</h1>
+            <h2>พบรายการสินค้า ${qty} สินค้า</h2>
             <h5>${msg}</h5>
             <c:forEach items="${prod}" var="prod">
                 <br>
                 <img src="image/${prod.productId}.jpg" style="width: 300px"><br>
+                product id = &nbsp; ${prod.productId} <br>
                 product name = &nbsp; ${prod.productName} <br>
                 product price = &nbsp; ${prod.productPrice} <br>
                 product datail = &nbsp; ${prod.productDetail} <br>

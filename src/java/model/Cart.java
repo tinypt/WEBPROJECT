@@ -41,7 +41,7 @@ public class Cart {
         if (line==null) {
             cart.put(prod.getProductId(), new LineItem(prod,qty));
         }else {
-            line.setQuantity(line.getQuantity()+1);
+            line.setQuantity(line.getQuantity()+qty);
         }
     }
     
