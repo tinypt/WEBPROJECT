@@ -75,11 +75,9 @@ public class AddItemtoCartServlet extends HttpServlet {
         if (formStr.equals("search")) {
             String name = request.getParameter("name");
             getServletContext().getRequestDispatcher("/Search?name="+name).forward(request, response);
-            return;
         } else if (formStr.equals("getdetail")){
             String path = "Getdetail?product="+prod_id;
             response.sendRedirect(path);
-            return;
         }
         
     }
