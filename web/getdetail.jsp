@@ -114,6 +114,7 @@
                     <button id="plus" type="button" class="btn btn-info" onclick="plusValue()">+</button>
 
                     <input type="hidden" name="product" value="${product.productId}">
+                    <input type="hidden" name="form" value="getdetail">
                     <input type="submit" value="เพิ่มสินค้าลงตะกร้า" class="btn btn-danger" style="width: 150px;">
                 </div>
             </form>

@@ -10,10 +10,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-                <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
         <style>
             body {
                 font-family: 'Prompt', sans-serif;
+            }
+            table th {
+                text-align: center;
             }
         </style>
         <title>Search Page</title>
@@ -24,17 +27,37 @@
             <h1>ค้นหา : ${nameSearch}</h1>
             <h2>พบรายการสินค้า ${qty} สินค้า</h2>
             <h5>${msg}</h5>
-            <c:forEach items="${prod}" var="prod">
-                <br>
-                <img src="image/${prod.productId}.jpg" style="width: 300px"><br>
-                product id = &nbsp; ${prod.productId} <br>
-                product name = &nbsp; ${prod.productName} <br>
-                product price = &nbsp; ${prod.productPrice} <br>
-                product datail = &nbsp; ${prod.productDetail} <br>
-                product type = &nbsp; ${prod.type} <br>
-                -------------------------------------
 
-            </c:forEach>
+            <table id="example" class="table">
+                <thead>
+                <th>รายการ</th>
+                <th>ชื่อขนม</th>
+                <th>Image</th>
+                <th>ราคาต่อหน่วย (บาท)</th>
+                <th>รายละเอียด</th>
+                <th>ชนิด</th>
+                <th>ตระกร้า</th>
+                </thead>
+
+                <c:forEach items="${prod}" var="prod" varStatus="s">
+                    <tr>
+                        <td>${s.count}</td>
+                        <td>${prod.productName}</td>
+                        <td><img src="image/${prod.productId}.jpg" width="200"></td>
+                        <td>${prod.productPrice}</td>
+                        <td>${prod.productDetail}</td>
+                        <td>${prod.type}</td>
+                        <td>
+                            <a href="AddItemtoCart?qty=1&product=${prod.productId}&form=search&name=${nameSearch}">
+                                <button type="button" class="btn btn-outline-warning">เพิ่มลงตะกร้า</button>
+                            </a>
+                        </td>
+
+
+
+                    </tr>
+                </c:forEach>
+            </table>
         </div>
     </body>
 </html>

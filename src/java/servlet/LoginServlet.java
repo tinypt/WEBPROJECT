@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
             try {
                 Account acc = accCtrl.findAccountbyUserName(username);
                 if (acc.getActivatedate() != null) {
-                    HttpSession session = request.getSession(false);
+                    HttpSession session = request.getSession();
                     password = cryptWithMD5(password);
                     if (password.equalsIgnoreCase(acc.getPassword())) {
                         session.setAttribute("acc", acc);

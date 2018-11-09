@@ -44,10 +44,19 @@ public class AddItemtoCartServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //--encoding to thai
+        //source https://www.bamossza.com/article-view?topic_id=6
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        //--
+        
         HttpSession session = request.getSession(true);
+        String prod_idStr = request.getParameter("product");
         String qtyStr = request.getParameter("qty");
+        String formStr = request.getParameter("form");
         int qty = Integer.parseInt(qtyStr);
-        int prod_id = Integer.parseInt(request.getParameter("product"));
+        int prod_id = Integer.parseInt(prod_idStr);
 
         Cart cart = (Cart) session.getAttribute("cart");
         if (cart == null) {
@@ -63,12 +72,16 @@ public class AddItemtoCartServlet extends HttpServlet {
             cart.add(prod, qty);
         }
         
-//        for (LineItem lineItem : cart.getLineItems()) {
-//            System.out.println("เมนู: "+lineItem.getProd().getProductName()+"    "+"จำนวน : "+lineItem.getQuantity());
-//        }
+        if (formStr.equals("search")) {
+            String name = request.getParameter("name");
+            getServletContext().getRequestDispatcher("/Search?name="+name).forward(request, response);
+            return;
+        } else if (formStr.equals("getdetail")){
+            String path = "Getdetail?product="+prod_id;
+            response.sendRedirect(path);
+            return;
+        }
         
-        String path = "Getdetail?product="+prod_id;
-        response.sendRedirect(path);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
