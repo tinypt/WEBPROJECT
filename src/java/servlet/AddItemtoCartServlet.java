@@ -51,13 +51,13 @@ public class AddItemtoCartServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         //--
         
-        HttpSession session = request.getSession(true);
         String prod_idStr = request.getParameter("product");
         String qtyStr = request.getParameter("qty");
         String formStr = request.getParameter("form");
         int qty = Integer.parseInt(qtyStr);
         int prod_id = Integer.parseInt(prod_idStr);
 
+        HttpSession session = request.getSession(true);
         Cart cart = (Cart) session.getAttribute("cart");
         if (cart == null) {
             cart = new Cart();
