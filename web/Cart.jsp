@@ -21,6 +21,10 @@
             .table {
                 font-size: 17px;
             }
+            .btn {
+                background-color: #86B404;
+                color:white;
+            }
         </style>
         <script>
             function Allowbtn() {
@@ -71,9 +75,12 @@
                         </table>
                         <br>
                     </div> 
-                    <div style="text-align: right; margin-right: 50px;" >
-                        <input type="submit" class="btn btn-primary" value="UpdateCart" id="subbtn" style="text-align: right;" disabled="true">
-                    </div>
+                    <center>
+                        <a href="Checkout">
+                            <input type="button" class="btn " value="Checkout" id="subbtn2" >
+                        </a>
+                        <input type="submit" class="btn " value="UpdateCart" id="subbtn" disabled="true">
+                    </center> 
                 </form>
             </c:when>
             <c:otherwise>
