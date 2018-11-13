@@ -55,9 +55,7 @@ public class Product implements Serializable {
     @NotNull
     @Column(name = "PRODUCT_PRICE")
     private int productPrice;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 1000)
+    @Size(max = 1000)
     @Column(name = "PRODUCT_DETAIL")
     private String productDetail;
     @Basic(optional = false)
@@ -80,11 +78,10 @@ public class Product implements Serializable {
         this.productId = productId;
     }
 
-    public Product(Integer productId, String productName, int productPrice, String productDetail, String type) {
+    public Product(Integer productId, String productName, int productPrice, String type) {
         this.productId = productId;
         this.productName = productName;
         this.productPrice = productPrice;
-        this.productDetail = productDetail;
         this.type = type;
     }
 

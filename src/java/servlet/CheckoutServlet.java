@@ -7,6 +7,10 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -16,7 +20,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
+import jpa.model.Account;
+import jpa.model.OrderDetail;
+import jpa.model.Orders;
+import jpa.model.controller.AccountJpaController;
+import jpa.model.controller.OrderDetailJpaController;
+import jpa.model.controller.OrdersJpaController;
 import model.Cart;
+import model.LineItem;
 
 /**
  *
@@ -40,14 +51,30 @@ public class CheckoutServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         HttpSession session = request.getSession(false);
         //อาจจะใช้ฟิลเตอร์แทน
-        if (session.getAttribute("cart") == null) {
-            getServletContext().getRequestDispatcher("/Cart.jsp").forward(request, response);
+        if (session.getAttribute("acc") == null ) {
+            getServletContext().getRequestDispatcher("/Login").forward(request, response);
             return;
         }
+        
+        Account acc = (Account) session.getAttribute("acc");
         Cart cart = (Cart) session.getAttribute("cart");
+        List<LineItem> lines = cart.getLineItems();
+        
+        Date d = new Date();
+        int totalPrice = cart.getTotalPriceInCart();
+        
+        OrdersJpaController orderJpaCtrl = new OrdersJpaController(utx, emf);
+        Orders order = new Orders();
+        
+        order.setOrderDate(d);
+        order.setTotalprice(totalPrice);
+        order.setAccountId(acc);
+        orderJpaCtrl.create(order);
+        
+        OrderDetailJpaController orderdJpaCtrl = new OrderDetailJpaController(utx, emf);
         
     }
 
@@ -63,7 +90,11 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(CheckoutServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -77,7 +108,11 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(CheckoutServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

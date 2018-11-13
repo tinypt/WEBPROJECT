@@ -263,7 +263,7 @@ public class AccountJpaController implements Serializable {
             em.close();
         }
     }
-    
+
     public Account findAccountbyUserName(String username) {
         EntityManager em = getEntityManager();
         try {
@@ -287,5 +287,5 @@ public class AccountJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

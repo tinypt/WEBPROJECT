@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OrderDetail.findAll", query = "SELECT o FROM OrderDetail o")
     , @NamedQuery(name = "OrderDetail.findByDetailId", query = "SELECT o FROM OrderDetail o WHERE o.detailId = :detailId")
     , @NamedQuery(name = "OrderDetail.findByPriceeach", query = "SELECT o FROM OrderDetail o WHERE o.priceeach = :priceeach")
-    , @NamedQuery(name = "OrderDetail.findByQuality", query = "SELECT o FROM OrderDetail o WHERE o.quality = :quality")})
+    , @NamedQuery(name = "OrderDetail.findByQuantity", query = "SELECT o FROM OrderDetail o WHERE o.quantity = :quantity")})
 public class OrderDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,8 +46,8 @@ public class OrderDetail implements Serializable {
     private int priceeach;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "QUALITY")
-    private int quality;
+    @Column(name = "QUANTITY")
+    private int quantity;
     @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
     @ManyToOne(optional = false)
     private Orders orderId;
@@ -62,10 +62,10 @@ public class OrderDetail implements Serializable {
         this.detailId = detailId;
     }
 
-    public OrderDetail(Integer detailId, int priceeach, int quality) {
+    public OrderDetail(Integer detailId, int priceeach, int quantity) {
         this.detailId = detailId;
         this.priceeach = priceeach;
-        this.quality = quality;
+        this.quantity = quantity;
     }
 
     public Integer getDetailId() {
@@ -84,12 +84,12 @@ public class OrderDetail implements Serializable {
         this.priceeach = priceeach;
     }
 
-    public int getQuality() {
-        return quality;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setQuality(int quality) {
-        this.quality = quality;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public Orders getOrderId() {

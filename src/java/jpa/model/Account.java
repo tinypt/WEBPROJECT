@@ -113,7 +113,7 @@ public class Account implements Serializable {
         this.telnumber = telnumber;
         this.activatekey = activatekey;
     }
-    
+
     public Account(String username, String password, String address, String name, String surname, String telnumber) {
         this.username = username;
         this.password = password;
@@ -123,6 +123,8 @@ public class Account implements Serializable {
         this.telnumber = telnumber;
         this.activatekey = UUID.randomUUID().toString().replace("-","").substring(0,15);
     }
+    
+    
 
     public Integer getAccountId() {
         return accountId;
