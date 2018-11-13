@@ -53,6 +53,10 @@ public class Cart {
         return cart.size();
     }
     
+    public void clear() {
+        cart.clear();;
+    }
+    
     public int getTotalPriceInCart() {
         int sum=0;
         List<LineItem> lines = new ArrayList<>(cart.values());
