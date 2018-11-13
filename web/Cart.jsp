@@ -57,7 +57,9 @@
                                     <td><img src="image/${line.prod.productId}.jpg" width="200"></td>
                                     <td>${line.prod.productName}</td>
                                     <td>${line.prod.productPrice}</td>
-                                    <td>${line.quantity}</td>
+                                    <td>
+                                        <input type="number" min="0" max="20" style="width: 60px;"  name="${line.prod.productId}" value="${line.quantity}"/>
+                                    </td>
                                     <td>${line.totalprice}</td>
                                     <td>
                                         <input id="checkme" type="checkbox" name="prod_id" value="${line.prod.productId}" onchange="Allowbtn()">

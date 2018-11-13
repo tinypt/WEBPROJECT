@@ -8,6 +8,7 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
@@ -50,12 +51,30 @@ public class UpdateIteminCartServlet extends HttpServlet {
         List<Integer> prod_id = new ArrayList<>();
         for (String string : prod_idStr) {
             int id = Integer.parseInt(string);
+
             prod_id.add(id);
         }
         ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
         for (Integer integer : prod_id) {
             cart.remove(prodCtrl.findProduct(integer));
         }
+        
+//        Enumeration<String> productId = request.getParameterNames();
+//        while (productId.hasMoreElements()) {
+//            String id = productId.nextElement();
+//            if (id.equalsIgnoreCase("prod_id")) {
+//                continue;
+//            }
+//            int value = Integer.valueOf(request.getParameter(id));
+//            if (cart.getLineItems() != null) {
+//                if (value == 0) {
+//                    cart.remove(prodCtrl.findProduct(id));
+//                } else {
+//                    cart.getLineItems().setQuantity(value);
+//                }
+//            }
+            //System.out.printf("code: %-10s  value: %s\n", code, request.getParameter(code));
+//        }
         getServletContext().getRequestDispatcher("/Cart.jsp").forward(request, response);
 //        response.sendRedirect("Cart.jsp");
     }

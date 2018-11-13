@@ -78,6 +78,8 @@ public class AddItemtoCartServlet extends HttpServlet {
         } else if (formStr.equals("getdetail")){
             String path = "Getdetail?product="+prod_id;
             response.sendRedirect(path);
+        } else if (formStr.equals("productType")){
+            getServletContext().getRequestDispatcher("/Cart.jsp").forward(request, response);
         }
         
     }

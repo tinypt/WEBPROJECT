@@ -37,7 +37,7 @@
                                 <a href="Getdetail?product=${prods.productId}" class="h4 text-primary">ดูเพิ่มเติม ></a>
                             </div>
                             <div class="col">
-                                <a href="#" class="h4 text-primary">ซื้อเลย ></a>
+                                <a href="AddItemtoCart?product=${prods.productId}&qty=1&form=productType" class="h4 text-primary">ซื้อเลย ></a>
                             </div>
                             <div class="col"></div>
                         </div>
