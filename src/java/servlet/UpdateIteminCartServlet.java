@@ -19,8 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
+import jpa.model.Product;
 import jpa.model.controller.ProductJpaController;
 import model.Cart;
+import model.LineItem;
 
 /**
  *
@@ -47,36 +49,49 @@ public class UpdateIteminCartServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         Cart cart = (Cart) session.getAttribute("cart");
-        String[] prod_idStr = request.getParameterValues("prod_id");
-        List<Integer> prod_id = new ArrayList<>();
-        for (String string : prod_idStr) {
-            int id = Integer.parseInt(string);
 
-            prod_id.add(id);
+        //remove
+        String[] selectproductid = request.getParameterValues("deleteproduct");
+        if (selectproductid != null) {
+            List<Integer> prod_id = new ArrayList<>();
+            for (String string : selectproductid) {
+                int id = Integer.parseInt(string);
+
+                prod_id.add(id);
+            }
+            ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
+            for (Integer integer : prod_id) {
+                cart.remove(prodCtrl.findProduct(integer));
+            }
         }
-        ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
-        for (Integer integer : prod_id) {
-            cart.remove(prodCtrl.findProduct(integer));
+
+        //update
+        Enumeration<String> productId = request.getParameterNames();
+        while (productId.hasMoreElements()) {
+            String code = productId.nextElement();
+            if (code.equalsIgnoreCase("deleteproduct")) {
+                continue;
+            }
+            ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
+            int value = Integer.valueOf(request.getParameter(code));
+            int productID = Integer.parseInt(code);
+            LineItem productItem = new LineItem( prodCtrl.findProduct(productID),value);
+            if (productItem != null) {
+                if (value == 0) {
+                    cart.remove(productItem.getProd());
+                } else {
+                  List<LineItem> prod_Line =  cart.getLineItems();
+                    for (LineItem lineItem : prod_Line) {
+                        if(lineItem.getProd() == productItem.getProd()){
+                            lineItem.setQuantity(value);
+                        }
+                    }
+                }
+            }
+            System.out.println("Hi>>>" + code + "-:-" + value);
         }
-        
-//        Enumeration<String> productId = request.getParameterNames();
-//        while (productId.hasMoreElements()) {
-//            String id = productId.nextElement();
-//            if (id.equalsIgnoreCase("prod_id")) {
-//                continue;
-//            }
-//            int value = Integer.valueOf(request.getParameter(id));
-//            if (cart.getLineItems() != null) {
-//                if (value == 0) {
-//                    cart.remove(prodCtrl.findProduct(id));
-//                } else {
-//                    cart.getLineItems().setQuantity(value);
-//                }
-//            }
-            //System.out.printf("code: %-10s  value: %s\n", code, request.getParameter(code));
-//        }
+
         getServletContext().getRequestDispatcher("/Cart.jsp").forward(request, response);
-//        response.sendRedirect("Cart.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
