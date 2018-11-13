@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 import jpa.model.Account;
 import jpa.model.OrderDetail;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -234,6 +235,17 @@ public class OrdersJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             return em.find(Orders.class, id);
+        } finally {
+            em.close();
+        }
+    }
+    
+    public Orders findByOrderDate(Date orderDate) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Orders.findByOrderDate");
+            query.setParameter("orderDate", orderDate);
+            return (Orders) query.getSingleResult();
         } finally {
             em.close();
         }

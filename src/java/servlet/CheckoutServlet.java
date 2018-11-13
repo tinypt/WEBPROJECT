@@ -66,6 +66,7 @@ public class CheckoutServlet extends HttpServlet {
         Date d = new Date();
         int totalPrice = cart.getTotalPriceInCart();
         
+        //orders
         OrdersJpaController orderJpaCtrl = new OrdersJpaController(utx, emf);
         Orders order = new Orders();
         
@@ -73,9 +74,24 @@ public class CheckoutServlet extends HttpServlet {
         order.setTotalprice(totalPrice);
         order.setAccountId(acc);
         orderJpaCtrl.create(order);
+       
+        //for orderid
+        order = orderJpaCtrl.findByOrderDate(d);
+        int orderId = order.getOrderId();
         
+       //orderdetail
         OrderDetailJpaController orderdJpaCtrl = new OrderDetailJpaController(utx, emf);
-        
+        OrderDetail order_detail = new OrderDetail();
+        for (LineItem line : lines) {
+            order_detail.setPriceeach(line.getPriceeach());
+            order_detail.setProductId(line.getProd());
+            order_detail.setOrderId(order);
+            order_detail.setQuantity(line.getQuantity());
+            
+            orderdJpaCtrl.create(order_detail);
+        }
+        cart.clear();
+        getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

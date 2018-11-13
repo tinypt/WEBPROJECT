@@ -78,7 +78,7 @@
                         <br>
                     </div> 
                     <center>
-                        <a href="Checkout">
+                        <a href="Checkout.jsp">
                             <input type="button" class="btn " value="Checkout" id="subbtn2" >
                         </a>
                         <input type="submit" class="btn " value="UpdateCart" id="subbtn" disabled="true">
