@@ -26,27 +26,36 @@
                 color:white;
             }
         </style>
+        <script>
+            function Allowbtn() {
+                document.getElementById("subbtn").disabled = false;
+            }
+        </script>
     </head>
     <body>
     <center>
         <jsp:include page="include/header.jsp"/>
         <h1>Your Detail</h1>
-        <table>
-
-            <tr>
-                <td>ชื่อลูกค้า</td>
-                <td><input type="text" value="${acc.name} ${acc.surname}" name="customername"></td> 
-            </tr> 
-            <tr>
-                <td>ที่อยู่ที่จัดส่ง</td>
-                <td><input type="text" value="${acc.address}" name="address"></td>
-            </tr>
-            <tr>
-                <td>โทรศัพท์</td>
-                <td><input type="text" value="${acc.telnumber}" name="telno"</td>
-            </tr>
-        </table>
-
+        <form action="UpdateAccount" method="post">
+            <table>
+                <tr>
+                    <td>ชื่อลูกค้า</td>
+                    <td><input type="text" value="${acc.name} ${acc.surname}" name="name" onchange="Allowbtn()"></td> 
+                </tr> 
+                <tr>
+                    <td>ที่อยู่ที่จัดส่ง</td>
+                    <td><input type="text" value="${acc.address}" name="address" onchange="Allowbtn()"></td>
+                </tr>
+                <tr>
+                    <td>โทรศัพท์</td>
+                    <td><input type="text" value="${acc.telnumber}" name="telno" onchange="Allowbtn()"></td>
+                </tr>
+            </table>
+                <br>
+                <input type="hidden" name="username" value="${acc.username}">
+                <input type="hidden" name="form" value="checkout">
+                <input type="submit" id="subbtn" class="btn btn-primary" disabled>
+        </form>
         <br>
         <br>
         <table id="example" class="table" style="width: 1000px;">
@@ -75,11 +84,10 @@
                 <td>ราคาสินค้ารวม ${cart.totalPriceInCart} บาท</td>
             </tr>
         </table>
-    </center>
-    <!--<div>-->
-        <a href="Cart.jsp" style="text-align: left; margin-left: 100px;">กลับ</a>
-        <!--<a href="Checkout" style="text-align: center;">ยืนยันการสั่งซื้อ</a>-->
+        <a href="Cart.jsp">กลับ</a>
         <a href="Checkout" style="text-align: right;">ยืนยันการสั่งซื้อ</a>
-    <!--</div>-->
+    </center>
+    <div>
+    </div>
 </body>
 </html>

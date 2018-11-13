@@ -48,6 +48,10 @@
         <servlet-name>CheckoutServlet</servlet-name>
         <servlet-class>servlet.CheckoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConfirmServlet</servlet-name>
+        <servlet-class>servlet.ConfirmServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>CheckoutServlet</servlet-name>
         <url-pattern>/Checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmServlet</servlet-name>
+        <url-pattern>/Confirm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

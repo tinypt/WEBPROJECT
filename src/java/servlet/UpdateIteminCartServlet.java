@@ -72,22 +72,19 @@ public class UpdateIteminCartServlet extends HttpServlet {
             if (code.equalsIgnoreCase("deleteproduct")) {
                 continue;
             }
-            ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
+            
             int qty = Integer.valueOf(request.getParameter(code));
             int productID = Integer.parseInt(code);
+            
+            ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
+            Product product = prodCtrl.findProduct(productID);
 
-            LineItem line = new LineItem(prodCtrl.findProduct(productID), qty);
-
-            if (line != null) {
-                if (qty == 0) {
-                    cart.remove(line.getProd());
-                } else {
-                    cart.changeLineProduct(prodCtrl.findProduct(productID), qty);
-                }
+            if (qty == 0) {
+                cart.remove(product);
+            } else {
+                cart.changeLineProduct(prodCtrl.findProduct(productID), qty);
             }
-
         }
-
         getServletContext().getRequestDispatcher("/Cart.jsp").forward(request, response);
     }
 

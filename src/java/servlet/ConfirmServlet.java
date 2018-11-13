@@ -7,39 +7,19 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Resource;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.transaction.UserTransaction;
 import jpa.model.Account;
-import jpa.model.OrderDetail;
-import jpa.model.Orders;
-import jpa.model.controller.AccountJpaController;
-import jpa.model.controller.OrderDetailJpaController;
-import jpa.model.controller.OrdersJpaController;
 import model.Cart;
-import model.LineItem;
 
 /**
  *
- * @author Hong
+ * @author GT62VR
  */
-public class CheckoutServlet extends HttpServlet {
-
-    @PersistenceUnit(unitName = "MonthoPU")
-    EntityManagerFactory emf;
-
-    @Resource
-    UserTransaction utx;
+public class ConfirmServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,42 +31,22 @@ public class CheckoutServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, Exception {
+            throws ServletException, IOException {
+        //ใช้ฟิลเตอร์แทน
         HttpSession session = request.getSession(false);
-           
         Account acc = (Account) session.getAttribute("acc");
-        Cart cart = (Cart) session.getAttribute("cart");
-        List<LineItem> lines = cart.getLineItems();
-        
-        Date d = new Date();
-        int totalPrice = cart.getTotalPriceInCart();
-        
-        //orders
-        OrdersJpaController orderJpaCtrl = new OrdersJpaController(utx, emf);
-        Orders order = new Orders();
-        
-        order.setOrderDate(d);
-        order.setTotalprice(totalPrice);
-        order.setAccountId(acc);
-        orderJpaCtrl.create(order);
-       
-        //for orderid
-        order = orderJpaCtrl.findByOrderDate(d);
-        int orderId = order.getOrderId();
-        
-       //orderdetail
-        OrderDetailJpaController orderdJpaCtrl = new OrderDetailJpaController(utx, emf);
-        OrderDetail order_detail = new OrderDetail();
-        for (LineItem line : lines) {
-            order_detail.setPriceeach(line.getPriceeach());
-            order_detail.setProductId(line.getProd());
-            order_detail.setOrderId(order);
-            order_detail.setQuantity(line.getQuantity());
-            
-            orderdJpaCtrl.create(order_detail);
+        if (acc == null) {
+            getServletContext().getRequestDispatcher("/Login").forward(request, response);
+            return;
         }
-        cart.clear();
-        getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+        //---------------
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            getServletContext().getRequestDispatcher("/Cart.jsp").forward(request, response);
+            return;
+
+        }
+        getServletContext().getRequestDispatcher("/Checkout.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -101,11 +61,7 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(CheckoutServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -119,11 +75,7 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(CheckoutServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

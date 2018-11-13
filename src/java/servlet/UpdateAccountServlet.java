@@ -46,11 +46,19 @@ public class UpdateAccountServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NonexistentEntityException, RollbackFailureException, Exception {
+        //filter
+        HttpSession session = request.getSession(false);
         String username = request.getParameter("username");
         String address = request.getParameter("address");
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
         String telno = request.getParameter("telno");
+
+        if (surname == null) {
+            String[] splited = name.split(" ");
+            name = splited[0];
+            surname = splited[1];
+        }
 
         AccountJpaController accCtrl = new AccountJpaController(utx, emf);
         Account acc = accCtrl.findAccountbyUserName(username);
@@ -59,14 +67,17 @@ public class UpdateAccountServlet extends HttpServlet {
         acc.setName(name);
         acc.setSurname(surname);
         acc.setTelnumber(telno);
-
         accCtrl.edit(acc);
 
-        HttpSession session = request.getSession(false);
         session.setAttribute("acc", acc);
         request.setAttribute("update", "UPDATE Complete");
-        getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
-        return;
+        String form = request.getParameter("form");
+        if (form != null) {
+            getServletContext().getRequestDispatcher("/Checkout.jsp").forward(request, response);
+            return;
+        } else {
+            getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

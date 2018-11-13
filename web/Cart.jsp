@@ -42,7 +42,7 @@
                         <table id="example" class="table">
                             <thead>
                             <th>รายการ</th>
-                            <th>Image</th>
+                            <th>รูปภาพ</th>
                             <th>ชื่อขนม</th>
                             <th>ราคาต่อหน่วย (บาท)</th>
                             <th>จำนวน (ชิ้น)</th>
@@ -78,10 +78,10 @@
                         <br>
                     </div> 
                     <center>
-                        <a href="Checkout.jsp">
-                            <input type="button" class="btn " value="Checkout" id="subbtn2" >
+                        <a href="Confirm">
+                            <input type="button" class="btn" value="ต่อไป" id="subbtn2">
                         </a>
-                        <input type="submit" class="btn " value="UpdateCart" id="subbtn" disabled="true">
+                        <input type="submit" class="btn" value="แก้ไขตะกร้า" id="subbtn" disabled="true">
                     </center> 
                 </form>
             </c:when>
