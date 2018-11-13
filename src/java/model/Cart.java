@@ -54,7 +54,7 @@ public class Cart {
     }
     
     public void clear() {
-        cart.clear();;
+        cart.clear();
     }
     
     public int getTotalPriceInCart() {
@@ -73,6 +73,11 @@ public class Cart {
             sum += lineItem.getQuantity();
         }
         return sum;
+    }
+    
+    public void changeLineProduct(Product prod, int qty) {
+        LineItem line = cart.get(prod.getProductId());
+        line.setQuantity(qty);
     }
     
     public List<LineItem> getLineItems() {

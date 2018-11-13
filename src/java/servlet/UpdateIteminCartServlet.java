@@ -73,22 +73,19 @@ public class UpdateIteminCartServlet extends HttpServlet {
                 continue;
             }
             ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
-            int value = Integer.valueOf(request.getParameter(code));
+            int qty = Integer.valueOf(request.getParameter(code));
             int productID = Integer.parseInt(code);
-            LineItem productItem = new LineItem( prodCtrl.findProduct(productID),value);
-            if (productItem != null) {
-                if (value == 0) {
-                    cart.remove(productItem.getProd());
+
+            LineItem line = new LineItem(prodCtrl.findProduct(productID), qty);
+
+            if (line != null) {
+                if (qty == 0) {
+                    cart.remove(line.getProd());
                 } else {
-                  List<LineItem> prod_Line =  cart.getLineItems();
-                    for (LineItem lineItem : prod_Line) {
-                        if(lineItem.getProd() == productItem.getProd()){
-                            lineItem.setQuantity(value);
-                        }
-                    }
+                    cart.changeLineProduct(prodCtrl.findProduct(productID), qty);
                 }
             }
-            System.out.println("Hi>>>" + code + "-:-" + value);
+
         }
 
         getServletContext().getRequestDispatcher("/Cart.jsp").forward(request, response);
