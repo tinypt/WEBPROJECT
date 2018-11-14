@@ -24,6 +24,11 @@
             /*font-family: 'Chakra Petch', sans-serif;*/
             font-family: 'Prompt', sans-serif;
         }
+
+        a:hover {
+            color: lightgray;
+        }
+
     </style>
 </head>
 
@@ -72,12 +77,12 @@
                                     (0)
                                 </c:when>
                                 <c:otherwise>
-                                       (${cart.size})
+                                    (${cart.size})
                                 </c:otherwise>
                             </c:choose></a>
                         <a class="dropdown-item" href="#">รายการโปรด</a>
                         <a class="dropdown-item" href="#">วิดีโอ</a>
-                        <a class="dropdown-item" href="#">ประวัติการสั่งซื้อ</a>
+                        <a class="dropdown-item" href="GetOrder">ประวัติการสั่งซื้อ</a>
                         <c:if test="${acc!=null}">
                             <a class="dropdown-item" href="Account.jsp">ข้อมูลสมาชิก</a>
                         </c:if>

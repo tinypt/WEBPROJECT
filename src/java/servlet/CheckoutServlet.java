@@ -52,8 +52,8 @@ public class CheckoutServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
+        //Filter cart acc
         HttpSession session = request.getSession(false);
-           
         Account acc = (Account) session.getAttribute("acc");
         Cart cart = (Cart) session.getAttribute("cart");
         List<LineItem> lines = cart.getLineItems();

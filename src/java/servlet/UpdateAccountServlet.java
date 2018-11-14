@@ -46,7 +46,7 @@ public class UpdateAccountServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NonexistentEntityException, RollbackFailureException, Exception {
-        //filter
+        //filter acc
         HttpSession session = request.getSession(false);
         String username = request.getParameter("username");
         String address = request.getParameter("address");

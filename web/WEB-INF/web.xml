@@ -52,6 +52,14 @@
         <servlet-name>ConfirmServlet</servlet-name>
         <servlet-class>servlet.ConfirmServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetOrderServlet</servlet-name>
+        <servlet-class>servlet.GetOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetOrderDetailServlet</servlet-name>
+        <servlet-class>servlet.GetOrderDetailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -103,6 +111,14 @@
     <servlet-mapping>
         <servlet-name>ConfirmServlet</servlet-name>
         <url-pattern>/Confirm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetOrderServlet</servlet-name>
+        <url-pattern>/GetOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetOrderDetailServlet</servlet-name>
+        <url-pattern>/GetOrderDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

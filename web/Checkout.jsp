@@ -35,7 +35,7 @@
     <body>
     <center>
         <jsp:include page="include/header.jsp"/>
-        <h1>Your Detail</h1>
+        <h1>ข้อมูลที่จัดส่ง</h1>
         <form action="UpdateAccount" method="post">
             <table>
                 <tr>

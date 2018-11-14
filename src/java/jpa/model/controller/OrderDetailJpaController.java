@@ -203,6 +203,15 @@ public class OrderDetailJpaController implements Serializable {
             em.close();
         }
     }
+    
+    public OrderDetail findOrderDetailByOrderID(Integer id) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(OrderDetail.class, id);
+        } finally {
+            em.close();
+        }
+    }
 
     public int getOrderDetailCount() {
         EntityManager em = getEntityManager();

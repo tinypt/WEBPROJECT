@@ -7,8 +7,6 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
@@ -19,16 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
-import jpa.model.Product;
-import jpa.model.controller.ProductJpaController;
-import model.Cart;
-import model.LineItem;
+import jpa.model.Account;
+import jpa.model.OrderDetail;
+import jpa.model.Orders;
+import jpa.model.controller.OrderDetailJpaController;
+import jpa.model.controller.OrdersJpaController;
 
 /**
  *
  * @author GT62VR
  */
-public class UpdateIteminCartServlet extends HttpServlet {
+public class GetOrderDetailServlet extends HttpServlet {
 
     @PersistenceUnit(unitName = "MonthoPU")
     EntityManagerFactory emf;
@@ -47,46 +46,23 @@ public class UpdateIteminCartServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //filter cart
+        //filter acc
         HttpSession session = request.getSession(false);
-        Cart cart = (Cart) session.getAttribute("cart");
-
-        //remove
-        String[] selectproductid = request.getParameterValues("deleteproduct");
-        if (selectproductid != null) {
-            List<Integer> prod_id = new ArrayList<>();
-            for (String string : selectproductid) {
-                int id = Integer.parseInt(string);
-
-                prod_id.add(id);
-            }
-            ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
-            for (Integer integer : prod_id) {
-                cart.remove(prodCtrl.findProduct(integer));
-            }
+        Account acc = (Account) session.getAttribute("acc");
+        if (acc == null) {
+            getServletContext().getRequestDispatcher("/Login").forward(request, response);
+            return;
         }
 
-        //update
-        Enumeration<String> productId = request.getParameterNames();
-        while (productId.hasMoreElements()) {
-            String code = productId.nextElement();
-            if (code.equalsIgnoreCase("deleteproduct")) {
-                continue;
-            }
-            
-            int qty = Integer.valueOf(request.getParameter(code));
-            int productID = Integer.parseInt(code);
-            
-            ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
-            Product product = prodCtrl.findProduct(productID);
+        String orderidStr = request.getParameter("orderid");
+        int orderid = Integer.parseInt(orderidStr);
 
-            if (qty == 0) {
-                cart.remove(product);
-            } else {
-                cart.changeLineProduct(prodCtrl.findProduct(productID), qty);
-            }
-        }
-        getServletContext().getRequestDispatcher("/Cart.jsp").forward(request, response);
+        OrdersJpaController orderCtrl = new OrdersJpaController(utx, emf);
+        Orders order = orderCtrl.findOrders(orderid);
+        List <OrderDetail> orderdetail=order.getOrderDetailList();
+        
+        session.setAttribute("orderdetail", orderdetail);
+        getServletContext().getRequestDispatcher("/GetOrderDetail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
