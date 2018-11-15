@@ -47,7 +47,6 @@ public class UpdateIteminCartServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //filter cart
         HttpSession session = request.getSession(false);
         Cart cart = (Cart) session.getAttribute("cart");
 

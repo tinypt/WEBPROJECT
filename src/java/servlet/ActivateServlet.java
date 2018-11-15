@@ -48,7 +48,6 @@ public class ActivateServlet extends HttpServlet {
         String username = request.getParameter("username");
         String activatekey = request.getParameter("activatekey");
         if(username != null && activatekey != null ){
-            HttpSession session = request.getSession(false);
             
             AccountJpaController accCtrl = new AccountJpaController(utx, emf);
             Account acc = accCtrl.findAccountbyUserName(username);
