@@ -101,6 +101,9 @@
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
+        <div class="container-fluid border-1">
+            dfhgf
+        </div>
     <center> <br><br>
         <h1>ชื่อขนม : ${product.productName}</h1><br>
         <img src="image/${product.productId}.jpg" style="width: 600px"><br><br>
@@ -109,7 +112,7 @@
             ราคา : ${product.productPrice} บาท 
             <form action="AddItemtoCart" method="post">
                 <div class="qty mt-5">
-                    <button id="minus" type="button" class="btn btn-default" onclick="minusValue()">-</button>
+                    <button id="minus" type="button" class="btn btn-info" onclick="minusValue()">-</button>
                     <input id="quantity" type="number" class="count" name="qty" value="1">
                     <button id="plus" type="button" class="btn btn-info" onclick="plusValue()">+</button>
 
