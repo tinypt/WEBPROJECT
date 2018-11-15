@@ -34,7 +34,9 @@
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
-        <h1 style="text-align: center;">รายการสินค้า</h1>
+        <div class="container-fluid text-center p-4" style="background-color: #fafafa;">
+            <h1>รายการสินค้า</h1> 
+        </div>
         <c:choose>
             <c:when test="${cart.size>0}">
                 <form action="UpdateIteminCart" method="post">
@@ -86,7 +88,7 @@
                 </form>
             </c:when>
             <c:otherwise>
-                <h2 style="text-align: center;">ไม่มีรายการสินค้าในตะกร้าของคุณ</h2>
+                <h2 style="text-align: center;">ไม่มีรายการสินค้าในตะกร้าของคุณ</h2> 
             </c:otherwise>
         </c:choose>
     </body>

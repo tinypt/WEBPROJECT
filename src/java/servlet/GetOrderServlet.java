@@ -53,6 +53,9 @@ public class GetOrderServlet extends HttpServlet {
         Account newacc = accCtrl.findAccount(acc.getAccountId());
         
         List<Orders> orders = newacc.getOrdersList();
+        if (orders.isEmpty()) {
+            orders = null;
+        }
         System.out.println("++++ "+orders);
         session.setAttribute("acc", newacc);
         session.setAttribute("orders", orders);

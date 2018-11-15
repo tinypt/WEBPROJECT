@@ -35,7 +35,9 @@
     <body>
     <center>
         <jsp:include page="include/header.jsp"/>
-        <h1>ข้อมูลที่จัดส่ง</h1>
+        <div class="container-fluid text-center p-4" style="background-color: #fafafa;">
+            <h1>ข้อมูลที่จัดส่ง</h1> 
+        </div>
         <form action="UpdateAccount" method="post">
             <table>
                 <tr>
@@ -51,10 +53,10 @@
                     <td><input type="text" value="${acc.telnumber}" name="telno" onchange="Allowbtn()"></td>
                 </tr>
             </table>
-                <br>
-                <input type="hidden" name="username" value="${acc.username}">
-                <input type="hidden" name="form" value="checkout">
-                <input type="submit" id="subbtn" class="btn btn-primary" disabled>
+            <br>
+            <input type="hidden" name="username" value="${acc.username}">
+            <input type="hidden" name="form" value="checkout">
+            <input type="submit" id="subbtn" class="btn btn-primary" disabled>
         </form>
         <br>
         <br>

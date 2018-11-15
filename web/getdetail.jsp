@@ -97,10 +97,9 @@
                 document.getElementById("quantity").value = quan;
             }
             function favourite() {
-                document.getElementById("whiteFav").src = "extra-image/redfav.png";
-                
+                x = document.getElementById("whiteFav");
             }
-
+            
         </script>
 
     </head>
@@ -114,7 +113,7 @@
             ราคา : ${product.productPrice} บาท 
             <form action="AddItemtoCart" method="post">
                 <div class="qty mt-5">
-                    <img id = "whiteFav" src="extra-image/whitefav.png" style="width: 35px;margin-right: 10px;" onclick="favourite()" >
+                    <img id = "whiteFav" src="extra-image/whitefav.png" style="width: 35px;margin-right: 10px;" onclick="favourite()">
                     <button id="minus" type="button" class="btn btn-info" onclick="minusValue()">-</button>
                     <input id="quantity" type="number" class="count" name="qty" value="1">
                     <button id="plus" type="button" class="btn btn-info" onclick="plusValue()">+</button>

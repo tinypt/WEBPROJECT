@@ -16,7 +16,9 @@
         <jsp:include page="include/header.jsp"/>
         <c:choose>
             <c:when test="${orderdetail!=null}">
-                <h1 style="text-align: center;">รายการการสั่งซื้อ</h1>
+                <div class="container-fluid text-center p-4" style="background-color: #fafafa;">
+                    <h1>รายการการสั่งซื้อ</h1> 
+                </div>
                 <div>
                     <table id="example" class="table">
                         <thead>
@@ -43,7 +45,9 @@
                 </div> 
             </c:when>
             <c:otherwise>
-                <h2 style="text-align: center;">ไม่มีรายการการสั่งซื้อ</h2>
+                <div class="container-fluid text-center p-4" style="background-color: #fafafa;">
+                    <h1>ไม่มีรายการการสั่งซื้อ</h1> 
+                </div>
             </c:otherwise>
         </c:choose>
     <center>

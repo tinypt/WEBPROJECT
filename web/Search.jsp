@@ -24,9 +24,11 @@
     <body>
         <jsp:include page="include/header.jsp"/>
         <div class="container mt-3">
-            <h1>ค้นหา : ${nameSearch}</h1>
-            <h2>พบรายการสินค้า ${qty} สินค้า</h2>
-            <h5>${msg}</h5>
+            <div class="container-fluid p-4" style="background-color: #fafafa;">
+                <h1>ค้นหา : ${nameSearch}</h1>
+                <h2>พบรายการสินค้า ${qty} สินค้า</h2>
+                <h5>${msg}</h5>
+            </div>
             <c:if test="${qty>0}">
                 <table id="example" class="table">
                     <thead>

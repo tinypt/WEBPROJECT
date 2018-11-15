@@ -29,9 +29,12 @@
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
+        <div class="container-fluid text-center p-4" style="background-color: #fafafa;">
+            <h1>ประวัติการสั่งซื้อ</h1> 
+        </div>
+        <br>
         <c:choose>
             <c:when test="${orders!=null}">
-                <h1 style="text-align: center;">ประวัติการสั่งซื้อ</h1>
                 <div>
                     <table id="example" class="table">
                         <thead>
@@ -57,8 +60,8 @@
                     <br>
                 </div> 
             </c:when>
-                <c:otherwise>
-                <h2 style="text-align: center;">ไม่มีประวัติการสั่งซื้อ</h2>
+            <c:otherwise>
+                <h2 style="text-align: center;">ไม่มีประวัติการสั่งซื้อ</h2> 
             </c:otherwise>
         </c:choose>
     <center>
