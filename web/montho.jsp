@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-                <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
         <style>
             body {
                 font-family: 'Prompt', sans-serif;
@@ -21,10 +21,34 @@
     <body>
         <jsp:include page="include/header.jsp"/>
 
-        <br>
-        <c:if test="${link!=null}">
-            <a href="${link}">click to activate</a>
-        </c:if>
+
+
+        <c:choose>
+            <c:when test="${activate!=null}">
+                <div class="alert alert-warning" role="alert">
+                    ${activate}  
+                    <c:if test="${link!=null}">
+                        <a href="${link}">click to activate</a>
+                    </c:if>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </c:when>
+            <c:otherwise><c:if test="${link!=null}">
+                    <div class="alert alert-warning" role="alert">
+
+                        <a href="${link}">click to activate</a>
+
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div></c:if>
+            </c:otherwise>
+        </c:choose>
+
+
+
         ${type}
         ${update}
     </body>
