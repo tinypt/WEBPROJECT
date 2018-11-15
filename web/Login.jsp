@@ -22,6 +22,43 @@
     <body style="background-color: #f2f2f2;">
 
         <jsp:include page="include/header.jsp"/>
+        <c:if test="${Logfail!=null}">
+            <div class="alert alert-danger" role="alert">
+                ${Logfail}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </c:if>
+        <c:if test="${falsepass!=null}">
+            <div class="alert alert-danger" role="alert">
+                ${falsepass}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </c:if>
+        <c:if test="${activate!=null}"> 
+            <div class="alert alert-warning" role="alert">
+                ${activate}  
+                <c:if test="${link!=null}">
+                    <a href="${link}">Click this to activate</a>
+                </c:if>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+        <c:if test="${actcom!=null}">
+            <div class="alert alert-success" role="alert">
+                ${actcom} 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
         <div class="container">
             <div class="row text-center">
                 <div class="col"></div>
@@ -31,13 +68,13 @@
                             <h3>Login</h3>
                         </div>
                         <div class="col-5 p-5 m-4">
-                           
+
                             <h5 class="text-left">ลงชื่อเข้าใช้</h5>
 
                             <form method="post" action="Login">
                                 <div class="row">
-                                <input type="text" class="form-control mb-3"  name="username" placeholder="Username*"><br>
-                                <input type="password" class="form-control mb-3"  name="password" placeholder="Password*"><br>
+                                    <input type="text" class="form-control mb-3"  name="username" placeholder="Username*"><br>
+                                    <input type="password" class="form-control mb-3"  name="password" placeholder="Password*"><br>
                                 </div>
                                 <div class="row"> 
                                     <div class="col" >
@@ -50,18 +87,11 @@
                                     </div>  
                                 </div>
                             </form>
-                             <p class="text-warning p-2 ">  
-                                ${activate} 
-                                ${actcom} 
-                                ${Logfail} 
-                            </p>
-                           
+
                         </div>
-                            
+
                         <div class="col text-left p-5 ml-5">
-                            <c:if test="${link!=null}">
-                                <a href="${link}">Click this to activate</a> <br>
-                            </c:if>
+
                         </div>
                         <div class="card-footer text-left" style="background: linear-gradient(white,#f2f2f2)">
                             <a href="montho.jsp" class="btn">Back</a> 

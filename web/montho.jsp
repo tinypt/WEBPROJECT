@@ -35,7 +35,8 @@
                     </button>
                 </div>
             </c:when>
-            <c:otherwise><c:if test="${link!=null}">
+            <c:otherwise>
+                <c:if test="${link!=null}">
                     <div class="alert alert-warning" role="alert">
 
                         <a href="${link}">click to activate</a>
@@ -43,13 +44,32 @@
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                    </div></c:if>
+                    </div>
+                </c:if>
             </c:otherwise>
         </c:choose>
 
+        <c:if test="${update!=null}">
+            <div class="alert alert-success" role="alert">
 
+                ${update}
 
-        ${type}
-        ${update}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
+        <c:if test="${type!=null}">
+            <div class="alert alert-secondary" role="alert">
+
+                ${type}
+
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
     </body>
 </html>
