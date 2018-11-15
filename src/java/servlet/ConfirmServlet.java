@@ -32,20 +32,9 @@ public class ConfirmServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //ใช้ฟิลเตอร์แทน cart acc
         HttpSession session = request.getSession(false);
         Account acc = (Account) session.getAttribute("acc");
-        if (acc == null) {
-            getServletContext().getRequestDispatcher("/Login").forward(request, response);
-            return;
-        }
-        //---------------
         Cart cart = (Cart) session.getAttribute("cart");
-        if (cart == null) {
-            getServletContext().getRequestDispatcher("/Cart.jsp").forward(request, response);
-            return;
-
-        }
         getServletContext().getRequestDispatcher("/Checkout.jsp").forward(request, response);
     }
 

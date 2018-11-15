@@ -46,13 +46,9 @@ public class GetOrderServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Filter
         HttpSession session = request.getSession(false);
         Account acc = (Account) session.getAttribute("acc");
-        if (acc == null) {
-            getServletContext().getRequestDispatcher("/Login").forward(request, response);
-            return;
-        }
+        
         AccountJpaController accCtrl = new AccountJpaController(utx, emf);
         Account newacc = accCtrl.findAccount(acc.getAccountId());
         

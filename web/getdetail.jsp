@@ -106,6 +106,9 @@
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
+        <div class="container-fluid border-1">
+            dfhgf
+        </div>
     <center> <br><br>
         <h1>ชื่อขนม : ${product.productName}</h1><br>
         <img src="image/${product.productId}.jpg" style="width: 600px"><br><br>
@@ -114,8 +117,12 @@
             ราคา : ${product.productPrice} บาท 
             <form action="AddItemtoCart" method="post">
                 <div class="qty mt-5">
+<<<<<<< HEAD
                     <img id = "whiteFav" src="extra-image/whitefav.png" style="width: 35px;margin-right: 10px;" onclick="favourite()" >
                     <button id="minus" type="button" class="btn btn-default" onclick="minusValue()">-</button>
+=======
+                    <button id="minus" type="button" class="btn btn-info" onclick="minusValue()">-</button>
+>>>>>>> b2c5c930138341d6dc2ec699c3d48b0e7dcb4d4e
                     <input id="quantity" type="number" class="count" name="qty" value="1">
                     <button id="plus" type="button" class="btn btn-info" onclick="plusValue()">+</button>
 

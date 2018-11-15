@@ -35,7 +35,7 @@
                 <div>
                     <table id="example" class="table">
                         <thead>
-                        <th>เลขการสั่งซื้อ</th>
+                        <th>รายการสั่งซื้อ</th>
                         <th>วันที่การสั่งซื้อ</th>
                         <th>ราคารวม (บาท)</th>
                         <th>รายละเอียด</th>
@@ -43,7 +43,7 @@
 
                         <c:forEach items="${orders}" var="order" varStatus="vs">
                             <tr >
-                                <td>${order.orderId}</td>
+                                <td>${vs.count}</td>
                                 <td>${order.orderDate}</td>
                                 <td>${order.totalprice}</td>
                                 <td>

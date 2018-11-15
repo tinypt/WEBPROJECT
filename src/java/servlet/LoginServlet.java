@@ -57,17 +57,28 @@ public class LoginServlet extends HttpServlet {
                     if (password.equalsIgnoreCase(acc.getPassword())) {
                         session.setAttribute("acc", acc);
                         getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+                        return;
+                    } else {
+                        request.setAttribute("falsepass", "Your ID or Password invalid");
+                        getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+                        return;
                     }
                 } else {
-                    String link = "http://localhost:8080/WEBPROJECT/Activate?username=" + acc.getUsername() + "&activatekey=" + acc.getActivatekey();
-                    request.setAttribute("link", link);
+                    if (password.equalsIgnoreCase(acc.getPassword())) {
+                        String link = "http://localhost:8080/WEBPROJECT/Activate?username=" + acc.getUsername() + "&activatekey=" + acc.getActivatekey();
+                        request.setAttribute("link", link);
 
-                    request.setAttribute("activate", "you are not activate your account");
-                    getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+                        request.setAttribute("activate", "You are not activate your account.");
+                        getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+                        return;
+                    }else {
+                        request.setAttribute("falsepass", "Your ID or Password invalid");
+                        getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+                        return;
+                    }
                 }
-                return;
             } catch (NoResultException ex) {
-                request.setAttribute("Logfail", "Your id or password invalid");
+                request.setAttribute("Logfail", "Your id is invalid!");
                 getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
                 return;
             }
