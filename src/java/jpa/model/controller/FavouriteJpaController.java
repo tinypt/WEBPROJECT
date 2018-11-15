@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
@@ -204,6 +205,24 @@ public class FavouriteJpaController implements Serializable {
         }
     }
 
+    public Favourite findFavouriteByproductid(Product prodid, Account accid) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Favourite.findByProductId");
+            query.setParameter("productId", prodid);
+            query.setParameter("accountId", accid);
+            Favourite fav = null;
+            try {
+                fav = (Favourite) query.getSingleResult();
+            }catch (NoResultException ex) {
+                return fav;
+            }
+            return fav;
+        } finally {
+            em.close();
+        }
+    }
+
     public int getFavouriteCount() {
         EntityManager em = getEntityManager();
         try {
@@ -216,5 +235,5 @@ public class FavouriteJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

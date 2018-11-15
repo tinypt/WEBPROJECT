@@ -7,6 +7,8 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -24,13 +26,13 @@ import jpa.model.controller.ProductJpaController;
 
 /**
  *
- * @author Hong
+ * @author GT62VR
  */
-public class GetdetailServlet extends HttpServlet {
-    
+public class FavouriteServlet extends HttpServlet {
+
     @PersistenceUnit(unitName = "MonthoPU")
     EntityManagerFactory emf;
-    
+
     @Resource
     UserTransaction utx;
 
@@ -44,23 +46,24 @@ public class GetdetailServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        String productid = request.getParameter("product");
-        int iproductid = Integer.parseInt(productid);
-        ProductJpaController prodJpaCtrl = new ProductJpaController(utx, emf);
-        Product product = prodJpaCtrl.findProduct(iproductid);
-        
+            throws ServletException, IOException, Exception {
         HttpSession session = request.getSession(false);
         Account acc = (Account) session.getAttribute("acc");
-        Favourite fav = null;
-        if (acc != null) {
-            FavouriteJpaController favCtrl = new FavouriteJpaController(utx, emf);
-            fav = favCtrl.findFavouriteByproductid(product,acc);
-        }
-        request.setAttribute("fav", fav);
-        request.setAttribute("product", product);
-        getServletContext().getRequestDispatcher("/getdetail.jsp").forward(request, response);
+
+        String productidStr = request.getParameter("productid");
+        int productid = Integer.parseInt(productidStr);
+        
+        ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
+        Product prod = prodCtrl.findProduct(productid);
+        
+        FavouriteJpaController favCtrl = new FavouriteJpaController(utx, emf);
+        Favourite fav = new Favourite();
+        fav.setAccountId(acc);
+        fav.setProductId(prod);
+        
+        favCtrl.create(fav);
+        request.setAttribute("addfav", "เพิ่มรายการโปรดสำเร็จ");
+        getServletContext().getRequestDispatcher("/Getdetail?product="+productid).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -75,7 +78,11 @@ public class GetdetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(FavouriteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -89,7 +96,11 @@ public class GetdetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(FavouriteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

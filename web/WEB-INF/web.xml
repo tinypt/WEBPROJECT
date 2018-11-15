@@ -42,6 +42,24 @@
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>Authentication</filter-name>
+        <servlet-name>FavouriteServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Authentication</filter-name>
+        <servlet-name>GetFavServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Authentication</filter-name>
+        <servlet-name>RemoveFavServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>servlet.RegisterServlet</servlet-class>
@@ -102,6 +120,18 @@
         <servlet-name>GetOrderDetailServlet</servlet-name>
         <servlet-class>servlet.GetOrderDetailServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FavouriteServlet</servlet-name>
+        <servlet-class>servlet.FavouriteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetFavServlet</servlet-name>
+        <servlet-class>servlet.GetFavServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveFavServlet</servlet-name>
+        <servlet-class>servlet.RemoveFavServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -161,6 +191,18 @@
     <servlet-mapping>
         <servlet-name>GetOrderDetailServlet</servlet-name>
         <url-pattern>/GetOrderDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FavouriteServlet</servlet-name>
+        <url-pattern>/Favourite</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetFavServlet</servlet-name>
+        <url-pattern>/GetFav</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveFavServlet</servlet-name>
+        <url-pattern>/RemoveFav</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -80,7 +80,7 @@
                                     (${cart.size})
                                 </c:otherwise>
                             </c:choose></a>
-                        <a class="dropdown-item" href="#">รายการโปรด</a>
+                        <a class="dropdown-item" href="GetFav">รายการโปรด</a>
                         <a class="dropdown-item" href="#">วิดีโอ</a>
                         <a class="dropdown-item" href="GetOrder">ประวัติการสั่งซื้อ</a>
                         <c:if test="${acc!=null}">

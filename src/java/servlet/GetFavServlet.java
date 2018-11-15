@@ -7,6 +7,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -18,19 +19,17 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 import jpa.model.Account;
 import jpa.model.Favourite;
-import jpa.model.Product;
-import jpa.model.controller.FavouriteJpaController;
-import jpa.model.controller.ProductJpaController;
+import jpa.model.controller.AccountJpaController;
 
 /**
  *
- * @author Hong
+ * @author GT62VR
  */
-public class GetdetailServlet extends HttpServlet {
-    
+public class GetFavServlet extends HttpServlet {
+
     @PersistenceUnit(unitName = "MonthoPU")
     EntityManagerFactory emf;
-    
+
     @Resource
     UserTransaction utx;
 
@@ -45,22 +44,17 @@ public class GetdetailServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String productid = request.getParameter("product");
-        int iproductid = Integer.parseInt(productid);
-        ProductJpaController prodJpaCtrl = new ProductJpaController(utx, emf);
-        Product product = prodJpaCtrl.findProduct(iproductid);
-        
         HttpSession session = request.getSession(false);
         Account acc = (Account) session.getAttribute("acc");
-        Favourite fav = null;
-        if (acc != null) {
-            FavouriteJpaController favCtrl = new FavouriteJpaController(utx, emf);
-            fav = favCtrl.findFavouriteByproductid(product,acc);
+        AccountJpaController accCtrl = new AccountJpaController(utx, emf);
+        Account newacc = accCtrl.findAccount(acc.getAccountId());
+        List< Favourite> favlist = newacc.getFavouriteList();
+        if (favlist.isEmpty()) {
+            favlist = null;
         }
-        request.setAttribute("fav", fav);
-        request.setAttribute("product", product);
-        getServletContext().getRequestDispatcher("/getdetail.jsp").forward(request, response);
+        request.setAttribute("favlist", favlist);
+        session.setAttribute("acc", newacc);
+        getServletContext().getRequestDispatcher("/Favourite.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

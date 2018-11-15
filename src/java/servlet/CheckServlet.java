@@ -7,16 +7,32 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.annotation.Resource;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.UserTransaction;
+import jpa.model.Account;
+import jpa.model.Favourite;
+import jpa.model.Product;
+import jpa.model.controller.AccountJpaController;
+import jpa.model.controller.FavouriteJpaController;
+import jpa.model.controller.ProductJpaController;
 
 /**
  *
  * @author Hong
  */
 public class CheckServlet extends HttpServlet {
+
+    @PersistenceUnit(unitName = "MonthoPU")
+    EntityManagerFactory emf;
+
+    @Resource
+    UserTransaction utx;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,7 +50,15 @@ public class CheckServlet extends HttpServlet {
 //        
 //        System.out.println("qty = "+quantity);
 //        System.out.println("productid = "+iprod);
-        System.out.println("4444444444444");
+//        System.out.println("4444444444444");
+        
+        FavouriteJpaController favCtrl = new FavouriteJpaController(utx, emf);
+        ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
+        AccountJpaController acccTrl = new AccountJpaController(utx, emf);
+        Account acc = acccTrl.findAccount(1);
+        Product prod = prodCtrl.findProduct(13);
+        Favourite fav = favCtrl.findFavouriteByproductid(prod,acc);
+        System.out.println("sssss "+fav);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

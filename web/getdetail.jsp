@@ -115,6 +115,24 @@
             </div>
 
         </c:if>
+        <c:if test="${addfav!=null}">
+            <div class="alert alert-success" role="alert">
+                ${addfav}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </c:if>
+        <c:if test="${removefav!=null}">
+            <div class="alert alert-warning" role="alert">
+                ${removefav}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </c:if>
     <center> <br><br>
         <h1>ชื่อขนม : ${product.productName}</h1><br>
         <img src="image/${product.productId}.jpg" style="width: 600px"><br><br>
@@ -123,7 +141,18 @@
             ราคา : ${product.productPrice} บาท 
             <form action="AddItemtoCart" method="post">
                 <div class="qty mt-5">
-                    <img id = "whiteFav" src="extra-image/whitefav.png" style="width: 35px;margin-right: 10px;" onclick="favourite()">
+                    <c:choose>
+                        <c:when test="${fav!=null}">
+                            <a href="RemoveFav?productid=${product.productId}">
+                                <img id = "whiteFav" src="extra-image/redfav.png" style="width: 35px;margin-right: 10px;" onclick="favourite()">
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="Favourite?productid=${product.productId}">
+                                <img id = "whiteFav" src="extra-image/whitefav.png" style="width: 35px;margin-right: 10px;" onclick="favourite()">
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
                     <button id="minus" type="button" class="btn btn-info" onclick="minusValue()">-</button>
                     <input id="quantity" type="number" class="count" name="qty" value="1">
                     <button id="plus" type="button" class="btn btn-info" onclick="plusValue()">+</button>
