@@ -64,6 +64,7 @@ public class LoginServlet extends HttpServlet {
                         return;
                     }
                 } else {
+                    password = cryptWithMD5(password);
                     if (password.equalsIgnoreCase(acc.getPassword())) {
                         String link = "http://localhost:8080/WEBPROJECT/Activate?username=" + acc.getUsername() + "&activatekey=" + acc.getActivatekey();
                         request.setAttribute("link", link);
@@ -71,7 +72,7 @@ public class LoginServlet extends HttpServlet {
                         request.setAttribute("activate", "You are not activate your account.");
                         getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
                         return;
-                    }else {
+                    } else {
                         request.setAttribute("falsepass", "Your ID or Password invalid");
                         getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
                         return;

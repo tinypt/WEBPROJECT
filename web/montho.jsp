@@ -19,10 +19,10 @@
         <title>มณโฑขนมหวาน</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
         <style>
             /* Make the image fully responsive */
             .carousel-inner img {
@@ -34,10 +34,56 @@
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
+        <c:choose>
+            <c:when test="${activate!=null}">
+                <div class="alert alert-warning" role="alert">
+                    ${activate}  
+                    <c:if test="${link!=null}">
+                        <a href="${link}">click to activate</a>
+                    </c:if>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <c:if test="${link!=null}">
+                    <div class="alert alert-warning" role="alert">
 
+                        <a href="${link}">click to activate</a>
+
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </c:if>
+            </c:otherwise>
+        </c:choose>
+
+        <c:if test="${update!=null}">
+            <div class="alert alert-success" role="alert">
+
+                ${update}
+
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
+        <c:if test="${type!=null}">
+            <div class="alert alert-secondary" role="alert">
+
+                ${type}
+
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
         <div id="demo" class="carousel slide" data-ride="carousel">
 
-            <!-- Indicators -->
+            <!--Indicators--> 
             <ul class="carousel-indicators">
                 <li data-target="#demo" data-slide-to="0" class="active"></li>
                 <li data-target="#demo" data-slide-to="1"></li>
@@ -47,7 +93,7 @@
                 <li data-target="#demo" data-slide-to="5"></li>
             </ul>
 
-            <!-- The slideshow -->
+            <!--The slideshow--> 
             <div class="carousel-inner" style="height: 800px;">
                 <div class="carousel-item active">
                     <img src="image/N.jpg"  width="1000" height="400">
@@ -84,7 +130,7 @@
                 </div>
             </div>
 
-            <!-- Left and right controls -->
+            <!--Left and right controls--> 
             <a class="carousel-control-prev" href="#demo" data-slide="prev">
                 <span class="carousel-control-prev-icon"></span>
             </a>
@@ -94,58 +140,7 @@
         </div>
 
 
-        <c:choose>
-            <c:when test="${activate!=null}">
-                <div class="alert alert-warning" role="alert">
-                    ${activate}  
-                    <c:if test="${link!=null}">
-                        <a href="${link}">click to activate</a>
-                    </c:if>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </c:when>
-            <c:otherwise>
-                <c:if test="${link!=null}">
-                    <div class="alert alert-warning" role="alert">
 
-                        <a href="${link}">click to activate</a>
 
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </c:if>
-            </c:otherwise>
-        </c:choose>
-
-        <c:if test="${update!=null}">
-            <div class="alert alert-success" role="alert">
-
-<<<<<<< HEAD
-        ${type}
-        ${update}
-=======
-                ${update}
-
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </c:if>
-
-        <c:if test="${type!=null}">
-            <div class="alert alert-secondary" role="alert">
-
-                ${type}
-
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </c:if>
-
->>>>>>> b2c5c930138341d6dc2ec699c3d48b0e7dcb4d4e
     </body>
 </html>
