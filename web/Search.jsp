@@ -23,6 +23,15 @@
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
+        <c:if test="${additem!=null}">
+            <div class="alert alert-success" role="alert">
+                ${additem}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </c:if>
         <div class="container mt-3">
             <div class="container-fluid p-4" style="background-color: #fafafa;">
                 <h1>ค้นหา : ${nameSearch}</h1>

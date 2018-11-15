@@ -35,6 +35,15 @@
     <body>
     <center>
         <jsp:include page="include/header.jsp"/>
+        <c:if test="${update!=null}">
+            <div class="alert alert-success" role="alert">
+                ${update}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </c:if>
         <div class="container-fluid text-center p-4" style="background-color: #fafafa;">
             <h1>ข้อมูลที่จัดส่ง</h1> 
         </div>

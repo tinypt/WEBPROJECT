@@ -81,6 +81,15 @@
                 </button>
             </div>
         </c:if>
+        <c:if test="${buycom!=null}">
+            <div class="alert alert-success" role="alert">
+                ${buycom}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </c:if>
         <div id="demo" class="carousel slide" data-ride="carousel">
 
             <!--Indicators--> 

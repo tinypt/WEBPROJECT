@@ -86,6 +86,7 @@ public class CheckoutServlet extends HttpServlet {
             orderdJpaCtrl.create(order_detail);
         }
         cart.clear();
+        request.setAttribute("buycom", "สั่งซื้อสินค้าสำเร็จ");
         getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
     }
 

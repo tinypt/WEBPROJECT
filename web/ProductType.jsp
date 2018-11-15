@@ -22,9 +22,9 @@
     <body>
         <jsp:include page="include/header.jsp"/>
         <div class="container-fluid text-center p-4" style="background-color: #fafafa;">
-           <h1>ขนมประเภท${type}</h1> 
+            <h1>ขนมประเภท${type}</h1> 
         </div>
-        
+
 
         <div class="row m-3">
             <c:forEach items="${prods}" var="prods">

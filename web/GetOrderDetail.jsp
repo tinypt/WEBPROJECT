@@ -40,6 +40,12 @@
                                 <td>${orderdetail.quantity*orderdetail.priceeach}</td>
                             </tr>
                         </c:forEach>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td></td>
+                            <td>จำนวนสินค้ารวม ${quantityall} ชิ้น</td>
+                            <td>ราคาสินค้ารวม ${order.totalprice} บาท</td>
+                        </tr>
                     </table>
                     <br>
                 </div> 

@@ -69,7 +69,7 @@ public class UpdateAccountServlet extends HttpServlet {
         accCtrl.edit(acc);
 
         session.setAttribute("acc", acc);
-        request.setAttribute("update", "UPDATE Complete");
+        request.setAttribute("update", "แก้ไขข้อมูลสำเร็จ");
         String form = request.getParameter("form");
         if (form != null) {
             getServletContext().getRequestDispatcher("/Checkout.jsp").forward(request, response);

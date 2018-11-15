@@ -56,6 +56,13 @@ public class GetOrderDetailServlet extends HttpServlet {
         Orders order = orderCtrl.findOrders(orderid);
         List <OrderDetail> orderdetail=order.getOrderDetailList();
         
+        int qty = 0;
+        for (OrderDetail orderDetail : orderdetail) {
+            qty += orderDetail.getQuantity();
+        }
+        
+        session.setAttribute("quantityall", qty);
+        session.setAttribute("order", order);
         session.setAttribute("orderdetail", orderdetail);
         getServletContext().getRequestDispatcher("/GetOrderDetail.jsp").forward(request, response);
     }

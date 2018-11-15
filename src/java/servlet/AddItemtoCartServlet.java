@@ -72,12 +72,14 @@ public class AddItemtoCartServlet extends HttpServlet {
             cart.add(prod, qty);
         }
         
+        request.setAttribute("additem", "เพิ่มสินค้าลงตะกร้าแล้ว");
         if (formStr.equals("search")) {
             String name = request.getParameter("name");
             getServletContext().getRequestDispatcher("/Search?name="+name).forward(request, response);
         } else if (formStr.equals("getdetail")){
-            String path = "Getdetail?product="+prod_id;
-            response.sendRedirect(path);
+//            String path = "Getdetail?product="+prod_id;
+//            response.sendRedirect(path);
+            getServletContext().getRequestDispatcher("/Getdetail?product="+prod_id).forward(request, response);
         } else if (formStr.equals("productType")){
             getServletContext().getRequestDispatcher("/Cart.jsp").forward(request, response);
         }

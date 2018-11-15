@@ -85,6 +85,7 @@ public class UpdateIteminCartServlet extends HttpServlet {
                 cart.changeLineProduct(prodCtrl.findProduct(productID), qty);
             }
         }
+        request.setAttribute("edititem", "แก้ไขสินค้าในตะกร้าแล้ว");
         getServletContext().getRequestDispatcher("/Cart.jsp").forward(request, response);
     }
 

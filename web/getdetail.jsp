@@ -4,6 +4,7 @@
     Author     : Hong
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -99,12 +100,21 @@
             function favourite() {
                 x = document.getElementById("whiteFav");
             }
-            
+
         </script>
 
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
+        <c:if test="${additem!=null}">
+            <div class="alert alert-success" role="alert">
+                ${additem}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </c:if>
     <center> <br><br>
         <h1>ชื่อขนม : ${product.productName}</h1><br>
         <img src="image/${product.productId}.jpg" style="width: 600px"><br><br>
