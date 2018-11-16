@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 import jpa.model.Account;
 import jpa.model.controller.AccountJpaController;
+import jpa.model.controller.exceptions.RollbackFailureException;
 
 /**
  *
@@ -57,7 +58,14 @@ public class RegisterServlet extends HttpServlet {
             password = cryptWithMD5(password);
             Account acc = new Account(username, password, address, name, surname, telno);
             AccountJpaController accCtrl = new AccountJpaController(utx, emf);
-            accCtrl.create(acc);
+            try{
+                accCtrl.create(acc);
+            }catch(RollbackFailureException ex){
+                
+                request.setAttribute("error", "ชื่อผู้ใช้นี้ถูกใช้งานแล้ว");
+                getServletContext().getRequestDispatcher("/Register.jsp").forward(request, response);
+                return;
+            }
             
             String activatekey = acc.getActivatekey();
             String link = "http://localhost:8080/WEBPROJECT/Activate?username="+acc.getUsername()+"&activatekey="+activatekey;

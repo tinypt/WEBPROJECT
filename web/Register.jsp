@@ -4,6 +4,7 @@
     Author     : GT62VR
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,14 @@
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
+        <c:if test="${error!=null}">
+            <div class="alert alert-danger" role="alert">
+                ${error}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
         <div class="container mb-5">
             <div class="row text-center">
                 <div class="col"></div>
@@ -29,17 +38,17 @@
                         </div>
                         <div class="col-6 p-5 m-4 card-body">
                             <div class="row">
-                                 <h5 class="text-left pb-2">สมัครสมาชิก</h5>
+                                <h5 class="text-left pb-2">สมัครสมาชิก</h5>
                             </div>
-                           
+
                             <form method="post" action="Register">
                                 <div class="row">
-                                    Username: <input type="text"  name="username" class="form-control mb-2" placeholder="Username*"> <br>
-                                    Password: <input type="password" name="password" class="form-control mb-2 " placeholder="Password*"><br>
-                                    Name: <input type="text" name="name" class="form-control mb-2 " placeholder="Name*"><br>
-                                    Surname: <input type="text" name="surname" class="form-control mb-2 " placeholder="Surname*"><br>
-                                    Address: <textarea rows="4" cols="30" class="form-control mb-2 " name="address" placeholder="Address"></textarea><br>
-                                    Telno: <input type="text" name="telno" class="form-control mb-2 " placeholder="Telno"><br>
+                                    Username: <input type="text"  name="username" class="form-control mb-2" placeholder="Username*" required> <br>
+                                    Password: <input type="password" name="password" class="form-control mb-2 " placeholder="Password*" required><br>
+                                    Name: <input type="text" name="name" class="form-control mb-2 " placeholder="Name*" required><br>
+                                    Surname: <input type="text" name="surname" class="form-control mb-2 " placeholder="Surname*" required><br>
+                                    Address: <textarea rows="4" cols="30" class="form-control mb-2 " name="address" placeholder="Address*" required></textarea><br>
+                                    Telno: <input type="tel" name="telno" class="form-control mb-2 " placeholder="08xxxxxxxx*" pattern="[0-9]{10}" required><br>
                                 </div>
                                 <div class="row"> 
                                     <div class="col"></div>
@@ -50,7 +59,7 @@
                                     </div>  
                                 </div>
                             </form>
-                        
+
                         </div>
 
                         <div class="card-footer text-left" style="background: linear-gradient(white,#f2f2f2)">

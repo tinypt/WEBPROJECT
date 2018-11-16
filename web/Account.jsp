@@ -52,7 +52,7 @@
                                         Name: <input type="text" class="form-control " name="name" value="${acc.name}"><br>
                                         Surname: <input type="text" class="form-control " name="surname" value="${acc.surname}"><br>
                                         Address: <textarea class="form-control" rows="4" cols="30" name="address">${acc.address}</textarea><br>
-                                        Telno: <input type="text" class="form-control " name="telno" value="${acc.telnumber}"><br>
+                                        Telno: <input type="tel" class="form-control " name="telno" value="${acc.telnumber}" pattern="[0-9]{10}"><br>
                                         <input type="submit" class="btn btn-primary" value="UPDATE Account">
                                     </form>
                                 </div>
