@@ -59,7 +59,7 @@
                 </li>
 
                 <form class="form-inline col-6 ml-4 mr-0" action="Search" method="post">
-                    <input class="form-control mr-sm-2 form-control-sm" type="text" placeholder="ค้นหาชื่อขนม" name="name">
+                    <input class="form-control mr-sm-2 form-control-sm" type="text" placeholder="ค้นหาชื่อขนมหรือราคา" name="name">
                     <button class="btn btn-light btn-sm " type="submit">ค้นหา</button>
 
                 </form>
@@ -73,11 +73,11 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="Cart.jsp">ตะกร้าสินค้า 
                             <c:choose>
-                                <c:when test="${cart.size==null || cart.size==0}">
+                                <c:when test="${cart.totalQuantityInCart==null || cart.totalQuantityInCart==0}">
                                     (0)
                                 </c:when>
                                 <c:otherwise>
-                                    (${cart.size})
+                                    (${cart.totalQuantityInCart})
                                 </c:otherwise>
                             </c:choose></a>
                         <a class="dropdown-item" href="GetFav">รายการโปรด</a>

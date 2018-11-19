@@ -54,10 +54,17 @@ public class SearchServlet extends HttpServlet {
         String name = request.getParameter("name");
         if (name != null /*&& name.trim().length() != 0*/) {
             ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
-            List<Product> prod = prodCtrl.findByProductName(name);
+            List<Product> prod;
+            if (isNumeric(name)) {
+                int price = Integer.parseInt(name);
+                prod = prodCtrl.findByProductPrice(price);
+
+            }else {
+                prod = prodCtrl.findByProductName(name);
+            }
 
             if (prod.isEmpty()) {
-                String msg = "ผลการค้นหา ไม่ตรงกับชื่อขนมใดๆ";
+                String msg = "ผลการค้นหา ไม่ตรงกับชื่อขนม หรือราคาใดๆ";
                 request.setAttribute("msg", msg);
             }
             request.setAttribute("prod", prod);
@@ -68,6 +75,15 @@ public class SearchServlet extends HttpServlet {
 
         }
         getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            int d = Integer.parseInt(str);
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+        return true;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

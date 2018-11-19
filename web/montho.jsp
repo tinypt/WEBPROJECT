@@ -19,24 +19,137 @@
         <title>มณโฑขนมหวาน</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
         <style>
             /* Make the image fully responsive */
             .carousel-inner img {
                 width: 100%;
                 height: 100%;
             }
-        </style>
 
+            /*loader*/
+            .loader{
+                width: 150px;
+                height: 150px;
+                margin: 40px auto;
+                transform: rotate(-45deg);
+                font-size: 0;
+                line-height: 0;
+                animation: rotate-loader 5s infinite;
+                padding: 25px;
+                border: 1px solid #cf303d;
+            }
+            .loader .loader-inner{
+                position: relative;
+                display: inline-block;
+                width: 50%;
+                height: 50%;
+            }
+            .loader .loading{
+                position: absolute;
+                background: #cf303d;
+            }
+            .loader .one{
+                width: 100%;
+                bottom: 0;
+                height: 0;
+                animation: loading-one 1s infinite;
+            }
+            .loader .two{
+                width: 0;
+                height: 100%;
+                left: 0;
+                animation: loading-two 1s infinite;
+                animation-delay: 0.25s;
+            }
+            .loader .three{
+                width: 0;
+                height: 100%;
+                right: 0;
+                animation: loading-two 1s infinite;
+                animation-delay: 0.75s;
+            }
+            .loader .four{
+                width: 100%;
+                top: 0;
+                height: 0;
+                animation: loading-one 1s infinite;
+                animation-delay: 0.5s;
+            }
+            @keyframes loading-one {
+                0% {
+                    height: 0;
+                    opacity: 1;
+                }
+                12.5% {
+                    height: 100%;
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 1;
+                }
+                100% {
+                    height: 100%;
+                    opacity: 0;
+                }
+            }
+            @keyframes loading-two {
+                0% {
+                    width: 0;
+                    opacity: 1;
+                }
+                12.5% {
+                    width: 100%;
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 1;
+                }
+                100% {
+                    width: 100%;
+                    opacity: 0;
+                }
+            }
+            @keyframes rotate-loader {
+                0% {
+                    transform: rotate(-45deg);
+                }
+                20% {
+                    transform: rotate(-45deg);
+                }
+                25% {
+                    transform: rotate(-135deg);
+                }
+                45% {
+                    transform: rotate(-135deg);
+                }
+                50% {
+                    transform: rotate(-225deg);
+                }
+                70% {
+                    transform: rotate(-225deg);
+                }
+                75% {
+                    transform: rotate(-315deg);
+                }
+                95% {
+                    transform: rotate(-315deg);
+                }
+                100% {
+                    transform: rotate(-405deg);
+                }
+            }
+        </style>
+        <script>
+            window.onload = function () {
+                document.getElementById("loading").style.display = "none";
+            };
+        </script>
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
         <c:choose>
             <c:when test="${activate!=null}">
-                <div class="alert alert-warning" role="alert">
+                <div class="alert alert-warning" role="alert" style="margin-bottom: 0px;">
                     ${activate}  
                     <c:if test="${link!=null}">
                         <a href="${link}">click to activate</a>
@@ -48,10 +161,8 @@
             </c:when>
             <c:otherwise>
                 <c:if test="${link!=null}">
-                    <div class="alert alert-warning" role="alert">
-
+                    <div class="alert alert-warning" role="alert" style="margin-bottom: 0px;">
                         <a href="${link}">click to activate</a>
-
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -61,10 +172,8 @@
         </c:choose>
 
         <c:if test="${update!=null}">
-            <div class="alert alert-success" role="alert">
-
+            <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
                 ${update}
-
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -72,17 +181,15 @@
         </c:if>
 
         <c:if test="${type!=null}">
-            <div class="alert alert-secondary" role="alert">
-
+            <div class="alert alert-secondary" role="alert" style="margin-bottom: 0px;">
                 ${type}
-
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         </c:if>
         <c:if test="${buycom!=null}">
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
                 ${buycom}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -90,7 +197,27 @@
             </div>
 
         </c:if>
-        <div id="demo" class="carousel slide" data-ride="carousel">
+        <div class="container" id="loading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="loader">
+                        <div class="loader-inner">
+                            <div class="loading one"></div>
+                        </div>
+                        <div class="loader-inner">
+                            <div class="loading two"></div>
+                        </div>
+                        <div class="loader-inner">
+                            <div class="loading three"></div>
+                        </div>
+                        <div class="loader-inner">
+                            <div class="loading four"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="demo" class="carousel slide" data-ride="carousel" id="page">
 
             <!--Indicators--> 
             <ul class="carousel-indicators">
@@ -147,9 +274,6 @@
                 <span class="carousel-control-next-icon"></span>
             </a>
         </div>
-
-
-
 
     </body>
 </html>

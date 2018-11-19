@@ -22,9 +22,10 @@
                 font-size: 17px;
             }
             .btn {
-                background-color: #86B404;
+                background-color: #F7819F;
                 color:white;
             }
+
         </style>
         <script>
             function Allowbtn() {
@@ -45,29 +46,74 @@
 
         </c:if>
         <div class="container-fluid text-center p-4" style="background-color: #fafafa;">
-            <h1>ข้อมูลที่จัดส่ง</h1> 
+            <h1>รายการการสั่งซื้อ</h1> 
         </div>
-        <form action="UpdateAccount" method="post">
-            <table>
-                <tr>
-                    <td>ชื่อลูกค้า</td>
-                    <td><input type="text" value="${acc.name} ${acc.surname}" name="name" onchange="Allowbtn()"></td> 
-                </tr> 
-                <tr>
-                    <td>ที่อยู่ที่จัดส่ง</td>
-                    <td><input type="text" value="${acc.address}" name="address" onchange="Allowbtn()"></td>
-                </tr>
-                <tr>
-                    <td>โทรศัพท์</td>
-                    <td><input type="text" value="${acc.telnumber}" name="telno" onchange="Allowbtn()"></td>
-                </tr>
-            </table>
-            <br>
-            <input type="hidden" name="username" value="${acc.username}">
-            <input type="hidden" name="form" value="checkout">
-            <input type="submit" id="subbtn" class="btn btn-primary" disabled>
-        </form>
         <br>
+        <div class="container">
+            <div class="row">
+                <div class="col" style="text-align: left; padding-left: 80px; padding-right: 0;">
+                    ชื่อลูกค้า: ${acc.name} ${acc.surname} <br>
+                    ที่อยู่ที่จัดส่ง: ${acc.address} <br>
+                    เบอร์ติดต่อ: ${acc.telnumber} 
+
+                    <a href="#" data-toggle="modal" data-target="#myModal">
+                        แก้ไข
+                    </a>
+
+                    <!-- The Modal -->
+                    <div class="modal" id="myModal">
+                        <div class="modal-dialog" style="top: 150px;">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">ข้อมูลลูกค้า</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <form action="UpdateAccount" method="post">
+                                    <div class="modal-body">
+                                        <table>
+                                            <tr>
+                                                <td>ชื่อลูกค้า</td>
+                                                <td><input type="text" value="${acc.name} ${acc.surname}" name="name" onchange="Allowbtn()" required></td> 
+                                            </tr> 
+                                            <tr>
+                                                <td>ที่อยู่ที่จัดส่ง</td>
+                                                <td>
+                                                    <textarea rows="4" cols="20"  name="address" required onchange="Allowbtn()">${acc.address}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>โทรศัพท์</td>
+                                                <td>
+                                                    <input type="tel" name="telno"  value="${acc.telnumber}" pattern="[0-9]{10}" onchange="Allowbtn()" required>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <br>
+                                        <input type="hidden" name="username" value="${acc.username}">
+                                        <input type="hidden" name="form" value="checkout">
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <input type="submit" id="subbtn" class="btn btn-primary" disabled>
+                                        <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                </div>
+                <div class="col">
+                </div>
+            </div>
+        </div>
         <br>
         <table id="example" class="table" style="width: 1000px;">
             <thead>
@@ -95,10 +141,17 @@
                 <td>ราคาสินค้ารวม ${cart.totalPriceInCart} บาท</td>
             </tr>
         </table>
-        <a href="Cart.jsp">กลับ</a>
-        <a href="Checkout" style="text-align: right;">ยืนยันการสั่งซื้อ</a>
+        <!--<a href="Cart.jsp">กลับ</a>-->
+        <a href="Cart.jsp">
+            <button type="button" class="btn" id="subbtn2">กลับ</button>
+        </a>
+        <a href="Checkout">
+            <button  type="button" class="btn"  id="subbtn2">ยืนยันการสั่งซื้อ</button>
+        </a>
+
+        <!--<a href="Checkout" style="text-align: right;">ยืนยันการสั่งซื้อ</a>-->
     </center>
-    <div>
-    </div>
+
+
 </body>
 </html>

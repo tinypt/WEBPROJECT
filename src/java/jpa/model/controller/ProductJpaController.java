@@ -285,6 +285,17 @@ public class ProductJpaController implements Serializable {
             em.close();
         }
     }
+    
+    public List<Product> findByProductPrice(int price) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Product.findByProductPrice");
+            query.setParameter("productPrice", price);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 
     public int getProductCount() {
         EntityManager em = getEntityManager();

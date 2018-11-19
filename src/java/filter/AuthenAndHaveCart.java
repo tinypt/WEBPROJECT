@@ -17,6 +17,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import model.Cart;
 
 /**
  *
@@ -38,7 +39,8 @@ public class AuthenAndHaveCart implements Filter {
             config.getServletContext().getRequestDispatcher("/Login").forward(request, response);
             return;
         }
-        if (session.getAttribute("cart") == null) {
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null || cart.getSize()==0) {
             config.getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
             return;
         }
