@@ -149,10 +149,6 @@
         <servlet-class>servlet.GetAccountServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FileUploadServlet</servlet-name>
-        <servlet-class>servlet.FileUploadServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetVideoServlet</servlet-name>
         <servlet-class>servlet.GetVideoServlet</servlet-class>
     </servlet>
@@ -231,10 +227,6 @@
     <servlet-mapping>
         <servlet-name>GetAccountServlet</servlet-name>
         <url-pattern>/GetAccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>FileUploadServlet</servlet-name>
-        <url-pattern>/FileUpload</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetVideoServlet</servlet-name>

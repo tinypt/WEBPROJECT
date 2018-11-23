@@ -33,14 +33,6 @@
                 </button>
             </div>
         </c:if>
-         <c:if test="${update!=null}">
-            <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
-                ${update}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </c:if>
         <div class="container">
             <div class="row text-center">
                 <div class="col"></div>
@@ -58,43 +50,37 @@
                 <div class="col"></div>
                 <div class="col">
                     <div class="card mt-2" style="width: 61rem; height: 35.5rem; box-shadow: 0 2px 2px 0 #b6b6b6;">
-
-                        <div class="row">
-                            <div class="col-2 pt-4 pl-4">
-                                <p class="text-left">ข้อมูลสมาชิก</p>
-                                <div style="text-align: center;" class="pl-3">
-                                    <c:choose>
-                                        <c:when test="${acc.picturename!=null}">
-                                            <img src="image-account/${acc.picturename}" alt="user" width="150px">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="image-account/user.png" alt="user" width="150px">
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <form action="FileUpload" method="post" enctype="multipart/form-data">
+                        <form action="UpdateAccount" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-2 pt-4 pl-4">
+                                    <p class="text-left">ข้อมูลสมาชิก</p>
+                                    <div style="text-align: center;" class="pl-3">
+                                        <c:choose>
+                                            <c:when test="${acc.picturename!=null}">
+                                                <img src="image-account/${acc.picturename}" alt="user" width="150px">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="image-account/user.png" alt="user" width="150px">
+                                            </c:otherwise>
+                                        </c:choose>
                                         <p class="pl-4">อัพโหลดรูป: <input type="file" name="file" onchange="Allowbtn()"/></p>
-                                        <p class="pl-0 ml-1">
-                                            <input id="subbtn" disabled="true" type="submit" class="btn btn-primary" value="UPDATE Picture">
-                                        </p>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-9 mt-2 ml-5 card p-0 " style=" box-shadow: 0 2px 2px 0 #b6b6b6;">
-                                <div class="card-header text-left" style="height: 50px;">
-                                    <p>ข้อมูลของคุณ</p>
-                                </div>
-                                <div class="card-body text-left">
-                                    <form action="UpdateAccount" method="post">
+                                <div class="col-9 mt-2 ml-5 card p-0 " style=" box-shadow: 0 2px 2px 0 #b6b6b6;">
+                                    <div class="card-header text-left" style="height: 50px;">
+                                        <p>ข้อมูลของคุณ</p>
+                                    </div>
+                                    <div class="card-body text-left">
                                         <input type="hidden" name="username" value="${acc.username}">
-                                        Name: <input type="text" class="form-control " name="name" value="${acc.name}"><br>
-                                        Surname: <input type="text" class="form-control " name="surname" value="${acc.surname}"><br>
-                                        Address: <textarea class="form-control" rows="4" cols="30" name="address">${acc.address}</textarea><br>
-                                        Telno: <input type="tel" class="form-control " name="telno" value="${acc.telnumber}" pattern="[0-9]{10}"><br>
-                                        <input type="submit" class="btn btn-primary" value="UPDATE Account">
-                                    </form>
+                                        Name: <input type="text" class="form-control " name="name" value="${acc.name}" onchange="Allowbtn()"><br>
+                                        Surname: <input type="text" class="form-control " name="surname" value="${acc.surname}" onchange="Allowbtn()"><br>
+                                        Address: <textarea class="form-control" rows="4" cols="30" name="address" onchange="Allowbtn()">${acc.address}</textarea><br>
+                                        Telno: <input type="tel" class="form-control " name="telno" value="${acc.telnumber}" pattern="[0-9]{10}" onchange="Allowbtn()"><br>
+                                        <input type="submit" class="btn btn-primary" value="UPDATE Account" id="subbtn" disabled="true">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col"></div>

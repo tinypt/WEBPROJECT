@@ -5,18 +5,25 @@
  */
 package servlet;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import javax.transaction.UserTransaction;
 import jpa.model.Account;
 import jpa.model.controller.AccountJpaController;
@@ -27,6 +34,7 @@ import jpa.model.controller.exceptions.RollbackFailureException;
  *
  * @author GT62VR
  */
+@MultipartConfig
 public class UpdateAccountServlet extends HttpServlet {
 
     @PersistenceUnit(unitName = "MonthoPU")
@@ -46,7 +54,10 @@ public class UpdateAccountServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NonexistentEntityException, RollbackFailureException, Exception {
+
         HttpSession session = request.getSession(false);
+        AccountJpaController accCtrl = new AccountJpaController(utx, emf);
+        Account acc = (Account) session.getAttribute("acc");
         String username = request.getParameter("username");
         String address = request.getParameter("address");
         String name = request.getParameter("name");
@@ -59,8 +70,40 @@ public class UpdateAccountServlet extends HttpServlet {
             surname = splited[1];
         }
 
-        AccountJpaController accCtrl = new AccountJpaController(utx, emf);
-        Account acc = (Account) session.getAttribute("acc");
+        /*File Upload Zone*/
+        String applicationPath = request.getServletContext().getRealPath("");
+        applicationPath = applicationPath.replace("\\build\\web", "\\web\\image-account");
+
+        File upload_path = new File(applicationPath);
+        Part filePart = request.getPart("file");
+//        System.out.println(".........." + filePart.getSize());
+        if (filePart.getSize() > 0) {
+                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                String[] fileNamenew = fileName.split("\\.");
+                if (fileNamenew[1].equals("jpg") || fileNamenew[1].equals(".png")) {
+
+                    String type;
+                    if (fileNamenew[1].equals("jpg")) {
+                        type = ".jpg";
+                    } else {
+                        type = ".png";
+                    }
+
+                    fileName = acc.getUsername();
+                    File file = File.createTempFile(fileName, type, upload_path);
+
+                    try (InputStream fileContent = filePart.getInputStream()) {
+                        Files.copy(fileContent, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        acc.setPicturename(file.getName());
+                    } catch (Exception e) {
+                        System.out.println("File Upload Failure:" + e);
+                    }
+                } else {
+                    request.setAttribute("wrongtype", "อัพโหลดไฟล์นามสกุล jpg หรือ png");
+                    getServletContext().getRequestDispatcher("/Account.jsp").forward(request, response);
+                }
+        }
+        /*End Zone*/
 
         acc.setAddress(address);
         acc.setName(name);
@@ -73,9 +116,8 @@ public class UpdateAccountServlet extends HttpServlet {
         String form = request.getParameter("form");
         if (form != null) {
             getServletContext().getRequestDispatcher("/Checkout.jsp").forward(request, response);
-            return;
         } else {
-            getServletContext().getRequestDispatcher("/Account.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
         }
     }
 
