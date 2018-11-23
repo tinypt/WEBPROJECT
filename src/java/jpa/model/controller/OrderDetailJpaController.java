@@ -22,7 +22,7 @@ import jpa.model.controller.exceptions.RollbackFailureException;
 
 /**
  *
- * @author Hong
+ * @author GT62VR
  */
 public class OrderDetailJpaController implements Serializable {
 
@@ -203,7 +203,7 @@ public class OrderDetailJpaController implements Serializable {
             em.close();
         }
     }
-    
+
     public OrderDetail findOrderDetailByOrderID(Integer id) {
         EntityManager em = getEntityManager();
         try {
@@ -225,5 +225,5 @@ public class OrderDetailJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

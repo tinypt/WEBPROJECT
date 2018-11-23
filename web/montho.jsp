@@ -147,6 +147,14 @@
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
+        <c:if test="${upcom!=null}">
+            <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
+                ${upcom}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
         <c:choose>
             <c:when test="${activate!=null}">
                 <div class="alert alert-warning" role="alert" style="margin-bottom: 0px;">
@@ -170,16 +178,6 @@
                 </c:if>
             </c:otherwise>
         </c:choose>
-
-        <c:if test="${update!=null}">
-            <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
-                ${update}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </c:if>
-
         <c:if test="${type!=null}">
             <div class="alert alert-secondary" role="alert" style="margin-bottom: 0px;">
                 ${type}

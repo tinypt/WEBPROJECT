@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Hong
+ * @author GT62VR
  */
 @Entity
 @Table(name = "ACCOUNT")
@@ -44,7 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Account.findBySurname", query = "SELECT a FROM Account a WHERE a.surname = :surname")
     , @NamedQuery(name = "Account.findByTelnumber", query = "SELECT a FROM Account a WHERE a.telnumber = :telnumber")
     , @NamedQuery(name = "Account.findByActivatekey", query = "SELECT a FROM Account a WHERE a.activatekey = :activatekey")
-    , @NamedQuery(name = "Account.findByActivatedate", query = "SELECT a FROM Account a WHERE a.activatedate = :activatedate")})
+    , @NamedQuery(name = "Account.findByActivatedate", query = "SELECT a FROM Account a WHERE a.activatedate = :activatedate")
+    , @NamedQuery(name = "Account.findByPicturename", query = "SELECT a FROM Account a WHERE a.picturename = :picturename")})
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -91,6 +92,9 @@ public class Account implements Serializable {
     @Column(name = "ACTIVATEDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date activatedate;
+    @Size(max = 200)
+    @Column(name = "PICTURENAME")
+    private String picturename;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountId")
     private List<Favourite> favouriteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountId")
@@ -113,7 +117,7 @@ public class Account implements Serializable {
         this.telnumber = telnumber;
         this.activatekey = activatekey;
     }
-
+    
     public Account(String username, String password, String address, String name, String surname, String telnumber) {
         this.username = username;
         this.password = password;
@@ -123,8 +127,6 @@ public class Account implements Serializable {
         this.telnumber = telnumber;
         this.activatekey = UUID.randomUUID().toString().replace("-","").substring(0,15);
     }
-    
-    
 
     public Integer getAccountId() {
         return accountId;
@@ -196,6 +198,14 @@ public class Account implements Serializable {
 
     public void setActivatedate(Date activatedate) {
         this.activatedate = activatedate;
+    }
+
+    public String getPicturename() {
+        return picturename;
+    }
+
+    public void setPicturename(String picturename) {
+        this.picturename = picturename;
     }
 
     @XmlTransient

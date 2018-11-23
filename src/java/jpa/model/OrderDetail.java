@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Hong
+ * @author GT62VR
  */
 @Entity
 @Table(name = "ORDER_DETAIL")

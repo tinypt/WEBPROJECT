@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Hong
+ * @author GT62VR
  */
 @Entity
 @Table(name = "FAVOURITE")
@@ -101,5 +101,5 @@ public class Favourite implements Serializable {
     public String toString() {
         return "jpa.model.Favourite[ favouriteId=" + favouriteId + " ]";
     }
-    
+
 }

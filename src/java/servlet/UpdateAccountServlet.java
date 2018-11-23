@@ -60,7 +60,7 @@ public class UpdateAccountServlet extends HttpServlet {
         }
 
         AccountJpaController accCtrl = new AccountJpaController(utx, emf);
-        Account acc = accCtrl.findAccountbyUserName(username);
+        Account acc = (Account) session.getAttribute("acc");
 
         acc.setAddress(address);
         acc.setName(name);
@@ -75,7 +75,7 @@ public class UpdateAccountServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/Checkout.jsp").forward(request, response);
             return;
         } else {
-            getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/Account.jsp").forward(request, response);
         }
     }
 

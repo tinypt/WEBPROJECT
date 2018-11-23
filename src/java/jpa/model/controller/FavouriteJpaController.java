@@ -23,7 +23,7 @@ import jpa.model.controller.exceptions.RollbackFailureException;
 
 /**
  *
- * @author Hong
+ * @author GT62VR
  */
 public class FavouriteJpaController implements Serializable {
 
@@ -214,7 +214,7 @@ public class FavouriteJpaController implements Serializable {
             Favourite fav = null;
             try {
                 fav = (Favourite) query.getSingleResult();
-            }catch (NoResultException ex) {
+            } catch (NoResultException ex) {
                 return fav;
             }
             return fav;

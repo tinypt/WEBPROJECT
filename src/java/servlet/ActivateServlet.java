@@ -52,14 +52,17 @@ public class ActivateServlet extends HttpServlet {
             AccountJpaController accCtrl = new AccountJpaController(utx, emf);
             Account acc = accCtrl.findAccountbyUserName(username);
             
-            if(activatekey.equalsIgnoreCase(acc.getActivatekey())) {
+            if(activatekey.equals(acc.getActivatekey())) {
                 acc.setActivatedate(new Date());
                 accCtrl.edit(acc);
+                request.setAttribute("actcom", "Activate Complete");
+                getServletContext().getRequestDispatcher("/Login").forward(request, response);
+                return;
+            }else {
+                request.setAttribute("actfail", "Activate Fail");
+                getServletContext().getRequestDispatcher("/Login").forward(request, response);
             }
             
-            request.setAttribute("actcom", "Activate Complete");
-            getServletContext().getRequestDispatcher("/Login").forward(request, response);
-            return;
         }
         getServletContext().getRequestDispatcher("/Login").forward(request, response);
     }

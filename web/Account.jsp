@@ -4,6 +4,7 @@
     Author     : GT62VR
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,10 +17,30 @@
             }
         </style>
         <title>Account Page</title>
+        <script>
+            function Allowbtn() {
+                document.getElementById("subbtn").disabled = false;
+            }
+        </script>
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
-
+        <c:if test="${wrongtype!=null}">
+            <div class="alert alert-danger" role="alert">
+                ${wrongtype}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+         <c:if test="${update!=null}">
+            <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
+                ${update}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
         <div class="container">
             <div class="row text-center">
                 <div class="col"></div>
@@ -42,10 +63,19 @@
                             <div class="col-2 pt-4 pl-4">
                                 <p class="text-left">ข้อมูลสมาชิก</p>
                                 <div style="text-align: center;" class="pl-3">
-                                    <img src="extra-image/user.png" alt="user" width="150px">
+                                    <c:choose>
+                                        <c:when test="${acc.picturename!=null}">
+                                            <img src="image-account/${acc.picturename}" alt="user" width="150px">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img src="image-account/user.png" alt="user" width="150px">
+                                        </c:otherwise>
+                                    </c:choose>
                                     <form action="FileUpload" method="post" enctype="multipart/form-data">
-                                        <p class="pl-4">อัพโหลดรูป: <input type="file" name="file"/></p>
-                                        <p class="pl-4 ml-1"><input type="submit"/></p>
+                                        <p class="pl-4">อัพโหลดรูป: <input type="file" name="file" onchange="Allowbtn()"/></p>
+                                        <p class="pl-0 ml-1">
+                                            <input id="subbtn" disabled="true" type="submit" class="btn btn-primary" value="UPDATE Picture">
+                                        </p>
                                     </form>
                                 </div>
                             </div>

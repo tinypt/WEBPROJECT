@@ -25,7 +25,7 @@ import jpa.model.controller.exceptions.RollbackFailureException;
 
 /**
  *
- * @author Hong
+ * @author GT62VR
  */
 public class OrdersJpaController implements Serializable {
 
@@ -239,7 +239,7 @@ public class OrdersJpaController implements Serializable {
             em.close();
         }
     }
-    
+
     public Orders findByOrderDate(Date orderDate) {
         EntityManager em = getEntityManager();
         try {
@@ -263,5 +263,5 @@ public class OrdersJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

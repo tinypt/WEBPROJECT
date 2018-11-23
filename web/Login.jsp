@@ -31,6 +31,15 @@
             </div>
 
         </c:if>
+        <c:if test="${actfail!=null}">
+            <div class="alert alert-danger" role="alert">
+                ${actfail}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </c:if>
         <c:if test="${falsepass!=null}">
             <div class="alert alert-danger" role="alert">
                 ${falsepass}

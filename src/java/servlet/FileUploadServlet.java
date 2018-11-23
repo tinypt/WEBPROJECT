@@ -6,82 +6,95 @@
 package servlet;
 
 import java.io.File;
+import jpa.model.Account;
+import jpa.model.controller.AccountJpaController;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import javax.annotation.Resource;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.transaction.UserTransaction;
 
 /**
  *
  * @author GT62VR
  */
-
 @MultipartConfig
 public class FileUploadServlet extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FileUploadServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet FileUploadServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    @PersistenceUnit(unitName = "MonthoPU")
+    EntityManagerFactory emf;
+
+    @Resource
+    UserTransaction utx;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        FileUpload(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        singleFileUpload(request, response);
+        FileUpload(request, response);
     }
 
-    private void singleFileUpload(HttpServletRequest request, HttpServletResponse response)
+    private void FileUpload(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // ดึงที่เก็บข้อมูลไฟล์ของเว็บแอพลิเคชัน
+        HttpSession session = request.getSession(false);
+        AccountJpaController accCtrl = new AccountJpaController(utx, emf);
+        Account acc = (Account) session.getAttribute("acc");
+        
         String applicationPath = request.getServletContext().getRealPath("");
         applicationPath = applicationPath.replace("\\build\\web", "\\web\\image-account");
-//        System.out.println("1 = " + applicationPath);
 
-        // สร้างไดเรกทอรีบันทึกถ้ายังไม่มีอยู่
         File upload_path = new File(applicationPath);
-
         Part filePart = request.getPart("file");
+
         if (filePart != null) {
-            String fileName = "11111";
-            //  System.out.println("filename= "+fileName);
-//            String[] fileNamenew = fileName.split("\\.");
-            //แยกด้วยจุด
-            //System.out.println("filenamenew= " + fileNamenew[0]);
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            System.out.println("1 = " + fileName);
+            String[] fileNamenew = fileName.split("\\.");
+            if (fileNamenew[1].equals("jpg") || fileNamenew[1].equals(".png")) {
 
-            File file = File.createTempFile(fileName, ".jpg", upload_path);
-            //ชื่อไฟล์หลังสร้าง
-            System.out.println("test= " + file.getName());
+                String type;
+                if (fileNamenew[1].equals("jpg")) {
+                    type = ".jpg";
+                } else {
+                    type = ".png";
+                }
 
-            try (InputStream fileContent = filePart.getInputStream()) {
-                Files.copy(fileContent, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (Exception e) {
-                System.out.println("File Upload Failure:" + e);
+                fileName = acc.getUsername();
+                System.out.println("2 = " + fileName);
+                File file = File.createTempFile(fileName, type, upload_path);
+                System.out.println("3 = " + file.getName());
+
+                try (InputStream fileContent = filePart.getInputStream()) {
+                    Files.copy(fileContent, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    acc.setPicturename(file.getName());
+                    accCtrl.edit(acc);
+
+                    session.setAttribute("acc", acc);
+                    request.setAttribute("upcom", "อัพโหลดรูปเรียบร้อย");
+                    getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+                } catch (Exception e) {
+                    System.out.println("File Upload Failure:" + e);
+                }
+            } else {
+                request.setAttribute("wrongtype", "อัพโหลดไฟล์นามสกุล jpg หรือ png");
+                getServletContext().getRequestDispatcher("/Account.jsp").forward(request, response);
             }
         }
     }
