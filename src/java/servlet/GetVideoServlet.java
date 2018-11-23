@@ -5,9 +5,10 @@
  */
 package servlet;
 
-import com.oracle.jrockit.jfr.Producer;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,7 @@ import jpa.model.Account;
 import jpa.model.OrderDetail;
 import jpa.model.Orders;
 import jpa.model.Product;
+import jpa.model.controller.ProductJpaController;
 import jpa.model.controller.AccountJpaController;
 import jpa.model.controller.OrdersJpaController;
 
@@ -57,25 +59,45 @@ public class GetVideoServlet extends HttpServlet {
         Account newacc = accCtrl.findAccount(acc.getAccountId());
 
         List<Orders> orders = newacc.getOrdersList();
-        if (orders.isEmpty()) {
-            orders = null;
-        }
-        List<OrderDetail> orderDetails = new ArrayList<>();
-        Date today = new Date();
+        List<OrderDetail> temps = new ArrayList<>();
+        List<Integer> prod_id_all = new ArrayList<>();
+        
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         for (Orders order : orders) {
-            if (order.getOrderDate().compareTo(today) <= 15) {
-                List<OrderDetail> temp = order.getOrderDetailList();
-                for (OrderDetail orderDetail : temp) {
-                    orderDetails.add(orderDetail);
+            /*************ADD 3 day from order date*************/
+            //how to add day source
+            //https://www.mkyong.com/java/java-how-to-add-days-to-current-date/
+            Date datefromorder = order.getOrderDate();
+            System.out.println("orderdate = "+dt.format(datefromorder));
+            LocalDateTime localDateTime = datefromorder.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            localDateTime = localDateTime.plusDays(3);
+            Date dplus3day = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+            System.out.println("after plus 3 day ="+dt.format(dplus3day));
+            //--------------------------------------------------
+            Date today = new Date();
+            System.out.println("today = "+dt.format(today));
+            System.out.println("before = "+today.before(dplus3day));
+            /*-------------------------------------------------*/
+            
+            if (today.before(dplus3day)) {
+                temps = order.getOrderDetailList();
+                for (OrderDetail temp : temps) {
+                    prod_id_all.add(temp.getProductId().getProductId());
                 }
             }
         }
+
+        List<Integer> prod_id_noduplicate = new ArrayList<>();
+        for (Integer integer : prod_id_all) {
+            if (!prod_id_noduplicate.contains(integer)) {
+                prod_id_noduplicate.add(integer);
+            }
+        }
+
+        ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
         List<Product> productAll = new ArrayList<>();
-        for (OrderDetail orderDetail1 : orderDetails) {
-            
-                   productAll.add(orderDetail1.getProductId());
-            
-         
+        for (Integer prod_id : prod_id_noduplicate) {
+            productAll.add(prodCtrl.findProduct(prod_id));
         }
         session.setAttribute("prod", productAll);
         getServletContext().getRequestDispatcher("/Video.jsp").forward(request, response);
