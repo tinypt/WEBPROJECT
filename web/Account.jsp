@@ -41,6 +41,13 @@
                         <div class="row">
                             <div class="col-2 pt-4 pl-4">
                                 <p class="text-left">ข้อมูลสมาชิก</p>
+                                <div style="text-align: center;" class="pl-3">
+                                    <img src="extra-image/user.png" alt="user" width="150px">
+                                    <form action="FileUpload" method="post" enctype="multipart/form-data">
+                                        <p class="pl-4">อัพโหลดรูป: <input type="file" name="file"/></p>
+                                        <p class="pl-4 ml-1"><input type="submit"/></p>
+                                    </form>
+                                </div>
                             </div>
                             <div class="col-9 mt-2 ml-5 card p-0 " style=" box-shadow: 0 2px 2px 0 #b6b6b6;">
                                 <div class="card-header text-left" style="height: 50px;">

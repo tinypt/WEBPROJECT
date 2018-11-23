@@ -76,17 +76,17 @@
                                     <div class="modal-body">
                                         <table>
                                             <tr>
-                                                <td>ชื่อลูกค้า</td>
+                                                <td>ชื่อลูกค้า: </td>
                                                 <td><input type="text" value="${acc.name} ${acc.surname}" name="name" onchange="Allowbtn()" required></td> 
                                             </tr> 
                                             <tr>
-                                                <td>ที่อยู่ที่จัดส่ง</td>
+                                                <td>ที่อยู่ที่จัดส่ง: </td>
                                                 <td>
                                                     <textarea rows="4" cols="20"  name="address" required onchange="Allowbtn()">${acc.address}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>โทรศัพท์</td>
+                                                <td>เบอร์ติดต่อ: </td>
                                                 <td>
                                                     <input type="tel" name="telno"  value="${acc.telnumber}" pattern="[0-9]{10}" onchange="Allowbtn()" required>
                                                 </td>

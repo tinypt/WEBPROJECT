@@ -60,6 +60,18 @@
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>Authentication</filter-name>
+        <servlet-name>GetAccountServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Authentication</filter-name>
+        <servlet-name>UpdateAccountServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>servlet.RegisterServlet</servlet-class>
@@ -132,6 +144,14 @@
         <servlet-name>RemoveFavServlet</servlet-name>
         <servlet-class>servlet.RemoveFavServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetAccountServlet</servlet-name>
+        <servlet-class>servlet.GetAccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <servlet-class>servlet.FileUploadServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -203,6 +223,14 @@
     <servlet-mapping>
         <servlet-name>RemoveFavServlet</servlet-name>
         <url-pattern>/RemoveFav</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetAccountServlet</servlet-name>
+        <url-pattern>/GetAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <url-pattern>/FileUpload</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
