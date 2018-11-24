@@ -140,5 +140,5 @@ public class Orders implements Serializable {
     public String toString() {
         return "jpa.model.Orders[ orderId=" + orderId + " ]";
     }
-    
+
 }

@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
     , @NamedQuery(name = "Account.findByAccountId", query = "SELECT a FROM Account a WHERE a.accountId = :accountId")
+    , @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
     , @NamedQuery(name = "Account.findByUsername", query = "SELECT a FROM Account a WHERE a.username = :username")
     , @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password")
     , @NamedQuery(name = "Account.findByAddress", query = "SELECT a FROM Account a WHERE a.address = :address")
@@ -54,6 +55,12 @@ public class Account implements Serializable {
     @Basic(optional = false)
     @Column(name = "ACCOUNT_ID")
     private Integer accountId;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "EMAIL")
+    private String email;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -107,8 +114,9 @@ public class Account implements Serializable {
         this.accountId = accountId;
     }
 
-    public Account(Integer accountId, String username, String password, String address, String name, String surname, String telnumber, String activatekey) {
+    public Account(Integer accountId, String email, String username, String password, String address, String name, String surname, String telnumber, String activatekey) {
         this.accountId = accountId;
+        this.email = email;
         this.username = username;
         this.password = password;
         this.address = address;
@@ -117,7 +125,7 @@ public class Account implements Serializable {
         this.telnumber = telnumber;
         this.activatekey = activatekey;
     }
-    
+
     public Account(String username, String password, String address, String name, String surname, String telnumber) {
         this.username = username;
         this.password = password;
@@ -125,7 +133,7 @@ public class Account implements Serializable {
         this.name = name;
         this.surname = surname;
         this.telnumber = telnumber;
-        this.activatekey = UUID.randomUUID().toString().replace("-","").substring(0,15);
+        this.activatekey = UUID.randomUUID().toString().replace("-", "").substring(0, 15);
     }
 
     public Integer getAccountId() {
@@ -134,6 +142,14 @@ public class Account implements Serializable {
 
     public void setAccountId(Integer accountId) {
         this.accountId = accountId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {
@@ -250,5 +266,5 @@ public class Account implements Serializable {
     public String toString() {
         return "jpa.model.Account[ accountId=" + accountId + " ]";
     }
-    
+
 }

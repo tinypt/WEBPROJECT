@@ -132,5 +132,5 @@ public class OrderDetail implements Serializable {
     public String toString() {
         return "jpa.model.OrderDetail[ detailId=" + detailId + " ]";
     }
-    
+
 }
