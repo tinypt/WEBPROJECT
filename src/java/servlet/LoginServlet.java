@@ -51,40 +51,46 @@ public class LoginServlet extends HttpServlet {
             AccountJpaController accCtrl = new AccountJpaController(utx, emf);
             try {
                 Account acc = accCtrl.findAccountbyUserName(username);
-                if (acc.getActivatedate() != null) {
-                    HttpSession session = request.getSession();
-                    password = cryptWithMD5(password);
-                    if (password.equalsIgnoreCase(acc.getPassword())) {
-                        session.setAttribute("acc", acc);
-                        getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
-                        return;
-                    } else {
-                        request.setAttribute("falsepass", "Your ID or Password invalid");
-                        getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
-                        return;
-                    }
-                } else {
-                    password = cryptWithMD5(password);
-                    if (password.equalsIgnoreCase(acc.getPassword())) {
-                        String link = "http://localhost:8080/WEBPROJECT/Activate?username=" + acc.getUsername() + "&activatekey=" + acc.getActivatekey();
-                        request.setAttribute("link", link);
+                checkUser(acc, password, request, response);
 
-                        request.setAttribute("activate", "You are not activate your account.");
-                        getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
-                        return;
-                    } else {
-                        request.setAttribute("falsepass", "Your ID or Password invalid");
-                        getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
-                        return;
-                    }
-                }
             } catch (NoResultException ex) {
-                request.setAttribute("Logfail", "Your id is invalid!");
-                getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
-                return;
+                try {
+                    Account acc = accCtrl.findAccountbyEmail(username);
+                    checkUser(acc, password, request, response);
+                } catch (NoResultException ex1) {
+                    request.setAttribute("Logfail", "Your id or email are invalid!");
+                    getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+                    return;
+                }
             }
         }
         getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+    }
+
+    public void checkUser(Account acc, String password, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (acc.getActivatedate() != null) {
+            HttpSession session = request.getSession();
+            password = cryptWithMD5(password);
+            if (password.equalsIgnoreCase(acc.getPassword())) {
+                session.setAttribute("acc", acc);
+                getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+            } else {
+                request.setAttribute("falsepass", "Your ID or Password invalid");
+                getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+            }
+        } else {
+            password = cryptWithMD5(password);
+            if (password.equalsIgnoreCase(acc.getPassword())) {
+                String link = "http://localhost:8080/WEBPROJECT/Activate?username=" + acc.getUsername() + "&activatekey=" + acc.getActivatekey();
+                request.setAttribute("link", link);
+
+                request.setAttribute("activate", "You are not activate your account.");
+                getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+            } else {
+                request.setAttribute("falsepass", "Your ID or Password invalid");
+                getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+            }
+        }
     }
 
     public static String cryptWithMD5(String pass) {

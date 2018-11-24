@@ -72,6 +72,7 @@
                                     </div>
                                     <div class="card-body text-left">
                                         <input type="hidden" name="username" value="${acc.username}">
+                                        email: <input type="email" class="form-control " name="email" value="${acc.email}" onchange="Allowbtn()" readonly><br>
                                         Name: <input type="text" class="form-control " name="name" value="${acc.name}" onchange="Allowbtn()"><br>
                                         Surname: <input type="text" class="form-control " name="surname" value="${acc.surname}" onchange="Allowbtn()"><br>
                                         Address: <textarea class="form-control" rows="4" cols="30" name="address" onchange="Allowbtn()">${acc.address}</textarea><br>

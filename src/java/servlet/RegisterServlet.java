@@ -47,22 +47,23 @@ public class RegisterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         String username = request.getParameter("username");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
         String address = request.getParameter("address");
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
         String telno = request.getParameter("telno");
-        if (username != null && password != null && address != null && name != null && surname != null && telno != null) {
+        if (username != null && password != null && address != null && name != null && surname != null && telno != null && email != null) {
             HttpSession session = request.getSession(false);
             
             password = cryptWithMD5(password);
-            Account acc = new Account(username, password, address, name, surname, telno);
+            Account acc = new Account(username, password, address, name, surname, telno, email);
             AccountJpaController accCtrl = new AccountJpaController(utx, emf);
             try{
                 accCtrl.create(acc);
             }catch(RollbackFailureException ex){
                 
-                request.setAttribute("error", "ชื่อผู้ใช้นี้ถูกใช้งานแล้ว");
+                request.setAttribute("error", "ชื่อผู้ใช้หรืออีเมลล์ถูกใช้งานแล้ว");
                 getServletContext().getRequestDispatcher("/Register.jsp").forward(request, response);
                 return;
             }

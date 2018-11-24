@@ -44,6 +44,7 @@
                             <form method="post" action="Register" autocomplete="off">
                                 <div class="row">
                                     Username: <input type="text"  name="username" class="form-control mb-2" placeholder="Username*" required> <br>
+                                    email: <input type="email"  name="email" class="form-control mb-2" placeholder="example@mail.com*" required> <br>
                                     Password: <input type="password" name="password" class="form-control mb-2 " placeholder="Password*" required><br>
                                     Name: <input type="text" name="name" class="form-control mb-2 " placeholder="Name*" required><br>
                                     Surname: <input type="text" name="surname" class="form-control mb-2 " placeholder="Surname*" required><br>

@@ -52,6 +52,7 @@
         <div class="container">
             <div class="row">
                 <div class="col" style="text-align: left; padding-left: 80px; padding-right: 0;">
+                    อีเมลล์: ${acc.email}<br>
                     ชื่อลูกค้า: ${acc.name} ${acc.surname} <br>
                     ที่อยู่ที่จัดส่ง: ${acc.address} <br>
                     เบอร์ติดต่อ: ${acc.telnumber} 

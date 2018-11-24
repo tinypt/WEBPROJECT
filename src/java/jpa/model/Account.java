@@ -126,9 +126,10 @@ public class Account implements Serializable {
         this.activatekey = activatekey;
     }
 
-    public Account(String username, String password, String address, String name, String surname, String telnumber) {
+    public Account(String username, String password, String address, String name, String surname, String telnumber, String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.address = address;
         this.name = name;
         this.surname = surname;

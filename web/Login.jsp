@@ -82,7 +82,7 @@
 
                             <form method="post" action="Login">
                                 <div class="row">
-                                    <input type="text" class="form-control mb-3"  name="username" placeholder="Username*"><br>
+                                    <input type="text" class="form-control mb-3"  name="username" placeholder="Username or Email*"><br>
                                     <input type="password" class="form-control mb-3"  name="password" placeholder="Password*"><br>
                                 </div>
                                 <div class="row"> 
