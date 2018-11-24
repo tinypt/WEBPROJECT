@@ -52,7 +52,7 @@ public class SearchServlet extends HttpServlet {
         //--
 
         String name = request.getParameter("name");
-        if (name != null /*&& name.trim().length() != 0*/) {
+        if (name != null && name.trim().length() != 0) {
             ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
             List<Product> prod;
             if (isNumeric(name)) {
@@ -73,7 +73,13 @@ public class SearchServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/Search.jsp").forward(request, response);
             return;
 
+        }else{
+            String msg = "กรุณาใส่ข้อความในช่องค้นหา";
+                request.setAttribute("msg", msg);
+            request.setAttribute("qty", 0);
+            getServletContext().getRequestDispatcher("/Search.jsp").forward(request, response);
         }
+        
         getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
     }
 
