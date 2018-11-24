@@ -77,7 +77,8 @@ public class UpdateAccountServlet extends HttpServlet {
         File upload_path = new File(applicationPath);
         Part filePart = request.getPart("file");
 //        System.out.println(".........." + filePart.getSize());
-        if (filePart.getSize() > 0) {
+        if (filePart != null) {
+            if (filePart.getSize() > 0) {
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                 String[] fileNamenew = fileName.split("\\.");
                 if (fileNamenew[1].equals("jpg") || fileNamenew[1].equals(".png")) {
@@ -102,6 +103,7 @@ public class UpdateAccountServlet extends HttpServlet {
                     request.setAttribute("wrongtype", "อัพโหลดไฟล์นามสกุล jpg หรือ png");
                     getServletContext().getRequestDispatcher("/Account.jsp").forward(request, response);
                 }
+            }
         }
         /*End Zone*/
 

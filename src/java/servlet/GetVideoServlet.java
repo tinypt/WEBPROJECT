@@ -57,49 +57,54 @@ public class GetVideoServlet extends HttpServlet {
 
         AccountJpaController accCtrl = new AccountJpaController(utx, emf);
         Account newacc = accCtrl.findAccount(acc.getAccountId());
-
+        System.out.println("user = " + newacc.getUsername());
         List<Orders> orders = newacc.getOrdersList();
-        List<OrderDetail> temps = new ArrayList<>();
-        List<Integer> prod_id_all = new ArrayList<>();
-        
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        for (Orders order : orders) {
-            /*************ADD 3 day from order date*************/
-            //how to add day source
-            //https://www.mkyong.com/java/java-how-to-add-days-to-current-date/
-            Date datefromorder = order.getOrderDate();
-            System.out.println("orderdate = "+dt.format(datefromorder));
-            LocalDateTime localDateTime = datefromorder.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            localDateTime = localDateTime.plusDays(3);
-            Date dplus3day = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-            System.out.println("after plus 3 day ="+dt.format(dplus3day));
-            //--------------------------------------------------
-            Date today = new Date();
-            System.out.println("today = "+dt.format(today));
-            System.out.println("before = "+today.before(dplus3day));
-            /*-------------------------------------------------*/
-            
-            if (today.before(dplus3day)) {
-                temps = order.getOrderDetailList();
-                for (OrderDetail temp : temps) {
-                    prod_id_all.add(temp.getProductId().getProductId());
+        if (!orders.isEmpty()) {
+
+            List<OrderDetail> temps = new ArrayList<>();
+            List<Integer> prod_id_all = new ArrayList<>();
+
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            for (Orders order : orders) {
+                /**
+                 * ***********ADD 3 day from order date************
+                 */
+                //how to add day source
+                //https://www.mkyong.com/java/java-how-to-add-days-to-current-date/
+                Date datefromorder = order.getOrderDate();
+                System.out.println("orderdate = " + dt.format(datefromorder));
+                LocalDateTime localDateTime = datefromorder.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+                localDateTime = localDateTime.plusDays(3);
+                Date dplus3day = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+                System.out.println("after plus 3 day =" + dt.format(dplus3day));
+                //--------------------------------------------------
+                Date today = new Date();
+                System.out.println("today = " + dt.format(today));
+                System.out.println("before = " + today.before(dplus3day));
+                /*-------------------------------------------------*/
+
+                if (today.before(dplus3day)) {
+                    temps = order.getOrderDetailList();
+                    for (OrderDetail temp : temps) {
+                        prod_id_all.add(temp.getProductId().getProductId());
+                    }
                 }
             }
-        }
 
-        List<Integer> prod_id_noduplicate = new ArrayList<>();
-        for (Integer integer : prod_id_all) {
-            if (!prod_id_noduplicate.contains(integer)) {
-                prod_id_noduplicate.add(integer);
+            List<Integer> prod_id_noduplicate = new ArrayList<>();
+            for (Integer integer : prod_id_all) {
+                if (!prod_id_noduplicate.contains(integer)) {
+                    prod_id_noduplicate.add(integer);
+                }
             }
-        }
 
-        ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
-        List<Product> productAll = new ArrayList<>();
-        for (Integer prod_id : prod_id_noduplicate) {
-            productAll.add(prodCtrl.findProduct(prod_id));
+            ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
+            List<Product> productAll = new ArrayList<>();
+            for (Integer prod_id : prod_id_noduplicate) {
+                productAll.add(prodCtrl.findProduct(prod_id));
+            }
+            session.setAttribute("prod", productAll);
         }
-        session.setAttribute("prod", productAll);
         getServletContext().getRequestDispatcher("/Video.jsp").forward(request, response);
     }
 

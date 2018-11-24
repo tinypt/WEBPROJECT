@@ -41,7 +41,7 @@
                                 <h5 class="text-left pb-2">สมัครสมาชิก</h5>
                             </div>
 
-                            <form method="post" action="Register">
+                            <form method="post" action="Register" autocomplete="off">
                                 <div class="row">
                                     Username: <input type="text"  name="username" class="form-control mb-2" placeholder="Username*" required> <br>
                                     Password: <input type="password" name="password" class="form-control mb-2 " placeholder="Password*" required><br>

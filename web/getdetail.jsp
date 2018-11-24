@@ -159,7 +159,7 @@
                                 <form action="AddItemtoCart" method="post">
                                     <div class="qty mt-3 text-left">
                                         <button id="minus" type="button" class="btn btn-info" onclick="minusValue()">-</button>
-                                        <input id="quantity" type="number" class="count" name="qty" value="1">
+                                        <input id="quantity" type="number" class="count" name="qty" value="1" min="1" max="20">
                                         <button id="plus" type="button" class="btn btn-info" onclick="plusValue()">+</button>
 
                                         <input type="hidden" name="product" value="${product.productId}">

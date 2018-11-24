@@ -72,7 +72,7 @@
                                 </div>
 
                                 <!-- Modal body -->
-                                <form action="UpdateAccount" method="post">
+                                <form action="UpdateAccount" method="post" enctype="multipart/form-data">
                                     <div class="modal-body">
                                         <table>
                                             <tr>
