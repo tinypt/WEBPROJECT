@@ -54,8 +54,14 @@ public class SendEmail {
             message.setFrom(new InternetAddress("bccbew164@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(to));
-            message.setSubject("Testing Subject");
-            message.setContent("<a href='http://localhost:8080/MyFirst/NewServlet'>click</a>", "text/html");
+            
+            //Set Subject Feild
+            String subject = "Test";
+            message.setSubject(subject);
+            
+            // Send the actual HTML message, as big as you like
+            String content = "<a href='http://localhost:8080/MyFirst/NewServlet'>click</a>";
+            message.setContent(content, "text/html");
 
             Transport.send(message);
 
