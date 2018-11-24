@@ -23,6 +23,7 @@
         body {
             /*font-family: 'Chakra Petch', sans-serif;*/
             font-family: 'Prompt', sans-serif;
+            margin-top: 62px;
         }
 
         a:hover {
@@ -32,7 +33,7 @@
     </style>
 </head>
 
-<nav class="navbar navbar-expand-sm" style=" background-color: #333;">
+<nav class="navbar navbar-expand-sm navbar-default fixed-top" style=" background-color: #333;">
     <div class="container">
         <div class="row">
 
