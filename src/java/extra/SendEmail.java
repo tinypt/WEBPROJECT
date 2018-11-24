@@ -27,8 +27,10 @@ public class SendEmail {
     email source2
     https://www.tutorialspoint.com/java/java_sending_email.htm
      */
-    final String username = "montho.web@gmail.com";
+    final String username = "montho.webproject@gmail.com";
     final String password = "monthoproject303";
+    //birthday 20/10/1999
+    //sex male
 
     public void sendEmailTo(String to) {
 
