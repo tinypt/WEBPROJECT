@@ -53,7 +53,7 @@
                 </div>
             </c:when>
             <c:otherwise>
-                <h2 style="text-align: center;">ไม่มีรายการโปรด</h2> 
+                <p class="text-center mt-3">ยังไม่มีรายการโปรด</p> 
             </c:otherwise>
         </c:choose>
     </body>

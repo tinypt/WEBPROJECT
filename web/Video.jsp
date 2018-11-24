@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Video</title>
     </head>
     <body>
          <jsp:include page="include/header.jsp"/>
@@ -40,7 +40,7 @@
             </div>
         </c:when>
         <c:otherwise>
-            <h2 style="text-align: center;">ไม่มีวีดีโอ</h2> 
+            <p class="text-center mt-3">ไม่มีวีดีโอ</p> 
         </c:otherwise>
     </c:choose>
 

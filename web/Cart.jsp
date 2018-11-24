@@ -11,15 +11,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cart Page</title>
-
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
         <style>
             body {
                 font-family: 'Prompt', sans-serif;
                 font-size: 30px;
-            }
-            .table {
-                font-size: 17px;
+                background-color: #fafafa;
             }
             .btn {
                 background-color: #86B404;
@@ -50,64 +49,60 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
         </c:if>
-        <div class="container-fluid text-center p-4" style="background-color: #fafafa;">
-            <h1>รายการสินค้า</h1> 
-        </div>
-        <c:choose>
-            <c:when test="${cart.size>0}">
-                <form action="UpdateIteminCart" method="post">
-                    <div>
-                        <table id="example" class="table">
-                            <thead>
-                            <th>รายการ</th>
-                            <th>รูปภาพ</th>
-                            <th>ชื่อขนม</th>
-                            <th>ราคาต่อหน่วย (บาท)</th>
-                            <th>จำนวน (ชิ้น)</th>
-                            <th>ราคารวม (บาท)</th>
-                            <th>นำสินค้าออก</th>
-                            </thead>
-
-
+        <div class="container mb-5 pt-4">
+            <div class="card p-3">
+                <h3 class="pt-2">รายการสินค้าของคุณ</h3>
+                <hr/>
+                <c:choose>
+                    <c:when test="${cart.size>0}">
+                        <form action="UpdateIteminCart" method="post">
                             <c:forEach items="${cart.lineItems}" var="line" varStatus="vs">
-                                <tr >
-                                    <td>${vs.count}</td>
-                                    <td><img src="image/${line.prod.productId}.jpg" width="200"></td>
-                                    <td>${line.prod.productName}</td>
-                                    <td>${line.prod.productPrice}</td>
-                                    <td>
-                                        <input id="abc" onchange="Allowbtn()" type="number" min="0" max="20" style="width: 60px;"  name="${line.prod.productId}" value="${line.quantity}"/>
-                                    </td>
-                                    <td>${line.totalprice}</td>
-                                    <td>
-                                        <input id="checkme" type="checkbox" name="deleteproduct" value="${line.prod.productId}" onchange="Allowbtn()">
-                                    </td>
-                                </tr>
+                                <div class="row" style="height: 180px;">
+                                    <div class="col-3"><img src="image/${line.prod.productId}.jpg" width="200"></div>
+                                    <div class="col-9">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <h5>${line.prod.productName}</h5>
+                                            </div>
+                                            <div class="col-3">
+                                                <p style="font-size: 14px;">฿ ${line.prod.productPrice}</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <input id="abc" onchange="Allowbtn()" type="number" min="0" max="20" style="width: 60px;"  name="${line.prod.productId}" value="${line.quantity}"/>
+                                            </div>
+                                            <div class="col-3 text-right">
+                                                <h6>฿ ${line.totalprice}</h6>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="text-right pr-2">
+                                            <span class="text-primary">นำสินค้าออก </span><input id="checkme" type="checkbox" name="deleteproduct" value="${line.prod.productId}" onchange="Allowbtn()">
+                                        </div>
+                                    </div>
+                                </div>
                             </c:forEach>
+                            <div class=" text-right">
+                                <input type="submit" class="btn btn-info" value="แก้ไขตะกร้า" id="subbtn" disabled="true">
+                                <hr/>
 
 
-                            <tr>
-                                <td colspan="3"></td>
-                                <td></td>
-                                <td>จำนวนสินค้ารวม ${cart.totalQuantityInCart} ชิ้น</td>
-                                <td>ราคาสินค้ารวม ${cart.totalPriceInCart} บาท</td>
-                            </tr>
-                        </table>
-                        <br>
-                    </div> 
-                    <center>
-                        <a href="Confirm">
-                            <input type="button" class="btn" value="ต่อไป" id="subbtn2">
-                        </a>
-                        <input type="submit" class="btn" value="แก้ไขตะกร้า" id="subbtn" disabled="true">
-                    </center> 
-                </form>
-            </c:when>
-            <c:otherwise>
-                <h2 style="text-align: center;">ไม่มีรายการสินค้าในตะกร้าของคุณ</h2> 
-            </c:otherwise>
-        </c:choose>
+
+                                <h3>ราคารวม ฿ ${cart.totalPriceInCart}</h3>
+                                <h4>สินค้ารวม ${cart.totalQuantityInCart} ชิ้น</h4>
+                                <a href="Confirm">
+                                    <input type="button" class="btn btn-primary" value="ต่อไป" id="subbtn2">
+                                </a>
+
+                            </div>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="text-center mt-3">ไม่มีรายการสินค้าในตะกร้าของคุณ</p> 
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+
     </body>
 </html>

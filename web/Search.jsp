@@ -14,6 +14,7 @@
         <style>
             body {
                 font-family: 'Prompt', sans-serif;
+                color: #333;
             }
             table th {
                 text-align: center;
@@ -32,44 +33,28 @@
             </div>
 
         </c:if>
-        <div class="container mt-3">
-            <div class="container-fluid p-4" style="background-color: #fafafa;">
-                <h1>ค้นหา : ${nameSearch}</h1>
-                <h2>พบรายการสินค้า ${qty} สินค้า</h2>
-                <h5>${msg}</h5>
-            </div>
-            <c:if test="${qty>0}">
-                <table id="example" class="table">
-                    <thead>
-                    <th>รายการ</th>
-                    <th>ชื่อขนม</th>
-                    <th>Image</th>
-                    <th>ราคาต่อหน่วย (บาท)</th>
-                    <th>รายละเอียด</th>
-                    <th>ชนิด</th>
-                    <th>ตระกร้า</th>
-                    </thead>
 
-                    <c:forEach items="${prod}" var="prod" varStatus="s">
-                        <tr>
-                            <td>${s.count}</td>
-                            <td>${prod.productName}</td>
-                            <td><img src="image/${prod.productId}.jpg" width="200"></td>
-                            <td>${prod.productPrice}</td>
-                            <td>${prod.productDetail}</td>
-                            <td>${prod.type}</td>
-                            <td>
-                                <a href="AddItemtoCart?qty=1&product=${prod.productId}&form=search&name=${nameSearch}">
-                                    <button type="button" class="btn btn-outline-warning">เพิ่มลงตะกร้า</button>
-                                </a>
-                            </td>
-
-
-
-                        </tr>
-                    </c:forEach>
-                </table>
-            </c:if>
+        <div class="container p-4 pb-0 mb-0">
+            <h2>ค้นหา : ${nameSearch}</h2>
+            <p>พบรายการสินค้า ${qty} ผลลัพธ์</p>
+            <p>${msg}</p> 
+        </div><hr/>
+        <div class="container p-4">
+            
+           <c:if test="${qty>0}"> 
+               <c:forEach items="${prod}" var="prod" varStatus="s">
+                   <div class="row" style="height: 200px;">
+                <div class="col-3"><img src="image/${prod.productId}.jpg" width="200"></div>
+                <div class="col-7 text-left">
+                    <h4>${prod.productName}</h4>
+                    <p>${prod.productDetail}</p>
+                    <p>ประเภท ${prod.type} | ราคา ${prod.productPrice} บาท <a href="AddItemtoCart?qty=1&product=${prod.productId}&form=search&name=${nameSearch}">
+                            <button type="button" class="btn btn-outline-primary btn-sm">เพิ่มลงตะกร้า</button>
+                        </a></p>
+                </div>
+            </div></c:forEach>
+           </c:if>
+           
         </div>
     </body>
 </html>

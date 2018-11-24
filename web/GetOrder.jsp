@@ -61,12 +61,12 @@
                 </div> 
             </c:when>
             <c:otherwise>
-                <h2 style="text-align: center;">ไม่มีประวัติการสั่งซื้อ</h2> 
+                <p class="text-center mt-3">ยังไม่มีประวัติการสั่งซื้อ</p> 
             </c:otherwise>
         </c:choose>
     <center>
 
-        <a href="montho.jsp">กลับ</a>
+        <a href="montho.jsp">ไปเลือกซื้อสินค้ากับเรา ></a>
     </center>
 </body>
 </html>
