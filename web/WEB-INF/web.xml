@@ -158,6 +158,18 @@
         <servlet-name>GetVideoServlet</servlet-name>
         <servlet-class>servlet.GetVideoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ResetpasswordServlet</servlet-name>
+        <servlet-class>servlet.ResetpasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetResetServlet</servlet-name>
+        <servlet-class>servlet.GetResetServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <servlet-class>servlet.ChangePasswordServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -237,6 +249,18 @@
     <servlet-mapping>
         <servlet-name>GetVideoServlet</servlet-name>
         <url-pattern>/GetVideo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetpasswordServlet</servlet-name>
+        <url-pattern>/Resetpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetResetServlet</servlet-name>
+        <url-pattern>/GetReset</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <url-pattern>/ChangePassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

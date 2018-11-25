@@ -90,7 +90,7 @@
                                         <a href="Register">Register?</a> <br>
                                     </div>
                                     <div class="col" >
-                                        <a href="resetpassword.jsp">Forget Password?</a>
+                                        <a href="Resetpassword">Forget Password?</a>
                                     </div>
                                     <!--<div class="col"></div>-->
                                     <!--<div class="col"></div>-->

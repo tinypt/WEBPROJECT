@@ -147,9 +147,52 @@
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
+        <c:if test="${resetfail!=null}">
+            <div class="alert alert-danger" role="alert" style="margin-bottom: 0px;">
+                ${resetfail}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </c:if>
+        <c:if test="${changefail!=null}">
+            <div class="alert alert-danger" role="alert" style="margin-bottom: 0px;">
+                ${changefail}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </c:if>
+        <c:if test="${wrongemail!=null}">
+            <div class="alert alert-danger" role="alert" style="margin-bottom: 0px;">
+                ${wrongemail}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </c:if>
         <c:if test="${upcom!=null}">
             <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
                 ${upcom}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+        <c:if test="${changecom!=null}">
+            <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
+                ${changecom}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+        <c:if test="${checkemail!=null}">
+            <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
+                ${checkemail}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

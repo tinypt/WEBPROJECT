@@ -49,7 +49,7 @@
             <div class="row text-center">
                 <div class="col"></div>
                 <div class="col">
-                    <div class="card mt-2" style="width: 61rem; height: 35.5rem; box-shadow: 0 2px 2px 0 #b6b6b6;">
+                    <div class="card mt-2" style="width: 61rem; height: 41rem; box-shadow: 0 2px 2px 0 #b6b6b6;">
                         <form action="UpdateAccount" method="post" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-2 pt-4 pl-4">

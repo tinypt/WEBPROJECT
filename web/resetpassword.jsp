@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Reset Password Page</title>
     </head>
     <body style="background-color: #f2f2f2;">
         <jsp:include page="include/header.jsp"/>

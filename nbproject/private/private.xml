@@ -20,18 +20,6 @@
             <file>file:/Users/tinypt/Desktop/WEBPROJECT/src/java/filter/Authentication.java</file>
             <file>file:/Users/tinypt/Desktop/WEBPROJECT/src/java/servlet/GetVideoServlet.java</file>
         </group>
-        <group name="MidtermLAB2017">
-            <file>file:/C:/Users/GT62VR/Desktop/WEBPROJECT/src/java/servlet/GetFavServlet.java</file>
-            <file>file:/C:/Users/GT62VR/Desktop/WEBPROJECT/src/java/jpa/model/controller/OrdersJpaController.java</file>
-            <file>file:/C:/Users/GT62VR/Desktop/WEBPROJECT/src/java/jpa/model/Account.java</file>
-            <file>file:/C:/Users/GT62VR/Desktop/WEBPROJECT/src/java/jpa/model/Product.java</file>
-            <file>file:/C:/Users/GT62VR/Desktop/WEBPROJECT/src/java/jpa/model/OrderDetail.java</file>
-            <file>file:/C:/Users/GT62VR/Desktop/WEBPROJECT/src/java/jpa/model/Orders.java</file>
-            <file>file:/C:/Users/GT62VR/Desktop/WEBPROJECT/src/java/jpa/model/controller/AccountJpaController.java</file>
-            <file>file:/C:/Users/GT62VR/Desktop/WEBPROJECT/src/java/jpa/model/controller/ProductJpaController.java</file>
-            <file>file:/C:/Users/GT62VR/Desktop/WEBPROJECT/src/java/jpa/model/controller/OrderDetailJpaController.java</file>
-            <file>file:/C:/Users/GT62VR/Desktop/WEBPROJECT/src/java/jpa/model/controller/FavouriteJpaController.java</file>
-            <file>file:/C:/Users/GT62VR/Desktop/WEBPROJECT/src/java/jpa/model/Favourite.java</file>
-        </group>
+        <group name="MidtermLAB2017"/>
     </open-files>
 </project-private>
