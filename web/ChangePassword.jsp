@@ -28,11 +28,11 @@
                 <div class="col">
                     <div class="card mt-5" style="width: 61rem; height: 30rem; box-shadow: 0 2px 2px 0 #b6b6b6;">
                         <div class="card-header bg-white text-left">
-                            <h3>Change Password</h3>
+                            <h3>Reset Password</h3>
                         </div>
                         <div class="col-5 p-5 m-4">
 
-                            <h5 class="text-left">เปลี่ยนรหัสผ่าน</h5>
+                            <h5 class="text-left">รีเซ็ตรหัสผ่าน</h5>
 
                             <form method="post" action="ChangePassword">
                                 <div class="row">

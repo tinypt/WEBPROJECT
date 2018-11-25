@@ -78,6 +78,12 @@
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>Authentication</filter-name>
+        <servlet-name>ChangePassInaccServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>servlet.RegisterServlet</servlet-class>
@@ -170,6 +176,10 @@
         <servlet-name>ChangePasswordServlet</servlet-name>
         <servlet-class>servlet.ChangePasswordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangePassInaccServlet</servlet-name>
+        <servlet-class>servlet.ChangePassInaccServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -261,6 +271,10 @@
     <servlet-mapping>
         <servlet-name>ChangePasswordServlet</servlet-name>
         <url-pattern>/ChangePassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassInaccServlet</servlet-name>
+        <url-pattern>/ChangePassInacc</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

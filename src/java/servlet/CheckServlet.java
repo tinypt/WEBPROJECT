@@ -50,15 +50,15 @@ public class CheckServlet extends HttpServlet {
 //        
 //        System.out.println("qty = "+quantity);
 //        System.out.println("productid = "+iprod);
-//        System.out.println("4444444444444");
+        System.out.println("4444444444444");
         
-        FavouriteJpaController favCtrl = new FavouriteJpaController(utx, emf);
-        ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
-        AccountJpaController acccTrl = new AccountJpaController(utx, emf);
-        Account acc = acccTrl.findAccount(1);
-        Product prod = prodCtrl.findProduct(13);
-        Favourite fav = favCtrl.findFavouriteByproductid(prod,acc);
-        System.out.println("sssss "+fav);
+//        FavouriteJpaController favCtrl = new FavouriteJpaController(utx, emf);
+//        ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
+//        AccountJpaController acccTrl = new AccountJpaController(utx, emf);
+//        Account acc = acccTrl.findAccount(1);
+//        Product prod = prodCtrl.findProduct(13);
+//        Favourite fav = favCtrl.findFavouriteByproductid(prod,acc);
+//        System.out.println("sssss "+fav);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

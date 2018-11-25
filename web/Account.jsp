@@ -21,6 +21,14 @@
             function Allowbtn() {
                 document.getElementById("subbtn").disabled = false;
             }
+
+            function checkpass() {
+                if (document.getElementById("p1").value == document.getElementById("p2").value) {
+                    document.getElementById("subbtn2").disabled = false;
+                } else {
+                    document.getElementById("subbtn2").disabled = true;
+                }
+            }
         </script>
     </head>
     <body>
@@ -78,6 +86,9 @@
                                         Address: <textarea class="form-control" rows="4" cols="30" name="address" onchange="Allowbtn()">${acc.address}</textarea><br>
                                         Telno: <input type="tel" class="form-control " name="telno" value="${acc.telnumber}" pattern="[0-9]{10}" onchange="Allowbtn()"><br>
                                         <input type="submit" class="btn btn-primary" value="UPDATE Account" id="subbtn" disabled="true">
+                                        <a href="#" data-toggle="modal" data-target="#myModal">
+                                            เปลี่ยนรหัสผ่าน
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -87,6 +98,46 @@
                 <div class="col"></div>
             </div>
         </div>
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog" style="top: 150px;">
+                <div class="modal-content">
 
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">เปลี่ยนรหัสผ่าน</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <form action="ChangePassInacc" method="post">
+                        <div class="modal-body">
+                            <table>
+                                <tr>
+                                    <td>Old password: </td>
+                                    <td><input type="password" name="oldpass" required></td> 
+                                </tr> 
+                                <tr>
+                                    <td>New password: </td>
+                                    <td><input id="p1" type="password" name="newpass" onchange="checkpass()" required></td> 
+                                </tr>
+                                <tr>
+                                    <td>Old password: </td>
+                                    <td><input id="p2" type="password" name="connewpass" onchange="checkpass()" required></td> 
+                                </tr>
+                            </table>
+                            <br>
+                            <input type="hidden" name="username" value="${acc.username}">
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <input type="submit" id="subbtn2" class="btn btn-primary" disabled>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </body>
 </html>

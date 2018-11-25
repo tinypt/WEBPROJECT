@@ -56,6 +56,7 @@ public class ResetpasswordServlet extends HttpServlet {
                 request.setAttribute("wrongemail", "ไม่มีอีเมลล์นี้");
             }
             getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+            return;
         }
         getServletContext().getRequestDispatcher("/resetpassword.jsp").forward(request, response);
     }
