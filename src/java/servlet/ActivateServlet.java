@@ -48,10 +48,12 @@ public class ActivateServlet extends HttpServlet {
         String username = request.getParameter("username");
         String activatekey = request.getParameter("activatekey");
         if(username != null && activatekey != null ){
-            
+            System.out.println(username);
+            System.out.println(activatekey);
             AccountJpaController accCtrl = new AccountJpaController(utx, emf);
             Account acc = accCtrl.findAccountbyUserName(username);
-            
+            System.out.println("username db: "+acc.getUsername());
+            System.out.println("activate db: "+acc.getActivatekey());
             if(activatekey.equals(acc.getActivatekey())) {
                 acc.setActivatedate(new Date());
                 accCtrl.edit(acc);

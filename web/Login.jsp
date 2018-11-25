@@ -87,10 +87,13 @@
                                 </div>
                                 <div class="row"> 
                                     <div class="col" >
-                                        <a href="Register">Register?</a>
+                                        <a href="Register">Register?</a> <br>
                                     </div>
-                                    <div class="col"></div>
-                                    <div class="col"></div>
+                                    <div class="col" >
+                                        <a href="resetpassword.jsp">Forget Password?</a>
+                                    </div>
+                                    <!--<div class="col"></div>-->
+                                    <!--<div class="col"></div>-->
                                     <div class="col">
                                         <input type="submit" value="submit" class="btn btn-primary">
                                     </div>  

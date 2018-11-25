@@ -176,9 +176,9 @@
                 </div>
             </c:when>
             <c:otherwise>
-                <c:if test="${link!=null}">
+                <c:if test="${actinmail!=null}">
                     <div class="alert alert-warning" role="alert" style="margin-bottom: 0px;">
-                        <a href="${link}">click to activate</a>
+                        ${actinmail}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import extra.SendEmail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
@@ -30,11 +31,13 @@ import jpa.model.controller.exceptions.RollbackFailureException;
  * @author Hong
  */
 public class RegisterServlet extends HttpServlet {
+
     @PersistenceUnit(unitName = "MonthoPU")
     EntityManagerFactory emf;
-    
+
     @Resource
     UserTransaction utx;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -55,30 +58,33 @@ public class RegisterServlet extends HttpServlet {
         String telno = request.getParameter("telno");
         if (username != null && password != null && address != null && name != null && surname != null && telno != null && email != null) {
             HttpSession session = request.getSession(false);
-            
+
             password = cryptWithMD5(password);
             Account acc = new Account(username, password, address, name, surname, telno, email);
             AccountJpaController accCtrl = new AccountJpaController(utx, emf);
-            try{
+            try {
                 accCtrl.create(acc);
-            }catch(RollbackFailureException ex){
-                
+            } catch (RollbackFailureException ex) {
+
                 request.setAttribute("error", "ชื่อผู้ใช้หรืออีเมลล์ถูกใช้งานแล้ว");
                 getServletContext().getRequestDispatcher("/Register.jsp").forward(request, response);
                 return;
             }
-            
-            String activatekey = acc.getActivatekey();
-            String link = "http://localhost:8080/WEBPROJECT/Activate?username="+acc.getUsername()+"&activatekey="+activatekey;
 
-            request.setAttribute("link", link);
+            String activatekey = acc.getActivatekey();
+            String link = "\"" + "http://localhost:8080/WEBPROJECT/Activate?username=" + acc.getUsername() + "&activatekey=" + activatekey + "\"";
+            System.out.println(link);
+            SendEmail se = new SendEmail();
+            se.sendEmailTo(acc.getEmail(), "activate", link);
+
+            request.setAttribute("actinmail", "Please Activate Account on your Email");
             session.setAttribute("accCheck", acc);
             getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
             return;
         }
         getServletContext().getRequestDispatcher("/Register.jsp").forward(request, response);
     }
-    
+
     public static String cryptWithMD5(String pass) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

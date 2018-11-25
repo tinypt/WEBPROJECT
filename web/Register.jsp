@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="card-footer text-left" style="background: linear-gradient(white,#f2f2f2)">
-                            <a href="montho.jsp" class="btn">Back</a> 
+                            <a href="Login.jsp" class="btn">Back</a> 
                         </div>
                     </div>
                 </div>
