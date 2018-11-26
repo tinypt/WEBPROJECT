@@ -122,7 +122,7 @@
                                     <td><input id="p1" type="password" name="newpass" onchange="checkpass()" required></td> 
                                 </tr>
                                 <tr>
-                                    <td>Old password: </td>
+                                    <td>Confirm password: </td>
                                     <td><input id="p2" type="password" name="connewpass" onchange="checkpass()" required></td> 
                                 </tr>
                             </table>
