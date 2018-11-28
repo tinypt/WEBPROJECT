@@ -6,7 +6,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
@@ -20,8 +19,6 @@ import javax.transaction.UserTransaction;
 import jpa.model.Account;
 import jpa.model.Orders;
 import jpa.model.controller.AccountJpaController;
-import jpa.model.controller.OrderDetailJpaController;
-import jpa.model.controller.OrdersJpaController;
 
 /**
  *
@@ -52,7 +49,7 @@ public class GetOrderServlet extends HttpServlet {
         AccountJpaController accCtrl = new AccountJpaController(utx, emf);
         Account newacc = accCtrl.findAccount(acc.getAccountId());
         
-        List<Orders> orders = newacc.getOrdersList();
+        List<Orders> orders = newacc.getOrdersList();         
         if (orders.isEmpty()) {
             orders = null;
         }
