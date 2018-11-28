@@ -14,41 +14,44 @@
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
+        <div class="container mb-5 pt-4">
+            <div class="card p-3">
+                <h3 class="pt-2">รายการการสั่งซื้อ</h3>
+                <hr/>
         <c:choose>
             <c:when test="${orderdetail!=null}">
-                <div class="container-fluid text-center p-4" style="background-color: #fafafa;">
-                    <h1>รายการการสั่งซื้อ</h1> 
-                </div>
-                <div>
-                    <table id="example" class="table">
-                        <thead>
-                        <th>รายการ</th>
-                        <th>ชื่อขนม</th>
-                        <th>รูป</th>
-                        <th>ราคาต่อหน่วย (บาท)</th>
-                        <th>จำนวนสินค้า (ชิ้น)</th>
-                        <th>ราคารวม (บาท)</th>
-                        </thead>
-
-                        <c:forEach items="${orderdetail}" var="orderdetail" varStatus="vs">
-                            <tr >
-                                <td>${vs.count}</td>
-                                <td>${orderdetail.productId.productName}</td>
-                                <td><img src="image/${orderdetail.productId.productId}.jpg" width="200"></td>
-                                <td>${orderdetail.priceeach}</td>
-                                <td>${orderdetail.quantity}</td>
-                                <td>${orderdetail.quantity*orderdetail.priceeach}</td>
-                            </tr>
+                <c:forEach items="${orderdetail}" var="orderdetail" varStatus="vs">
+                <div class="row" style="height: 180px;">
+                    <div class="col-3">
+                        <img src="image/${orderdetail.productId.productId}.jpg" width="200">
+                    </div>
+                         <div class="col-9">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <h5>${orderdetail.productId.productName}</h5>
+                                            </div>
+                                            <div class="col-3">
+                                                <p style="font-size: 14px;">฿ ${orderdetail.priceeach}</p>
+                                                
+                                            </div>
+                                            <div class="col-2">
+                                                <p style="font-size: 14px;">${orderdetail.quantity} ชิ้น</p>
+                                            </div>
+                                            <div class="col-3 text-right">
+                                                <h6>฿ ${orderdetail.quantity*orderdetail.priceeach}</h6>
+                                            </div>
+                                        </div>
+                                            <hr/>
+                         </div>
+                                            </div>
                         </c:forEach>
-                        <tr>
-                            <td colspan="3"></td>
-                            <td></td>
-                            <td>จำนวนสินค้ารวม ${quantityall} ชิ้น</td>
-                            <td>ราคาสินค้ารวม ${order.totalprice} บาท</td>
-                        </tr>
-                    </table>
-                    <br>
-                </div> 
+                   
+                            <div class="container-fluid text-right mt-3">
+                                 <hr/>
+                                <h3>ราคาสินค้ารวม ฿ ${order.totalprice}</h3>
+                                <h4>จำนวนสินค้ารวม ${quantityall} ชิ้น</h4>
+                            </div>
+                    
             </c:when>
             <c:otherwise>
                 <div class="container-fluid text-center p-4" style="background-color: #fafafa;">
@@ -56,8 +59,10 @@
                 </div>
             </c:otherwise>
         </c:choose>
-    <center>
-        <a href="GetOrder.jsp">กลับ</a>
+            </div>
+        </div>
+    <center class="mb-5">
+        <a href="GetOrder.jsp" >กลับ ></a>
     </center>
 </body>
 </html>

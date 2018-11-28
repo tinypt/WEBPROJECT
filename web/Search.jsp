@@ -48,9 +48,12 @@
                 <div class="col-7 text-left">
                     <h4>${prod.productName}</h4>
                     <p>${prod.productDetail}</p>
-                    <p>ประเภท ${prod.type} | ราคา ${prod.productPrice} บาท <a href="AddItemtoCart?qty=1&product=${prod.productId}&form=search&name=${nameSearch}">
-                            <button type="button" class="btn btn-outline-primary btn-sm">เพิ่มลงตะกร้า</button>
-                        </a></p>
+                    <p>ประเภท ${prod.type} | ราคา ${prod.productPrice} บาท </p>
+                </div>
+                <div class="col-2">
+                    <a href="AddItemtoCart?qty=1&product=${prod.productId}&form=search&name=${nameSearch}">
+                            <button type="button" class="btn btn-outline-primary btn-sm mt-5">เพิ่มลงตะกร้า</button>
+                        </a>
                 </div>
             </div></c:forEach>
            </c:if>

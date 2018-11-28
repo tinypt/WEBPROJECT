@@ -285,33 +285,23 @@
                 </div>
                 <div class="carousel-item">
                     <a href="Getproduct?type=1"> <img src="image/Q.jpg"  width="1000" height="400"></a>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3># เรื่องขนมไทย ไว้ใจ มณโฑ</h3>
-                    </div>
+                    
                 </div>
                 <div class="carousel-item">
                     <a href="Getproduct?type=2"><img src="image/P.jpg"width="1000" height="400"></a>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3># เรื่องขนมไทย ไว้ใจ มณโฑ</h3>
-                    </div>
+                    
                 </div>
                 <div class="carousel-item">
                     <a href="Getproduct?type=3"><img src="image/K.jpg"  width="1000" height="400"></a>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3># เรื่องขนมไทย ไว้ใจ มณโฑ</h3>
-                    </div>
+                    
                 </div>
                 <div class="carousel-item">
                     <a href="Getproduct?type=4"> <img src="image/J.png"  width="1000" height="400"></a>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3># เรื่องขนมไทย ไว้ใจ มณโฑ</h3>
-                    </div>
+                    
                 </div>
                 <div class="carousel-item">
                     <a href="Getproduct?type=5"><img src="image/O.jpg" width="1000" height="400"></a>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3># เรื่องขนมไทย ไว้ใจ มณโฑ</h3>
-                    </div>
+                    
                 </div>
             </div>
 

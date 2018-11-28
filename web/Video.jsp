@@ -38,7 +38,7 @@
                     </div> 
                 </c:forEach>
             </div>
-        </c:when>
+        </c:when>                                                                                                                                                                                                                                                                                                                                              
         <c:otherwise>
             <p class="text-center mt-3">ไม่มีวีดีโอ</p> 
         </c:otherwise>

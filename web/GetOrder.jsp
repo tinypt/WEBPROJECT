@@ -32,25 +32,25 @@
         <div class="container-fluid text-center p-4" style="background-color: #fafafa;">
             <h1>ประวัติการสั่งซื้อ</h1> 
         </div>
-        <br>
         <c:choose>
             <c:when test="${orders!=null}">
-                <div>
-                    <table id="example" class="table">
+                <div class="container mt-3">
+                    <table id="example" class="table table-dark">
                         <thead>
-                        <th>รายการสั่งซื้อ</th>
-                        <th>วันที่การสั่งซื้อ</th>
-                        <th>ราคารวม (บาท)</th>
-                        <th>รายละเอียด</th>
+                        <th>#</th>
+                            <th>รายการสั่งซื้อ</th>
+                            <th></th>
+                            <th></th>
                         </thead>
 
                         <c:forEach items="${orders}" var="order" varStatus="vs">
-                            <tr >
+                            <tr class="bg-light text-dark">
                                 <td>${vs.count}</td>
+                                <td>฿ ${order.totalprice}</td>
                                 <td>${order.orderDate}</td>
-                                <td>${order.totalprice}</td>
-                                <td>
-                                    <a href="GetOrderDetail?orderid=${order.orderId}">
+                                
+                                <td class="text-right pr-5">
+                                    <a href="GetOrderDetail?orderid=${order.orderId}" class="btn btn-success">
                                         ดูรายละเอียด
                                     </a>
                                 </td>
@@ -64,7 +64,7 @@
                 <p class="text-center mt-3">ยังไม่มีประวัติการสั่งซื้อ</p> 
             </c:otherwise>
         </c:choose>
-    <center>
+    <center class="mb-5">
 
         <a href="montho.jsp">ไปเลือกซื้อสินค้ากับเรา ></a>
     </center>
