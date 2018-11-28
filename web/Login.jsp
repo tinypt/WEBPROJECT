@@ -85,16 +85,13 @@
                                     <input type="text" class="form-control mb-3"  name="username" placeholder="Username or Email*"><br>
                                     <input type="password" class="form-control mb-3"  name="password" placeholder="Password*"><br>
                                 </div>
-                                <div class="row"> 
-                                    <div class="col" >
-                                        <a href="Register">Register?</a> <br>
-                                    </div>
-                                    <div class="col" >
+                                <div class="row">
+                                    <div class="col-8 text-left">
+                                        <a href="Register">Register?</a> <br/>
                                         <a href="Resetpassword">Forget Password?</a>
                                     </div>
-                                    <!--<div class="col"></div>-->
-                                    <!--<div class="col"></div>-->
-                                    <div class="col">
+                                    
+                                    <div class="col-4">
                                         <input type="submit" value="submit" class="btn btn-primary">
                                     </div>  
                                 </div>

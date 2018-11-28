@@ -38,15 +38,15 @@
                     <table id="example" class="table table-dark">
                         <thead>
                         <th>#</th>
-                            <th>รายการสั่งซื้อ</th>
-                            <th></th>
+                            <th>เลขที่สั่งซื้อ</th>
+                            <th>วันที่สั่งซื้อ</th>
                             <th></th>
                         </thead>
 
                         <c:forEach items="${orders}" var="order" varStatus="vs">
                             <tr class="bg-light text-dark">
                                 <td>${vs.count}</td>
-                                <td>฿ ${order.totalprice}</td>
+                                <td>${order.orderId}</td>
                                 <td>${order.orderDate}</td>
                                 
                                 <td class="text-right pr-5">

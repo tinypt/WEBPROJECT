@@ -25,17 +25,17 @@
                             <div class="panel-body">
                                 <div class="text-center">
                                     <h3><i class="fa fa-lock fa-4x"></i></h3>
-                                    <p>You can reset your password here.</p>
+                                    <h5>กรอก Email ของคุณเพื่อเปลี่ยนรหัสผ่าน</h5>
                                     <div class="panel-body">
                                         <form id="register-form" role="form" autocomplete="off" class="form" method="post" action="Resetpassword">
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-                                                    <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
+                                                    <input id="email" name="email" placeholder="email address" class="form-control mb-3"  type="email">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                                            <div class="form-group text-right">
+                                                <input name="recover-submit" class="btn btn-primary" value="Reset Password" type="submit">
                                             </div>
                                         </form>
                                     </div>

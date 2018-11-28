@@ -85,9 +85,6 @@
                             <div class=" text-right">
                                 <input type="submit" class="btn btn-danger" value="แก้ไขตะกร้า" id="subbtn" disabled="true">
                                 <hr/>
-
-
-
                                 <h3>ราคารวม ฿ ${cart.totalPriceInCart}</h3>
                                 <h4>สินค้ารวม ${cart.totalQuantityInCart} ชิ้น</h4>
                                 <a href="Confirm">
