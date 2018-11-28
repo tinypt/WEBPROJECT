@@ -85,10 +85,16 @@
                                         Surname: <input type="text" class="form-control " name="surname" value="${acc.surname}" onchange="Allowbtn()"><br>
                                         Address: <textarea class="form-control" rows="4" cols="30" name="address" onchange="Allowbtn()">${acc.address}</textarea><br>
                                         Telno: <input type="tel" class="form-control " name="telno" value="${acc.telnumber}" pattern="[0-9]{10}" onchange="Allowbtn()"><br>
-                                        <input type="submit" class="btn btn-primary" value="UPDATE Account" id="subbtn" disabled="true">
-                                        <a href="#" data-toggle="modal" data-target="#myModal">
-                                            เปลี่ยนรหัสผ่าน
-                                        </a>
+                                        <div class="row"> 
+                                            <div class="col-6">
+                                                <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+                                                    เปลี่ยนรหัสผ่าน
+                                                </a>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <input type="submit" class="btn btn-primary" value="UPDATE Account" id="subbtn" disabled="true">
+
+                                            </div></div>
                                     </div>
                                 </div>
                             </div>
