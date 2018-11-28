@@ -83,7 +83,7 @@
                                 </div>
                             </c:forEach>
                             <div class=" text-right">
-                                <input type="submit" class="btn btn-info" value="แก้ไขตะกร้า" id="subbtn" disabled="true">
+                                <input type="submit" class="btn btn-danger" value="แก้ไขตะกร้า" id="subbtn" disabled="true">
                                 <hr/>
 
 
