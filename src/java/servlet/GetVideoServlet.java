@@ -103,6 +103,10 @@ public class GetVideoServlet extends HttpServlet {
             for (Integer prod_id : prod_id_noduplicate) {
                 productAll.add(prodCtrl.findProduct(prod_id));
             }
+
+            if (productAll.size() <= 0) {
+                productAll = null;
+            }
             session.setAttribute("prod", productAll);
         }
         getServletContext().getRequestDispatcher("/Video.jsp").forward(request, response);
