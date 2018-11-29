@@ -279,29 +279,24 @@
             </ul>
 
             <!--The slideshow--> 
-            <div class="carousel-inner" style="height: 800px;">
+            <div class="carousel-inner" style="height: 750px;">
                 <div class="carousel-item active">
-                    <img src="image/N.jpg"  width="1000" height="400">
+                    <img src="image/L.jpg" height="400" width="1000" >
                 </div>
                 <div class="carousel-item">
-                    <a href="Getproduct?type=1"> <img src="image/Q.jpg"  width="1000" height="400"></a>
-                    
+                    <a href="Getproduct?type=1"> <img src="image/Q.jpg" height="400" width="1000" ></a>
                 </div>
                 <div class="carousel-item">
                     <a href="Getproduct?type=2"><img src="image/P.jpg"width="1000" height="400"></a>
-                    
                 </div>
                 <div class="carousel-item">
                     <a href="Getproduct?type=3"><img src="image/K.jpg"  width="1000" height="400"></a>
-                    
                 </div>
                 <div class="carousel-item">
                     <a href="Getproduct?type=4"> <img src="image/J.png"  width="1000" height="400"></a>
-                    
                 </div>
                 <div class="carousel-item">
                     <a href="Getproduct?type=5"><img src="image/O.jpg" width="1000" height="400"></a>
-                    
                 </div>
             </div>
 
