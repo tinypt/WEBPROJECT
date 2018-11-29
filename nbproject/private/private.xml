@@ -6,13 +6,16 @@
             <file>file:/C:/Users/GT62VR/Desktop/WEBPROJECT/web/Search.jsp</file>
         </group>
         <group>
-            <file>file:/Users/tinypt/Desktop/WEBPROJECT/src/java/servlet/AddItemtoCartServlet.java</file>
-            <file>file:/Users/tinypt/Desktop/WEBPROJECT/web/Search.jsp</file>
-            <file>file:/Users/tinypt/Desktop/WEBPROJECT/src/java/servlet/SearchServlet.java</file>
-            <file>file:/Users/tinypt/Desktop/WEBPROJECT/src/java/servlet/FavouriteServlet.java</file>
-            <file>file:/Users/tinypt/Desktop/WEBPROJECT/src/java/servlet/GetdetailServlet.java</file>
+            <file>file:/Users/tinypt/Desktop/WEBPROJECT/src/java/servlet/RemoveFavServlet.java</file>
+            <file>file:/Users/tinypt/Desktop/WEBPROJECT/web/ProductType.jsp</file>
             <file>file:/Users/tinypt/Desktop/WEBPROJECT/web/include/header.jsp</file>
             <file>file:/Users/tinypt/Desktop/WEBPROJECT/web/getdetail.jsp</file>
+            <file>file:/Users/tinypt/Desktop/WEBPROJECT/web/Search.jsp</file>
+            <file>file:/Users/tinypt/Desktop/WEBPROJECT/src/java/servlet/SearchServlet.java</file>
+            <file>file:/Users/tinypt/Desktop/WEBPROJECT/src/java/servlet/GetdetailServlet.java</file>
+            <file>file:/Users/tinypt/Desktop/WEBPROJECT/src/java/servlet/FavouriteServlet.java</file>
+            <file>file:/Users/tinypt/Desktop/WEBPROJECT/web/Favourite.jsp</file>
+            <file>file:/Users/tinypt/Desktop/WEBPROJECT/src/java/servlet/GetFavServlet.java</file>
         </group>
     </open-files>
 </project-private>
