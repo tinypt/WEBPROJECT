@@ -46,7 +46,7 @@
                    <div class="row" style="height: 200px;">
                 <div class="col-3"><img src="image/${prod.productId}.jpg" width="200"></div>
                 <div class="col-7 text-left">
-                    <h4>${prod.productName}</h4>
+                     <a href="Getdetail?product=${prod.productId}" class="h4 text-primary"><h4>${prod.productName}</h4></a>
                     <p>${prod.productDetail}</p>
                     <p>ประเภท ${prod.type} | ราคา ${prod.productPrice} บาท </p>
                 </div>

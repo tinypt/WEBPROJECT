@@ -52,6 +52,7 @@ public class RemoveFavServlet extends HttpServlet {
         Account acc = (Account) session.getAttribute("acc");
         
         String productidStr = request.getParameter("productid");
+        String pageFav = request.getParameter("page");
         int productid = Integer.parseInt(productidStr);
         
         ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
@@ -62,7 +63,12 @@ public class RemoveFavServlet extends HttpServlet {
         favCtrl.destroy(fav.getFavouriteId());
         
         request.setAttribute("removefav", "นำออกจากรายการโปรดเรียบร้อย");
+        if(pageFav!=null){
+             getServletContext().getRequestDispatcher("/GetFav").forward(request, response);
+             return;
+        }
         getServletContext().getRequestDispatcher("/Getdetail?product="+productid).forward(request, response);
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
