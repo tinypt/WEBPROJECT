@@ -48,8 +48,8 @@
                    
                             <div class="container-fluid text-right mt-3">
                                  <hr/>
+                                 <h5>จำนวนสินค้ารวม ${quantityall} ชิ้น</h5>
                                 <h3>ราคาสินค้ารวม ฿ ${order.totalprice}</h3>
-                                <h4>จำนวนสินค้ารวม ${quantityall} ชิ้น</h4>
                             </div>
                     
             </c:when>
