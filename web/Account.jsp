@@ -26,7 +26,8 @@
                 if (document.getElementById("p1").value == document.getElementById("p2").value) {
                     document.getElementById("subbtn2").disabled = false;
                 } else {
-                    document.getElementById("subbtn2").disabled = true;
+                    document.getElementById("noPass").innerHTML = "*รหัสผ่านในช่องไม่เหมือนกัน";
+                    document.getElementById("subbtn").disabled = true;
                 }
             }
         </script>
@@ -125,7 +126,7 @@
                                 </tr> 
                                 <tr>
                                     <td>New password: </td>
-                                    <td><input id="p1" type="password" name="newpass" onchange="checkpass()" required></td> 
+                                    <td><input id="p1" type="password" name="newpass" required></td> 
                                 </tr>
                                 <tr>
                                     <td>Confirm password: </td>
@@ -135,7 +136,9 @@
                             <br>
                             <input type="hidden" name="username" value="${acc.username}">
                         </div>
-
+                        <div style="margin-left: 30px;">
+                            <p id="noPass" class="text-danger"></p>
+                        </div>
                         <!-- Modal footer -->
                         <div class="modal-footer">
                             <input type="submit" id="subbtn2" class="btn btn-primary" disabled>
