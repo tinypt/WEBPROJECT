@@ -13,8 +13,10 @@
         <script>
             function checkpass() {
                 if (document.getElementById("p1").value == document.getElementById("p2").value) {
+                    document.getElementById("noPass").innerHTML = "";
                     document.getElementById("subbtn").disabled = false;
                 }else {
+                    document.getElementById("noPass").innerHTML = "*รหัสผ่านในช่องไม่เหมือนกัน";
                     document.getElementById("subbtn").disabled = true;
                 }
             }
@@ -39,13 +41,13 @@
                                     <input type="hidden" name="accid" value="${acc.accountId}">
                                     <input id="p1" type="password" class="form-control mb-3"  name="password" placeholder="New Password*" onchange="checkpass()"><br>
                                     <input id="p2" name="confirmpassword" type="password" class="form-control mb-3" onchange="checkpass()" placeholder="Confirm New Password*"><br>
+                                    
                                 </div>
                                 <div class="row"> 
-                                    <div class="col"></div>
-                                    <div class="col"></div>
-                                    <div class="col"></div>
-                                    <div class="col"></div>
-                                    <div class="col">
+                                    <div class="col-8">
+                                        <p id="noPass" class="text-danger"></p>
+                                    </div>
+                                    <div class="col-4">
                                         <input id="subbtn" type="submit" value="submit" class="btn btn-primary" disabled="">
                                     </div>  
                                 </div>
