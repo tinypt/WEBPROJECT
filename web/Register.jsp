@@ -17,6 +17,16 @@
             }
         </style>
         <title>Register Page</title>
+        <script>
+            function showpass() {
+                var x = document.getElementById("passbox");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password"
+                }
+            }
+        </script>
     </head>
     <body>
         <jsp:include page="include/header.jsp"/>
@@ -43,13 +53,18 @@
 
                             <form method="post" action="Register" autocomplete="off">
                                 <div class="row">
+                                    <div class="row">
                                     Username: <input type="text"  name="username" class="form-control mb-2" placeholder="Username*" required> <br>
                                     email: <input type="email"  name="email" class="form-control mb-2" placeholder="example@mail.com*" required> <br>
-                                    Password: <input type="password" name="password" class="form-control mb-2 " placeholder="Password*" required><br>
-                                    Name: <input type="text" name="name" class="form-control mb-2 " placeholder="Name*" required><br>
-                                    Surname: <input type="text" name="surname" class="form-control mb-2 " placeholder="Surname*" required><br>
-                                    Address: <textarea rows="4" cols="30" class="form-control mb-2 " name="address" placeholder="Address*" required></textarea><br>
-                                    Telno: <input type="tel" name="telno" class="form-control mb-2 " placeholder="08xxxxxxxx*" pattern="[0-9]{10}" required><br>
+                                    
+                                    Password: <input id="passbox" type="password" name="password" class="form-control mb-2 " placeholder="Password*" required><br>
+                                    <input type="checkbox" class="mt-1 mr-1" onclick="showpass()"> Show Password<br> </div>
+                                    <div class="row">
+                                    Name: <input type="text" name="name" class="form-control mb-2 " placeholder="Name*" value="${name}" required><br>
+                                    Surname: <input type="text" name="surname" class="form-control mb-2 " placeholder="Surname*" value="${surname}" required><br>
+                                    Address: <textarea rows="4" cols="30" class="form-control mb-2 " name="address" placeholder="Address*" required>${address}</textarea><br>
+                                    Telno: <input type="tel" name="telno" class="form-control mb-2 " placeholder="08xxxxxxxx*" value="${telno}" pattern="[0-9]{10}" required><br>
+                                </div>
                                 </div>
                                 <div class="row"> 
                                     <div class="col"></div>

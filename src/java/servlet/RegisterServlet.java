@@ -65,7 +65,10 @@ public class RegisterServlet extends HttpServlet {
             try {
                 accCtrl.create(acc);
             } catch (RollbackFailureException ex) {
-
+               request.setAttribute("address", address);
+               request.setAttribute("name", name);
+               request.setAttribute("surname", surname);
+               request.setAttribute("telno", telno);
                 request.setAttribute("error", "ชื่อผู้ใช้หรืออีเมลล์ถูกใช้งานแล้ว");
                 getServletContext().getRequestDispatcher("/Register.jsp").forward(request, response);
                 return;

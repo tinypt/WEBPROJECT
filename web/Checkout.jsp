@@ -55,15 +55,31 @@
             </div>
             <div class="row">
                 <div class="col" style="text-align: left; padding-left: 80px; padding-right: 0;">
-                    อีเมลล์: ${acc.email}<br>
-                    ชื่อลูกค้า: ${acc.name} ${acc.surname} <br>
-                    ที่อยู่ที่จัดส่ง: ${acc.address} <br>
-                    เบอร์ติดต่อ: ${acc.telnumber} 
+                    <div class="row">
+                        
+                   
+                    <div class="col-5 text-center">
 
-                    <a href="#" data-toggle="modal" data-target="#myModal">
-                        แก้ไข
-                    </a>
 
+                        <c:choose>
+                            <c:when test="${acc.picturename!=null}">
+                                <img src="image-account/${acc.picturename}" alt="user" width="150px">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="image-account/user.png" alt="user" width="150px">
+                            </c:otherwise>
+                        </c:choose>
+                    </div>  
+                    <div class="col-7">
+                        อีเมลล์: ${acc.email}<br>
+                            ชื่อลูกค้า: ${acc.name} ${acc.surname} <br>
+                            ที่อยู่ที่จัดส่ง: ${acc.address} <br>
+                            เบอร์ติดต่อ: ${acc.telnumber}
+
+                        <a href="#" data-toggle="modal" data-target="#myModal">
+                            แก้ไข
+                        </a>
+                    </div> </div>
                     <!-- The Modal -->
                     <div class="modal" id="myModal">
                         <div class="modal-dialog" style="top: 150px;">
@@ -111,8 +127,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
                 </div>
                 <div class="col">
                 </div>
