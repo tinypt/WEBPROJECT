@@ -29,10 +29,8 @@
                     <c:forEach items="${favlist}" var="favlist">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <div class="card p-3 text-center box-part bg-light border-0 mb-3" style="width: 42rem; height: 42rem;" >
-                                <a href="RemoveFav?productid=${favlist.productId.productId}&page=faver">
-                                       <button type="button" class="close text-right" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                <a href="RemoveFav?productid=${favlist.productId.productId}&page=faver" class="text-right">
+                                    <img src="image/close.png"  style="width: 20px;" />
                                 </a>
                                 <h1 class="pt-5">${favlist.productId.productName}</h1>  
                                 <div class="row pt-3 pb-4">
