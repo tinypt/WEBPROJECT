@@ -28,7 +28,7 @@
                          <div class="col-9">
                                         <div class="row">
                                             <div class="col-4">
-                                                <h5>${orderdetail.productId.productName}</h5>
+                                                <a href="Getdetail?product=${orderdetail.productId.productId}"><h5>${orderdetail.productId.productName}</h5></a>
                                             </div>
                                             <div class="col-3">
                                                 <p style="font-size: 14px;">฿ ${orderdetail.priceeach}</p>
