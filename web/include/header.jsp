@@ -81,10 +81,10 @@
                                     (${cart.totalQuantityInCart})
                                 </c:otherwise>
                             </c:choose></a>
-                        <a class="dropdown-item" href="GetFav">รายการโปรด</a>
+                        <c:if test="${acc!=null}">
+                            <a class="dropdown-item" href="GetFav">รายการโปรด</a>
                         <a class="dropdown-item" href="GetVideo">วิดีโอ</a>
                         <a class="dropdown-item" href="GetOrder">ประวัติการสั่งซื้อ</a>
-                        <c:if test="${acc!=null}">
                             <a class="dropdown-item" href="GetAccount">ข้อมูลสมาชิก</a>
                         </c:if>
                         <a class="dropdown-item" href="${acc==null?"Login":"Logout"}">${acc==null?"Log-in":"Log-out"}</a>
