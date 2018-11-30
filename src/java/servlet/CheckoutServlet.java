@@ -86,7 +86,7 @@ public class CheckoutServlet extends HttpServlet {
             orderdJpaCtrl.create(order_detail);
         }
         cart.clear();
-        request.setAttribute("buycom", "สั่งซื้อสินค้าสำเร็จ คุณจะได้รับวีดีโอที่สามารถดูได้ภายใน 3 วันนับจากนี้");
+        request.setAttribute("buycom", "สั่งซื้อสินค้าสำเร็จ คุณจะได้รับวีดีโอที่สามารถดูได้ภายใน 15 วันนับจากนี้");
         getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
     }
 

@@ -74,16 +74,16 @@ public class GetVideoServlet extends HttpServlet {
                 Date datefromorder = order.getOrderDate();
                 System.out.println("orderdate = " + dt.format(datefromorder));
                 LocalDateTime localDateTime = datefromorder.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-                localDateTime = localDateTime.plusDays(3);
-                Date dplus3day = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-                System.out.println("after plus 3 day =" + dt.format(dplus3day));
+                localDateTime = localDateTime.plusDays(15);
+                Date dplus15day = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+                System.out.println("after plus 15 day =" + dt.format(dplus15day));
                 //--------------------------------------------------
                 Date today = new Date();
                 System.out.println("today = " + dt.format(today));
-                System.out.println("before = " + today.before(dplus3day));
+                System.out.println("before = " + today.before(dplus15day));
                 /*-------------------------------------------------*/
 
-                if (today.before(dplus3day)) {
+                if (today.before(dplus15day)) {
                     temps = order.getOrderDetailList();
                     for (OrderDetail temp : temps) {
                         prod_id_all.add(temp.getProductId().getProductId());
