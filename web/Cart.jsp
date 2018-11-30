@@ -11,8 +11,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cart Page</title>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-        <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
         <style>
             body {
@@ -51,6 +49,11 @@
             </div>
         </c:if>
         <div class="container mb-5 pt-4">
+            
+            <div class="card pl-3 pt-3 pb-1 mb-3">
+                <p><img src="image/box.png" class="mr-2" width="20"/>จัดส่งสินค้าฟรี</p>
+            </div>
+            
             <div class="card p-3">
                 <h3 class="pt-2">รายการสินค้าของคุณ</h3>
                 <hr/>
@@ -63,7 +66,7 @@
                                     <div class="col-9">
                                         <div class="row">
                                             <div class="col-4">
-                                                <h5>${line.prod.productName}</h5>
+                                                <a href="Getdetail?product=${line.prod.productId}"><h5>${line.prod.productName}</h5></a>
                                             </div>
                                             <div class="col-3">
                                                 <p style="font-size: 14px;">฿ ${line.prod.productPrice}</p>

@@ -50,6 +50,9 @@
         </div>
         <br>
         <div class="container">
+            <div class="card pl-3 pt-3 pb-1 mb-3 text-left">
+                <p><img src="image/box.png" class="mr-2" width="20"/>จัดส่งสินค้าฟรี</p>
+            </div>
             <div class="row">
                 <div class="col" style="text-align: left; padding-left: 80px; padding-right: 0;">
                     อีเมลล์: ${acc.email}<br>
@@ -147,7 +150,7 @@
             <button type="button" class="btn" id="subbtn2">กลับ</button>
         </a>
         <a href="Checkout">
-            <button  type="button" class="btn"  id="subbtn2">ยืนยันการสั่งซื้อ</button>
+            <button  type="button" class="btn"  id="subbtn2">ชำระเงิน</button>
         </a>
 
         <!--<a href="Checkout" style="text-align: right;">ยืนยันการสั่งซื้อ</a>-->
