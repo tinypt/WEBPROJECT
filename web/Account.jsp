@@ -25,6 +25,7 @@
             function checkpass() {
                 if (document.getElementById("p1").value == document.getElementById("p2").value) {
                     document.getElementById("subbtn2").disabled = false;
+                    document.getElementById("noPass").innerHTML = "";
                 } else {
                     document.getElementById("noPass").innerHTML = "*รหัสผ่านในช่องไม่เหมือนกัน";
                     document.getElementById("subbtn").disabled = true;
@@ -126,7 +127,7 @@
                                 </tr> 
                                 <tr>
                                     <td>New password: </td>
-                                    <td><input id="p1" type="password" name="newpass" required></td> 
+                                    <td><input id="p1" type="password" name="newpass" required onchange="checkpass()"></td> 
                                 </tr>
                                 <tr>
                                     <td>Confirm password: </td>
