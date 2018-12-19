@@ -45,8 +45,12 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        HttpSession session = request.getSession();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+//        String url = null;
+//        url = (String) request.getAttribute("url");
+//        System.out.println("url0 is = "+url);
         if (username != null && password != null) {
             AccountJpaController accCtrl = new AccountJpaController(utx, emf);
             try {
@@ -71,8 +75,26 @@ public class LoginServlet extends HttpServlet {
         if (acc.getActivatedate() != null) {
             HttpSession session = request.getSession();
             password = cryptWithMD5(password);
-            if (password.equalsIgnoreCase(acc.getPassword())) {
+            if (password.equals(acc.getPassword())) {
+                String url = null;
+                url = (String) session.getAttribute("url");
                 session.setAttribute("acc", acc);
+//                getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+                System.out.println("url is " + url);
+                if (url != null) {
+                    if (url.equals("/UpdateAccount")) {
+                        getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
+                        return;
+                    } else if (url.equals("/Favourite")) {
+                        int productid = (int) session.getAttribute("productidfilter");
+                        System.out.println("authenfilter productid=" + productid);
+                        url = "/Getdetail?product=" + productid;
+                        getServletContext().getRequestDispatcher(url).forward(request, response);
+                        return;
+                    }
+                    getServletContext().getRequestDispatcher(url).forward(request, response);
+                    return;
+                }
                 getServletContext().getRequestDispatcher("/montho.jsp").forward(request, response);
             } else {
                 request.setAttribute("falsepass", "Your ID or Password invalid");
@@ -80,7 +102,7 @@ public class LoginServlet extends HttpServlet {
             }
         } else {
             password = cryptWithMD5(password);
-            if (password.equalsIgnoreCase(acc.getPassword())) {
+            if (password.equals(acc.getPassword())) {
                 String link = "http://localhost:8080/WEBPROJECT/Activate?username=" + acc.getUsername() + "&activatekey=" + acc.getActivatekey();
                 request.setAttribute("link", link);
 

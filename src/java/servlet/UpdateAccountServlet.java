@@ -65,6 +65,7 @@ public class UpdateAccountServlet extends HttpServlet {
         String telno = request.getParameter("telno");
 
         if (surname == null) {
+            System.out.println("surname = "+surname);
             String[] splited = name.split(" ");
             name = splited[0];
             surname = splited[1];

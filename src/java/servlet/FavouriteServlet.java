@@ -51,6 +51,7 @@ public class FavouriteServlet extends HttpServlet {
         Account acc = (Account) session.getAttribute("acc");
 
         String productidStr = request.getParameter("productid");
+        System.out.println("productid favservlet = "+productidStr);
         int productid = Integer.parseInt(productidStr);
         
         ProductJpaController prodCtrl = new ProductJpaController(utx, emf);

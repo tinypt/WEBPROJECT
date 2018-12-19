@@ -23,8 +23,9 @@
                 <c:forEach items="${prod}" var="prod">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="card p-3 text-center box-part bg-light border-0 mb-3" style="width: 42rem; height: 42rem;" >
-                            <p class="text-danger">ดูได้ถึง</p>
-                            <h1 class="pt-5">${prod.productName}</h1>  
+                            <!--<p class="text-danger">ดูได้ถึง</p>-->
+                            <!--<h1 class="pt-5">${prod.productName}</h1>-->  
+                            <a href="Getdetail?product=${prod.productId}" class="h4 text-primary"><h1>${prod.productName}</h1></a>
                             <div class="row pt-5">
                                 <div class="col"></div>
                                 <div class="col"> 

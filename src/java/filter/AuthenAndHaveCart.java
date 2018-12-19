@@ -36,6 +36,9 @@ public class AuthenAndHaveCart implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) request).getSession(false);
         if (session.getAttribute("acc") == null) {
+            String url = ((HttpServletRequest)request).getServletPath();
+            System.out.println(url);
+            session.setAttribute("url", url);
             config.getServletContext().getRequestDispatcher("/Login").forward(request, response);
             return;
         }

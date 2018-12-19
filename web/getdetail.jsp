@@ -173,6 +173,7 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <a href="Favourite?productid=${product.productId}">
+                                                    <c:set var="productidfilter" scope="session" value="${product.productId}" />
                                                     <img id = "whiteFav" src="extra-image/whitefav.png" style="width: 35px;margin-right: 10px;" onclick="favourite()">
                                                 </a>
                                             </c:otherwise>
