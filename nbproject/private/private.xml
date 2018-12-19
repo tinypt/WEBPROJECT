@@ -14,6 +14,9 @@
             <file>file:/Users/tinypt/Desktop/WEBPROJECT/web/Favourite.jsp</file>
             <file>file:/Users/tinypt/Desktop/WEBPROJECT/src/java/servlet/GetFavServlet.java</file>
         </group>
-        <group name="MidtermLAB2017"/>
+        <group name="MidtermLAB2017">
+            <file>file:/C:/Users/GT62VR/Desktop/Sophomore/303/int303-project-A03-60130500055/WEBPROJECT/web/Video.jsp</file>
+            <file>file:/C:/Users/GT62VR/Desktop/Sophomore/303/int303-project-A03-60130500055/WEBPROJECT/src/java/servlet/GetVideoServlet.java</file>
+        </group>
     </open-files>
 </project-private>

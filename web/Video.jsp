@@ -18,27 +18,25 @@
             <h1>วีดีโอ</h1> 
         </div>
         <c:choose>
-            <c:when test="${videolist!=null}">
+            <c:when test="${video!=null}">
                 <div class="row m-3">
-                    <c:forEach items="${videolist}" var="map">
-                        <c:forEach items="${map}" var="entry">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="card p-3 text-center box-part bg-light border-0 mb-3" style="width: 42rem; height: 42rem;" >
-                                    <p class="text-danger">ดูได้ถึง ${entry.value}</p>
-                                    <a href="Getdetail?product=${entry.key.productId}" class="h4 text-primary"><h1>${entry.key.productName}</h1></a>
-                                    <div class="row pt-5">
-                                        <div class="col"></div>
-                                        <div class="col"> 
-                                            <iframe width="420" height="345" src="${entry.key.productVideo}">
-                                            </iframe>
-                                        </div>
-                                        <div class="col"></div>
+                    <c:forEach items="${video}" var="map">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="card p-3 text-center box-part bg-light border-0 mb-3" style="width: 42rem; height: 42rem;" >
+                                <p class="text-danger">ดูได้ถึง ${map.value}</p>
+                                <a href="Getdetail?product=${map.key.productId}" class="h4 text-primary"><h1>${map.key.productName}</h1></a>
+                                <div class="row pt-5">
+                                    <div class="col"></div>
+                                    <div class="col"> 
+                                        <iframe width="420" height="345" src="${map.key.productVideo}">
+                                        </iframe>
                                     </div>
-                                    <br/>
-
+                                    <div class="col"></div>
                                 </div>
-                            </div> 
-                        </c:forEach>
+                                <br/>
+
+                            </div>
+                        </div> 
                     </c:forEach>
                 </div>
             </c:when>                                                                                                                                                                                                                                                                                                                                              

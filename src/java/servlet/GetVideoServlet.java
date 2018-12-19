@@ -63,8 +63,6 @@ public class GetVideoServlet extends HttpServlet {
         List<Orders> orders = newacc.getOrdersList();
         //map<product,expdate>
         Map<Product, String> video = new HashMap<>();
-        //list for add and send to jsp
-        List<Map<Product, String>> videolist = new ArrayList<>();
         if (!orders.isEmpty()) {
 
             List<OrderDetail> temps = new ArrayList<>();
@@ -90,8 +88,7 @@ public class GetVideoServlet extends HttpServlet {
             }
 
             System.out.println(video);
-            videolist.add(video);
-            session.setAttribute("videolist", videolist);
+            session.setAttribute("video", video);
         }
         getServletContext().getRequestDispatcher("/Video.jsp").forward(request, response);
     }
