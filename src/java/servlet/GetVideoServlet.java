@@ -11,7 +11,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -59,57 +61,49 @@ public class GetVideoServlet extends HttpServlet {
         Account newacc = accCtrl.findAccount(acc.getAccountId());
         System.out.println("user = " + newacc.getUsername());
         List<Orders> orders = newacc.getOrdersList();
+        //map<product,expdate>
+        Map<Product, String> video = new HashMap<>();
+        //list for add and send to jsp
+        List<Map<Product, String>> videolist = new ArrayList<>();
         if (!orders.isEmpty()) {
 
             List<OrderDetail> temps = new ArrayList<>();
-            List<Integer> prod_id_all = new ArrayList<>();
-
             SimpleDateFormat dt = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             for (Orders order : orders) {
-                /**
-                 * ***********ADD 3 day from order date************
-                 */
-                //how to add day source
-                //https://www.mkyong.com/java/java-how-to-add-days-to-current-date/
-                Date datefromorder = order.getOrderDate();
-                System.out.println("orderdate = " + dt.format(datefromorder));
-                LocalDateTime localDateTime = datefromorder.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-                localDateTime = localDateTime.plusDays(15);
-                Date dplus15day = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-                System.out.println("after plus 15 day =" + dt.format(dplus15day));
-                //--------------------------------------------------
+
                 Date today = new Date();
-                System.out.println("today = " + dt.format(today));
-                System.out.println("before = " + today.before(dplus15day));
-                /*-------------------------------------------------*/
+                Date datefromorder = order.getOrderDate();
+                Date dplus15day = plus15Days(datefromorder);
+//                System.out.println("expdate (plus 15 days) =" + dt.format(dplus15day));
+//                System.out.println("today = " + dt.format(today));
+//                System.out.println("can view?(T/F) = " + today.before(dplus15day));
+//                System.out.println("-------------------------------");
+//                -------------------------------------------------
 
                 if (today.before(dplus15day)) {
                     temps = order.getOrderDetailList();
                     for (OrderDetail temp : temps) {
-                        prod_id_all.add(temp.getProductId().getProductId());
+                        //map will change value automatically when key is duplicate
+                        video.put(temp.getProductId(), dt.format(dplus15day));
                     }
                 }
             }
 
-            List<Integer> prod_id_noduplicate = new ArrayList<>();
-            for (Integer integer : prod_id_all) {
-                if (!prod_id_noduplicate.contains(integer)) {
-                    prod_id_noduplicate.add(integer);
-                }
-            }
-
-            ProductJpaController prodCtrl = new ProductJpaController(utx, emf);
-            List<Product> productAll = new ArrayList<>();
-            for (Integer prod_id : prod_id_noduplicate) {
-                productAll.add(prodCtrl.findProduct(prod_id));
-            }
-
-            if (productAll.size() <= 0) {
-                productAll = null;
-            }
-            session.setAttribute("prod", productAll);
+            System.out.println(video);
+            videolist.add(video);
+            session.setAttribute("videolist", videolist);
         }
         getServletContext().getRequestDispatcher("/Video.jsp").forward(request, response);
+    }
+
+    public Date plus15Days(Date datefromorder) {
+        //***********ADD 15 day from order date************
+        //how to add day source
+        //https://www.mkyong.com/java/java-how-to-add-days-to-current-date/
+        LocalDateTime localDateTime = datefromorder.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        localDateTime = localDateTime.plusDays(15);
+        Date dayplus15 = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        return dayplus15;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

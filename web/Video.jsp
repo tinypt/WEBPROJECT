@@ -13,38 +13,39 @@
         <title>Video</title>
     </head>
     <body>
-         <jsp:include page="include/header.jsp"/>
+        <jsp:include page="include/header.jsp"/>
         <div class="container-fluid text-center p-4" style="background-color: #fafafa;">
             <h1>วีดีโอ</h1> 
         </div>
-    <c:choose>
-        <c:when test="${prod!=null}">
-            <div class="row m-3">
-                <c:forEach items="${prod}" var="prod">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="card p-3 text-center box-part bg-light border-0 mb-3" style="width: 42rem; height: 42rem;" >
-                            <!--<p class="text-danger">ดูได้ถึง</p>-->
-                            <!--<h1 class="pt-5">${prod.productName}</h1>-->  
-                            <a href="Getdetail?product=${prod.productId}" class="h4 text-primary"><h1>${prod.productName}</h1></a>
-                            <div class="row pt-5">
-                                <div class="col"></div>
-                                <div class="col"> 
-                                    <iframe width="420" height="345" src="${prod.productVideo}">
-                                    </iframe>
+        <c:choose>
+            <c:when test="${videolist!=null}">
+                <div class="row m-3">
+                    <c:forEach items="${videolist}" var="map">
+                        <c:forEach items="${map}" var="entry">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="card p-3 text-center box-part bg-light border-0 mb-3" style="width: 42rem; height: 42rem;" >
+                                    <p class="text-danger">ดูได้ถึง ${entry.value}</p>
+                                    <a href="Getdetail?product=${entry.key.productId}" class="h4 text-primary"><h1>${entry.key.productName}</h1></a>
+                                    <div class="row pt-5">
+                                        <div class="col"></div>
+                                        <div class="col"> 
+                                            <iframe width="420" height="345" src="${entry.key.productVideo}">
+                                            </iframe>
+                                        </div>
+                                        <div class="col"></div>
+                                    </div>
+                                    <br/>
+
                                 </div>
-                                <div class="col"></div>
-                            </div>
-                            <br/>
+                            </div> 
+                        </c:forEach>
+                    </c:forEach>
+                </div>
+            </c:when>                                                                                                                                                                                                                                                                                                                                              
+            <c:otherwise>
+                <p class="text-center mt-3">ไม่มีวีดีโอ</p> 
+            </c:otherwise>
+        </c:choose>
 
-                        </div>
-                    </div> 
-                </c:forEach>
-            </div>
-        </c:when>                                                                                                                                                                                                                                                                                                                                              
-        <c:otherwise>
-            <p class="text-center mt-3">ไม่มีวีดีโอ</p> 
-        </c:otherwise>
-    </c:choose>
-
-</body>
+    </body>
 </html>
