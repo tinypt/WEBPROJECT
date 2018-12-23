@@ -86,8 +86,9 @@ public class GetVideoServlet extends HttpServlet {
                     }
                 }
             }
-
+            
             System.out.println(video);
+            session.setAttribute("videosize", video.size());
             session.setAttribute("video", video);
         }
         getServletContext().getRequestDispatcher("/Video.jsp").forward(request, response);
