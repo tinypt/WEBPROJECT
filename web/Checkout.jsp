@@ -72,7 +72,7 @@
                     </div>  
                     <div class="col-7">
                         อีเมลล์: ${acc.email}<br>
-                            ชื่อลูกค้า: ${acc.name} ${acc.surname} <br>
+                            ชื่อ-สกุล: ${acc.name} ${acc.surname} <br>
                             ที่อยู่ที่จัดส่ง: ${acc.address} <br>
                             เบอร์ติดต่อ: ${acc.telnumber}
 
@@ -96,7 +96,7 @@
                                     <div class="modal-body">
                                         <table>
                                             <tr>
-                                                <td>ชื่อลูกค้า: </td>
+                                                <td>ชื่อ-สกุล: </td>
                                                 <td><input type="text" value="${acc.name} ${acc.surname}" name="name" onchange="Allowbtn()" required></td> 
                                             </tr> 
                                             <tr>
